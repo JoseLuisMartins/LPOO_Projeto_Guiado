@@ -14,7 +14,8 @@ public class Maze_main {
 
 
 		Scanner s = new Scanner(System.in);
-
+		
+		System.out.println("---------Jogo do Labirinto---------\n");
 		System.out.println("Selecione o modo de jogo\n");
 		System.out.println("Dragao Parado (prima numero 1)");
 		System.out.println("Dragao com Movimentacao (prima numero 2)");
