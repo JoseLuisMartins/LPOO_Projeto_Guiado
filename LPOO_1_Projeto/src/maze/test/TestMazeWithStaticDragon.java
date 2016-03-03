@@ -29,6 +29,35 @@ public class TestMazeWithStaticDragon {
 		assertEquals(true,j.moveLeft());
 		assertEquals(2,j.getHeroi().get_x());
 		assertEquals(1,j.getHeroi().get_y());
-}
+	}
+	
+	@Test
+	public void testMoveHeroToWall() {
+		Jogo j= new Jogo(m1,h,d,e);
+		assertEquals(3,j.getHeroi().get_x());
+		assertEquals(1,j.getHeroi().get_y());
+		assertEquals(false,j.moveUp());
+		assertEquals(3,j.getHeroi().get_x());
+		assertEquals(1,j.getHeroi().get_y());
+	}
+	
+	@Test
+	public void testHeroDies() {
+		Jogo j= new Jogo(m1,h,d,e);
+		j.moveDown();
+		j.checkDragon();
+		assertEquals(true,j.getFimJogo());
+	}
+	
+	@Test
+	public void testHeroPickSword() {
+		Heroi h1=new Heroi(1, 2, 'H');
+		Jogo j= new Jogo(m1,h1,d,e);
+		j.moveDown();
+		assertEquals(true,j.getHeroi().getArmado());
+	}
+	
+	
+	
 
 }

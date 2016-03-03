@@ -37,7 +37,7 @@ public class Jogo {
 
 
 	public Dragao getDragao(){
-		return d;
+		return d; 
 	}
 	
 	public Heroi getHeroi(){
@@ -211,6 +211,8 @@ public class Jogo {
 				h.setPos(h.get_x()+1,h.get_y());
 				sair=true;
 			}
+			else 
+				return false;
 			break;
 		default:
 			return false;

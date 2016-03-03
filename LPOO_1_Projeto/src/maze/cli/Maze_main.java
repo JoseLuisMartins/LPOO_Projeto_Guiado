@@ -8,7 +8,7 @@ import maze.logic.Jogo;
 
 
 
-
+ 
 public class Maze_main {
 	public static void main(String[] args){
 		
