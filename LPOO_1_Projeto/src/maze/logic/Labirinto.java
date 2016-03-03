@@ -17,6 +17,11 @@ public class Labirinto {
 		maze[5][9]='S';
 	}
 	
+	public Labirinto(char m[][]){
+		maze=m;
+	}
+	
+	
 	public char[][] getMaze(){
 		return maze;
 	}

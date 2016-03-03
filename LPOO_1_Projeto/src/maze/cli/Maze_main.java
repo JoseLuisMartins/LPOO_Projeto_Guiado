@@ -1,6 +1,9 @@
 package maze.cli;
 import java.util.Scanner;
 
+import maze.logic.Dragao;
+import maze.logic.Espada;
+import maze.logic.Heroi;
 import maze.logic.Jogo;
 
 
@@ -8,10 +11,8 @@ import maze.logic.Jogo;
 
 public class Maze_main {
 	public static void main(String[] args){
+		
 		Jogo j= new Jogo();
-
-
-
 
 		Scanner s = new Scanner(System.in);
 		

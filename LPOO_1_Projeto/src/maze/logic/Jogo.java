@@ -8,8 +8,8 @@ public class Jogo {
 	private Heroi h;
 	private Dragao d;
 	private Espada e;
-	private boolean fim_jogo;
-	private boolean sair;
+	private boolean fim_jogo;//derrotado pelo dragao
+	private boolean sair;//derrotou o dragao e saiu
 
 	public Jogo(){
 		h=new Heroi(1, 1, 'H');
@@ -22,10 +22,26 @@ public class Jogo {
 		fim_jogo=false;
 		sair=false;
 	}
+	
+	public Jogo(char m[][],Heroi hero,Dragao dragon, Espada sword){
+		h=hero;
+		d=dragon;
+		e=sword;
+		l=new Labirinto(m);
+		l.setMaze(h.get_x(), h.get_y(),h.get_simbolo());
+		l.setMaze(d.get_x(), d.get_y(), d.get_simbolo());
+		l.setMaze(e.get_x(), e.get_y(), e.get_simbolo());
+		fim_jogo=false;
+		sair=false;
+	}
 
 
 	public Dragao getDragao(){
 		return d;
+	}
+	
+	public Heroi getHeroi(){
+		return h;
 	}
 
 	public boolean getFimJogo(){
@@ -36,7 +52,7 @@ public class Jogo {
 		return sair;
 	}
 
-	public boolean checkDragon(){
+	public void checkDragon(){
 		if(l.getMaze()[h.get_y()-1][h.get_x()] == d.get_simbolo()){//up
 			if(h.getArmado()){
 				l.setMaze(h.get_x(),h.get_y()-1, ' ');	
@@ -62,8 +78,8 @@ public class Jogo {
 			}
 			else if(!d.getAdormecido())
 				fim_jogo=true;
-
 		}
+		
 		else if(l.getMaze()[h.get_y()][h.get_x()-1] == d.get_simbolo()){//left
 			if(h.getArmado()){
 				l.setMaze(h.get_x()-1,h.get_y(), ' ');	
@@ -73,7 +89,6 @@ public class Jogo {
 				fim_jogo=true;
 		}
 
-		return true;
 	} 
 
 	public void toggleAdormecerRandom(){
