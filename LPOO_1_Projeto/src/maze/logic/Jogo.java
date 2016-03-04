@@ -13,7 +13,7 @@ public class Jogo {
 
 	public Jogo(){
 		h=new Heroi(1, 1, 'H');
-		d=new Dragao(1,7,'D');
+		d=new Dragao(4,5,'D');
 		e=new Espada(1, 8, 'E');
 		l=new Labirinto();
 		l.setMaze(h.get_x(), h.get_y(),h.get_simbolo());
@@ -59,7 +59,7 @@ public class Jogo {
 				d.setMorto();
 			}
 			else if(!d.getAdormecido())
-				fim_jogo=true;
+				fim_jogo=true; 
  
 		}
 		else if(l.getMaze()[h.get_y()+1][h.get_x()] == d.get_simbolo()){//down
@@ -99,12 +99,10 @@ public class Jogo {
 			if(d.getAdormecido()){//se esta adormecido
 				d.setAdormecido(false);//acordar
 				l.setMaze(d.get_x(),d.get_y(), d.get_simbolo());
-				//System.out.println(d.get_simbolo());
 			}
 			else{//adormecer
 				d.setAdormecido(true);
 				l.setMaze(d.get_x(),d.get_y(), d.get_simbolo());	
-				//System.out.println(d.get_simbolo());
 			}
 	}
 
@@ -126,21 +124,22 @@ public class Jogo {
 			x=d.get_x()-1; 
 			break;  
 		default:
-			break;
+			return;
 		}
 		
 		if (l.getMaze()[y][x] == ' ') {
 			if(d.get_simbolo()=='D')
 				l.setMaze(d.get_x(), d.get_y(), ' ');
-			else if(d.get_simbolo() == 'F' ){//ver
+			else if(d.getGuardaEspada()){
+				d.SetGuardaEspada(false);
 				l.setMaze(d.get_x(), d.get_y(), e.get_simbolo());
 				d.set_simbolo('D');
-			}
+			} 
 			
 			l.setMaze(x,y,d.get_simbolo());
 			d.setPos(x,y);
 		} else if(l.getMaze()[y][x] == e.get_simbolo()) {
-			d.set_simbolo('F');
+			d.SetGuardaEspada(true);
 			l.setMaze(d.get_x(), d.get_y(), ' ');
 			l.setMaze(x, y,d.get_simbolo());
 			d.setPos(x,y);
@@ -166,8 +165,6 @@ public class Jogo {
 		default://manter
 			break;
 		}
-
-
 	}
 
 	public boolean moveRight(){

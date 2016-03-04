@@ -62,24 +62,25 @@ public class Maze_main {
 
 				switch (m) {
 				case 1://dragao parado
-
+ 
 					break;
-				case 2://Dragao com Movimentacao
+				case 2://Dragao com Movimentacao 
 					j.moveDragon();
+					j.checkDragon();
 					break;
 				case 3://Dragao com Movimentacao intercalada com Dormir 
 					j.toggleAdormecerRandom();
 
-					if(j.getDragao().getAdormecido()==false)//se não estiver adormecido o dragao pode mover-se
+					if(j.getDragao().getAdormecido()==false){//se não estiver adormecido o dragao pode mover-se
 						j.moveDragon();
+						j.checkDragon();
+					}
 					break;
 				default:
 					break;
 				} 
-	
-
-	
 			}
+
 			System.out.println(j);
 
 		}
