@@ -58,7 +58,7 @@ public class Maze_main {
 				break;
 			}
 
-			if(j.getDragao().getMorto()==false){//se o dragao ainda não morreu verificar se esta em celulas adjacentes
+			if(j.getDragao().getMorto()==false && j.getFimJogo()==false){//se o dragao nao morreu e o heroi tambem nao, movimentar o dragao ou adormecer dependendo do modo de jogo
 
 				switch (m) {
 				case 1://dragao parado
