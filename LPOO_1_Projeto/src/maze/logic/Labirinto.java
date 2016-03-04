@@ -40,6 +40,6 @@ public class Labirinto {
 			m+= '\n';
 		}
 		
-		return m;
+		return m; 
 	} 
 }

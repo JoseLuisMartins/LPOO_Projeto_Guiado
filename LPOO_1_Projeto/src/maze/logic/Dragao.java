@@ -15,11 +15,11 @@ public class Dragao extends Elemento{
 	public boolean getMorto(){
 		return morto;
 	}
-
+ 
 	public void setMorto(){
 		morto=true;
 	}
-
+  
 	public boolean getAdormecido(){
 		return adormecido;
 	}

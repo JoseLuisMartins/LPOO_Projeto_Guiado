@@ -13,7 +13,7 @@ public class Jogo {
 
 	public Jogo(){
 		h=new Heroi(1, 1, 'H');
-		d=new Dragao(1,3,'D');
+		d=new Dragao(1,7,'D');
 		e=new Espada(1, 8, 'E');
 		l=new Labirinto();
 		l.setMaze(h.get_x(), h.get_y(),h.get_simbolo());
@@ -60,7 +60,7 @@ public class Jogo {
 			}
 			else if(!d.getAdormecido())
 				fim_jogo=true;
-
+ 
 		}
 		else if(l.getMaze()[h.get_y()+1][h.get_x()] == d.get_simbolo()){//down
 			if(h.getArmado()){
@@ -92,93 +92,76 @@ public class Jogo {
 	} 
 
 	public void toggleAdormecerRandom(){
-		Random r = new Random();
+		Random r = new Random(); 
 		int mudar=r.nextInt(2);
 
 		if(mudar==1)
 			if(d.getAdormecido()){//se esta adormecido
 				d.setAdormecido(false);//acordar
 				l.setMaze(d.get_x(),d.get_y(), d.get_simbolo());
-				System.out.println(d.get_simbolo());
+				//System.out.println(d.get_simbolo());
 			}
 			else{//adormecer
 				d.setAdormecido(true);
 				l.setMaze(d.get_x(),d.get_y(), d.get_simbolo());	
-				System.out.println(d.get_simbolo());
+				//System.out.println(d.get_simbolo());
 			}
 	}
 
+	public void move(int direction) {
+		int x=d.get_x();
+		int y=d.get_y();
+		
+	switch (direction) {
+		case 0:
+			y=d.get_y()-1 ;
+			break;
+		case 1:
+			y=d.get_y()+1 ;
+			break;
+		case 2:
+			x=d.get_x()+1;
+			break;
+		case 3:
+			x=d.get_x()-1; 
+			break;  
+		default:
+			break;
+		}
+		
+		if (l.getMaze()[y][x] == ' ') {
+			if(d.get_simbolo()=='D')
+				l.setMaze(d.get_x(), d.get_y(), ' ');
+			else if(d.get_simbolo() == 'F' ){//ver
+				l.setMaze(d.get_x(), d.get_y(), e.get_simbolo());
+				d.set_simbolo('D');
+			}
+			
+			l.setMaze(x,y,d.get_simbolo());
+			d.setPos(x,y);
+		} else if(l.getMaze()[y][x] == e.get_simbolo()) {
+			d.set_simbolo('F');
+			l.setMaze(d.get_x(), d.get_y(), ' ');
+			l.setMaze(x, y,d.get_simbolo());
+			d.setPos(x,y);
+		}
+	}
+	
 	public void moveDragon(){
-		Random r = new Random();
+		Random r = new Random(); 
 		int move=r.nextInt(4);
 		switch (move) {
 		case 0://up
-			if (l.getMaze()[d.get_y()-1][d.get_x()] == ' ') {
-				if(d.get_simbolo()=='D')
-					l.setMaze(d.get_x(), d.get_y(), ' ');
-				else if(d.get_simbolo() =='F'){
-					l.setMaze(d.get_x(), d.get_y(), e.get_simbolo());
-					d.set_simbolo('D');
-				}
-				l.setMaze(d.get_x(), d.get_y()-1,d.get_simbolo());
-				d.setPos(d.get_x(),d.get_y()-1);
-			} else if(l.getMaze()[d.get_y()-1][d.get_x()] == e.get_simbolo()) {
-				d.set_simbolo('F');
-				l.setMaze(d.get_x(), d.get_y(), ' ');
-				l.setMaze(d.get_x(), d.get_y()-1,d.get_simbolo());
-				d.setPos(d.get_x(),d.get_y()-1);
-			}
+			move(0);
 			break;
 		case 1://down
-			if (l.getMaze()[d.get_y()+1][d.get_x()] == ' ') {
-				if(d.get_simbolo()=='D')
-					l.setMaze(d.get_x(), d.get_y(), ' ');
-				else if(d.get_simbolo() =='F'){
-					l.setMaze(d.get_x(), d.get_y(), e.get_simbolo());
-					d.set_simbolo('D');
-				}
-				l.setMaze(d.get_x(), d.get_y()+1,d.get_simbolo());
-				d.setPos(d.get_x(),d.get_y()+1);
-			} else if(l.getMaze()[d.get_y()+1][d.get_x()] == e.get_simbolo()) {
-				d.set_simbolo('F');
-				l.setMaze(d.get_x(), d.get_y(), ' ');
-				l.setMaze(d.get_x(), d.get_y()+1,d.get_simbolo());
-				d.setPos(d.get_x(),d.get_y()+1);
-			}
+			move(1);
 			break;
 		case 2://right
-			if (l.getMaze()[d.get_y()][d.get_x()+1] == ' ') {
-				if(d.get_simbolo()=='D')
-					l.setMaze(d.get_x(), d.get_y(), ' ');
-				else if(d.get_simbolo() =='F'){
-					l.setMaze(d.get_x(), d.get_y(), e.get_simbolo());
-					d.set_simbolo('D');
-				}
-				l.setMaze(d.get_x()+1, d.get_y(),d.get_simbolo());
-				d.setPos(d.get_x()+1,d.get_y());
-			} else if(l.getMaze()[d.get_y()][d.get_x()+1] == e.get_simbolo()) {
-				d.set_simbolo('F');
-				l.setMaze(d.get_x(), d.get_y(), ' ');
-				l.setMaze(d.get_x()+1, d.get_y(),d.get_simbolo());
-				d.setPos(d.get_x()+1,d.get_y());
-			}
+			move(2);
 			break;
-		case 3://left
-			if (l.getMaze()[d.get_y()][d.get_x()-1] == ' ') {
-				if(d.get_simbolo()=='D')
-					l.setMaze(d.get_x(), d.get_y(), ' ');
-				else if(d.get_simbolo() =='F'){
-					l.setMaze(d.get_x(), d.get_y(), e.get_simbolo());
-					d.set_simbolo('D');
-				}
-				l.setMaze(d.get_x()-1, d.get_y(),d.get_simbolo());
-				d.setPos(d.get_x()-1,d.get_y());
-			} else if(l.getMaze()[d.get_y()][d.get_x()-1] == e.get_simbolo()) {
-				d.set_simbolo('F');
-				l.setMaze(d.get_x(), d.get_y(), ' ');
-				l.setMaze(d.get_x()-1, d.get_y(),d.get_simbolo());
-				d.setPos(d.get_x()-1,d.get_y());
-			}
+		case 3://left 
+			move(3);
 			break;
 		default://manter
 			break;
@@ -198,7 +181,7 @@ public class Jogo {
 			l.setMaze(h.get_x()+1, h.get_y(),h.get_simbolo());
 			h.setPos(h.get_x()+1,h.get_y());
 			break;
-		case 'E':
+		case 'E': 
 			h.setArmado();
 			l.setMaze(h.get_x(), h.get_y(), ' ');
 			l.setMaze(h.get_x()+1, h.get_y(),h.get_simbolo());
@@ -210,15 +193,15 @@ public class Jogo {
 				l.setMaze(h.get_x()+1, h.get_y(),h.get_simbolo());
 				h.setPos(h.get_x()+1,h.get_y());
 				sair=true;
+				return true;
 			}
 			else 
 				return false;
-			break;
 		default:
 			return false;
 		}
 
-
+		checkDragon();
 		return true;
 	}
 
@@ -250,7 +233,7 @@ public class Jogo {
 			return false;
 		}
 
-
+		checkDragon();
 		return true;
 	}
 
@@ -282,12 +265,12 @@ public class Jogo {
 			return false;
 		}
 
-
+		checkDragon();
 		return true;
 	}
 
 
-	public boolean moveDown(){
+	public boolean moveDown(){ 
 		if((h.get_y()+1) > l.getMaze().length)
 			return false;
 
@@ -315,7 +298,7 @@ public class Jogo {
 			return false;
 		}
 
-
+		checkDragon();
 		return true;
 	}
 

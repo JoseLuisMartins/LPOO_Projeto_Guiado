@@ -11,8 +11,8 @@ import maze.logic.Jogo;
  
 public class Maze_main {
 	public static void main(String[] args){
-		
-		Jogo j= new Jogo();
+		  
+		Jogo j= new Jogo(); 
 
 		Scanner s = new Scanner(System.in);
 		
@@ -75,10 +75,10 @@ public class Maze_main {
 					break;
 				default:
 					break;
-				}
+				} 
 	
 
-				j.checkDragon();	
+	
 			}
 			System.out.println(j);
 
