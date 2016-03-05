@@ -1,6 +1,7 @@
 package maze.cli;
 import java.util.Scanner;
 
+import maze.logic.Direction;
 import maze.logic.Dragao;
 import maze.logic.Espada;
 import maze.logic.Heroi;
@@ -43,16 +44,16 @@ public class Maze_main {
 
 			switch (mov) {
 			case 'w'://up
-				j.moveUp();
-				break;
-			case 'a'://left
-				j.moveLeft();
+				j.move(Direction.UP);
 				break;
 			case 's'://down
-				j.moveDown();
+				j.move(Direction.DOWN);
 				break;
 			case 'd'://right
-				j.moveRight();
+				j.move(Direction.RIGHT);
+				break;
+			case 'a'://left
+				j.move(Direction.LEFT);
 				break;
 			default:
 				break;

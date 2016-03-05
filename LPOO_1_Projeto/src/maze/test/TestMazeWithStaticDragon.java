@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import maze.logic.Direction;
 import maze.logic.Dragao;
 import maze.logic.Espada;
 import maze.logic.Heroi;
@@ -21,13 +22,13 @@ public class TestMazeWithStaticDragon {
 	Heroi h=new Heroi(3, 1, 'H');
 	Dragao d=new Dragao(3,3,'D');
 	Espada e=new Espada(1, 3, 'E'); 
-	
+
 	@Test
 	public void testMoveHeroToFreeCell() {
 		Jogo j= new Jogo(m1,h,d,e); 
 		assertEquals(3,j.getHeroi().get_x());
 		assertEquals(1,j.getHeroi().get_y());
-		assertEquals(true,j.moveLeft());
+		assertEquals(true,j.move(Direction.LEFT));
 		assertEquals(2,j.getHeroi().get_x());
 		assertEquals(1,j.getHeroi().get_y());
 	}
@@ -43,7 +44,7 @@ public class TestMazeWithStaticDragon {
 		Jogo j= new Jogo(m1,h,d,e);
 		assertEquals(3,j.getHeroi().get_x());
 		assertEquals(1,j.getHeroi().get_y());
-		assertEquals(false,j.moveUp());
+		assertEquals(false,j.move(Direction.UP));
 		assertEquals(3,j.getHeroi().get_x());
 		assertEquals(1,j.getHeroi().get_y());
 	}
@@ -51,7 +52,7 @@ public class TestMazeWithStaticDragon {
 	@Test
 	public void testHeroDies() {
 		Jogo j= new Jogo(m1,h,d,e);
-		j.moveDown();
+		j.move(Direction.DOWN);
 		assertEquals(true,j.getFimJogo());
 	}
 	
@@ -59,7 +60,7 @@ public class TestMazeWithStaticDragon {
 	public void testHeroPickSword() {
 		Heroi h1=new Heroi(1, 2, 'H');
 		Jogo j= new Jogo(m1,h1,d,e);
-		j.moveDown();
+		j.move(Direction.DOWN);
 		assertEquals(true,j.getHeroi().getArmado());
 	}
 	
@@ -67,29 +68,29 @@ public class TestMazeWithStaticDragon {
 	public void testDragonDies() {
 		Jogo j= new Jogo(m1,h,d,e);
 		j.getHeroi().setArmado();
-		j.moveDown();
+		j.move(Direction.DOWN);
 		assertEquals(true,j.getDragao().getMorto());
 	}
 	
 	@Test
 	public void testHeroWins() {
 		Jogo j= new Jogo(m1,h,d,e);
-		j.moveLeft();
-		j.moveLeft();
-		j.moveDown();
-		j.moveDown();
-		j.moveRight();
-		j.moveRight();
-		j.moveUp();
-		j.moveUp();
-		assertEquals(true,j.moveRight());
+		j.move(Direction.LEFT);
+		j.move(Direction.LEFT);
+		j.move(Direction.DOWN);
+		j.move(Direction.DOWN);
+		j.move(Direction.RIGHT);
+		j.move(Direction.RIGHT);
+		j.move(Direction.UP);
+		j.move(Direction.UP);
+		assertEquals(true,j.move(Direction.RIGHT));
 		assertEquals(true,j.getSair());
 	}
 	
 	@Test
 	public void testHeroGettingOutWithoutSword() {
 		Jogo j= new Jogo(m1,h,d,e);
-		assertEquals(false,j.moveRight());
+		assertEquals(false,j.move(Direction.RIGHT));
 	}
 	
 	
@@ -99,7 +100,7 @@ public class TestMazeWithStaticDragon {
 		
 		j.getHeroi().setArmado();
 		assertEquals(true, j.getHeroi().getArmado());
-		assertEquals(false,j.moveRight());
+		assertEquals(false,j.move(Direction.RIGHT));
 	}
 	
 	
