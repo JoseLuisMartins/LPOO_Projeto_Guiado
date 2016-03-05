@@ -23,8 +23,6 @@ public class Dragao extends Elemento{
 
 		if(GuardaEspada)
 			this.set_simbolo('F');
-		else if(adormecido)
-			this.set_simbolo('d');
 		else
 			this.set_simbolo('D');
 	}

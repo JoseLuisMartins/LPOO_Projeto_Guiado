@@ -19,7 +19,7 @@ public class TestMazeWithMoveAndSlpeepCapabilitiesDragon {
 
 	Heroi h=new Heroi(2, 1, 'H');
 	Dragao d=new Dragao(3,3,'D');
-	Espada e=new Espada(1, 3, 'E'); 
+	Espada e=new Espada(1, 3, 'E');  
 	
 	
 	@Test
@@ -35,7 +35,7 @@ public class TestMazeWithMoveAndSlpeepCapabilitiesDragon {
 		assertEquals(true,(3 == j.getDragao().get_y()) ||  
 						  (2 == j.getDragao().get_y()));
 	} 
-	
+	 
 	@Test 
 	public void testMoveDragontoSword() {
 		Espada sword=new Espada(2, 3, 'E');
@@ -61,13 +61,37 @@ public class TestMazeWithMoveAndSlpeepCapabilitiesDragon {
 		Jogo j= new Jogo(m1,h,d,e);
 		assertEquals(false, j.getDragao().getAdormecido());
 		
+		
 		while(j.getDragao().getAdormecido()==false)
 		j.toggleAdormecerRandom();		
 		
+		assertEquals('d', j.getDragao().get_simbolo());
+		
 		while(j.getDragao().getAdormecido()==true)
 			j.toggleAdormecerRandom();
-	}
+		
+		assertEquals('D', j.getDragao().get_simbolo());
+	} 
 	
+	@Test 
+	public void testToggleSleepWithSword() {
+		Jogo j= new Jogo(m1,h,d,e);
+		assertEquals(false, j.getDragao().getAdormecido());
+		
+		while (!(j.getDragao().get_x() == 1 && j.getDragao().get_y() == 3)) {
+			j.moveDragon();
+		}
+		
+		while(j.getDragao().getAdormecido()==false)
+		j.toggleAdormecerRandom();		
+		
+		assertEquals('f', j.getDragao().get_simbolo());
+		
+		while(j.getDragao().getAdormecido()==true)
+			j.toggleAdormecerRandom();
+		
+		assertEquals('F', j.getDragao().get_simbolo());
+	}
 	
 	
 	

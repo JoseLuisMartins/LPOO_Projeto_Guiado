@@ -19,13 +19,14 @@ public class TestMazeWithStaticDragon {
 					{'X', ' ', ' ', ' ', 'X'},
 					{'X', 'X', 'X', 'X', 'X'}};
 
-	Heroi h=new Heroi(3, 1, 'H');
+	Heroi h=new Heroi(3, 1, 'H'); 
 	Dragao d=new Dragao(3,3,'D');
 	Espada e=new Espada(1, 3, 'E'); 
 
 	@Test
 	public void testMoveHeroToFreeCell() {
 		Jogo j= new Jogo(m1,h,d,e); 
+		assertEquals(j.getHeroi().get_simbolo(), j.getLabirinto().getMaze()[j.getHeroi().get_y()][j.getHeroi().get_x()]);
 		assertEquals(3,j.getHeroi().get_x());
 		assertEquals(1,j.getHeroi().get_y());
 		assertEquals(true,j.move(Direction.LEFT));
@@ -36,6 +37,9 @@ public class TestMazeWithStaticDragon {
 	@Test
 	public void TestDefaultGameConstructor() {
 		Jogo game=new Jogo();
+		assertEquals(game.getHeroi().get_simbolo(), game.getLabirinto().getMaze()[game.getHeroi().get_y()][game.getHeroi().get_x()]);
+		assertEquals(game.getDragao().get_simbolo(), game.getLabirinto().getMaze()[game.getDragao().get_y()][game.getDragao().get_x()]);
+		assertEquals(game.getEspada().get_simbolo(), game.getLabirinto().getMaze()[game.getEspada().get_y()][game.getEspada().get_x()]);
 		System.out.println(game);
 	}
 	
@@ -62,15 +66,52 @@ public class TestMazeWithStaticDragon {
 		Jogo j= new Jogo(m1,h1,d,e);
 		j.move(Direction.DOWN);
 		assertEquals(true,j.getHeroi().getArmado());
+		assertEquals('A',j.getHeroi().get_simbolo());
+		assertEquals(' ',j.getLabirinto().getMaze()[j.getHeroi().get_y()-1][j.getHeroi().get_x()]);
+		assertEquals(j.getHeroi().get_simbolo(),j.getLabirinto().getMaze()[j.getHeroi().get_y()][j.getHeroi().get_x()]);
 	}
 	
 	@Test
-	public void testDragonDies() {
-		Jogo j= new Jogo(m1,h,d,e);
+	public void testDragonDiesDown() {
+	
+		Jogo j= new Jogo(m1,h,d,e);//mata dragao em baixo
 		j.getHeroi().setArmado();
 		j.move(Direction.DOWN);
 		assertEquals(true,j.getDragao().getMorto());
+	
 	}
+	@Test
+	public void testDragonDiesLeft() {
+		Dragao d1=new Dragao(1, 1, 'D');//mata dragao á esquerda
+		Heroi  h1=new Heroi(3, 1, 'H');
+		Jogo j= new Jogo(m1,h1,d1,e);
+		j.getHeroi().setArmado();
+		j.move(Direction.LEFT);
+		assertEquals(true,j.getDragao().getMorto());
+	
+	}
+	
+	@Test
+	public void testDragonDiesUp() {
+		Dragao d1=new Dragao(3, 1, 'D');//mata dragao em cima
+		Heroi  h1=new Heroi(3, 3, 'H');
+		Jogo j= new Jogo(m1,h1,d1,e);
+		j.getHeroi().setArmado();
+		j.move(Direction.UP);
+		assertEquals(true,j.getDragao().getMorto());
+	}
+	
+	@Test
+	public void testDragonDiesRight() {
+		Dragao d1=new Dragao(3, 1, 'D');//mata dragao á direita 
+		Heroi  h1=new Heroi(1, 1, 'H');
+		Jogo j= new Jogo(m1,h1,d1,e); 
+		j.getHeroi().setArmado();
+		j.move(Direction.RIGHT);
+		assertEquals(true,j.getDragao().getMorto());	
+	}
+	
+	
 	
 	@Test
 	public void testHeroWins() {
@@ -85,14 +126,17 @@ public class TestMazeWithStaticDragon {
 		j.move(Direction.UP);
 		assertEquals(true,j.move(Direction.RIGHT));
 		assertEquals(true,j.getSair());
-	}
+		assertEquals(' ',j.getLabirinto().getMaze()[j.getHeroi().get_y()][j.getHeroi().get_x()-1]);
+		assertEquals(j.getHeroi().get_simbolo(),j.getLabirinto().getMaze()[j.getHeroi().get_y()][j.getHeroi().get_x()]);
+		
+	} 
 	
 	@Test
 	public void testHeroGettingOutWithoutSword() {
 		Jogo j= new Jogo(m1,h,d,e);
 		assertEquals(false,j.move(Direction.RIGHT));
 	}
-	
+	 
 	
 	@Test
 	public void testHeroGettingOutWithoutKillingTheDragon() {

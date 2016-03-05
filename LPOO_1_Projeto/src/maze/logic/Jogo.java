@@ -35,7 +35,14 @@ public class Jogo {
 		sair=false;
 	}
 
-
+	public Labirinto getLabirinto(){
+		return l;
+	}
+	
+	public Espada getEspada(){
+		return e;
+	}
+	
 	public Dragao getDragao(){
 		return d; 
 	}
@@ -50,7 +57,7 @@ public class Jogo {
 
 	public boolean getSair(){
 		return sair;
-	}
+	} 
 
 	public void checkDragon(){
 		if(l.getMaze()[h.get_y()-1][h.get_x()] == d.get_simbolo()){//up
@@ -123,8 +130,6 @@ public class Jogo {
 		case LEFT://left
 			x=d.get_x()-1; 
 			break;  
-		default:
-			return;
 		}
 
 		if (l.getMaze()[y][x] == ' ') {
@@ -184,8 +189,6 @@ public class Jogo {
 		case LEFT://left
 			x=h.get_x()-1; 
 			break;  
-		default:
-			return false;
 		}
 
 		if(x > l.getMaze()[y].length)
@@ -212,7 +215,7 @@ public class Jogo {
 				sair=true;
 				return true;
 			}
-			else 
+			else  
 				return false;
 		default:
 			return false;
