@@ -61,7 +61,7 @@ public class TestMazeWithStaticDragon {
 	}
 	
 	@Test
-	public void testHeroPickSword() {
+	public void testHeroPickSword() { 
 		Heroi h1=new Heroi(1, 2, 'H');
 		Jogo j= new Jogo(m1,h1,d,e);
 		j.move(Direction.DOWN);

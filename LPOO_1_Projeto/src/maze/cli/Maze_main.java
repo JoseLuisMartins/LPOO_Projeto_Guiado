@@ -5,14 +5,20 @@ import maze.logic.Direction;
 import maze.logic.Dragao;
 import maze.logic.Espada;
 import maze.logic.Heroi;
+import maze.logic.IMazeBuilder;
 import maze.logic.Jogo;
+import maze.logic.MazeBuilder;
 
 
 
  
 public class Maze_main {
 	public static void main(String[] args){
-		  
+		IMazeBuilder builder = new MazeBuilder();
+		builder.buildMaze(9);
+		System.out.println(builder);
+		
+		/*
 		Jogo j= new Jogo(); 
 
 		Scanner s = new Scanner(System.in);
@@ -94,5 +100,6 @@ public class Maze_main {
 		}
 
 		s.close();
+	/**/
 	}
 }

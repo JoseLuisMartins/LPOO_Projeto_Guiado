@@ -12,7 +12,7 @@ public class Dragao extends Elemento{
 		morto=false;
 		adormecido=false;
 		GuardaEspada=false;
-	}
+	} 
 
 	public boolean getGuardaEspada(){ 
 		return GuardaEspada;

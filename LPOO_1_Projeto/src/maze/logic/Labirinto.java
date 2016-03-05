@@ -35,7 +35,7 @@ public class Labirinto {
 		for (int i = 0; i < maze.length; i++) {
 			for (int j = 0; j < maze[i].length; j++) {
 				m += maze[i][j];
-				m+= ' ';
+				m+= ' '; 
 			}
 			m+= '\n';
 		}

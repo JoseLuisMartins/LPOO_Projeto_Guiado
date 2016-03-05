@@ -41,7 +41,7 @@ public class Jogo {
 	
 	public Espada getEspada(){
 		return e;
-	}
+	} 
 	
 	public Dragao getDragao(){
 		return d; 
@@ -99,7 +99,7 @@ public class Jogo {
 	} 
 
 	public void toggleAdormecerRandom(){
-		Random r = new Random(); 
+		Random r = new Random();  
 		int mudar=r.nextInt(2);
 
 		if(mudar==1)
