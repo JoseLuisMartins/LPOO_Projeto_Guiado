@@ -39,21 +39,30 @@ public class Jogo {
 		sair=false;
 	}
 
-	public boolean addDragons(Dragao d){
-		if(l.getMaze()[d.get_y()][d.get_x()] != ' ')
-		
-		arrayDragon.add(d);
-		l.setMaze(d.get_x(), d.get_y(),d.get_simbolo());
-		return true;
+	public boolean addDragon(int x,int y){
+
+		if(x<=0 || y<=0|| x>=l.getMaze().length || y>=l.getMaze().length )
+			return false;
+
+		Dragao dragon;
+
+		if(l.getMaze()[y][x] == ' ' && Math.abs(x - h.get_x()) + Math.abs(y - h.get_y()) != 1){//se a celula estiver livre e o heroi nao estiver adjacente adiciona
+			dragon=new Dragao(x, y, 'D');
+			l.setMaze(dragon.get_x(), dragon.get_y(),dragon.get_simbolo());
+			arrayDragon.add(dragon);
+			return true;
+		}
+
+		return false;
 	}
-	
+
 	public Labirinto getLabirinto(){
 		return l;
 	}
 
 	public Espada getEspada(){
 		return e;
-	} 
+	}  
 
 	public ArrayList<Dragao> getDragoes(){
 		return arrayDragon; 
@@ -73,9 +82,9 @@ public class Jogo {
 
 	public void checkDragon(){
 		ArrayList<Dragao> deadDragons=new ArrayList<Dragao>();
-		
+
 		for (int i = 0; i < arrayDragon.size(); i++) {
-			
+
 			if(l.getMaze()[h.get_y()-1][h.get_x()] == arrayDragon.get(i).get_simbolo()){//up
 				if(h.getArmado()){
 					l.setMaze(h.get_x(),h.get_y()-1, ' ');	
@@ -111,8 +120,8 @@ public class Jogo {
 				else if(!arrayDragon.get(i).getAdormecido())
 					fim_jogo=true;
 			}
-		}
-		
+		} 
+
 		for (int i = 0; i < deadDragons.size(); i++) {
 			arrayDragon.remove(deadDragons.get(i));
 		}
@@ -177,23 +186,23 @@ public class Jogo {
 	public void moveDragon(Dragao d){
 		Random r = new Random(); 
 		int move=r.nextInt(4);
-			switch (move) {
-			case 0://up
-				moveDragonAux(Direction.UP , d);
-				break;
-			case 1://down
-				moveDragonAux(Direction.DOWN, d);
-				break;
-			case 2://right
-				moveDragonAux(Direction.RIGHT, d);
-				break;
-			case 3://left 
-				moveDragonAux(Direction.LEFT, d);
-				break;
-			default://manter
-				break;
-			}
-		
+		switch (move) {
+		case 0://up
+			moveDragonAux(Direction.UP , d);
+			break;
+		case 1://down
+			moveDragonAux(Direction.DOWN, d);
+			break;
+		case 2://right
+			moveDragonAux(Direction.RIGHT, d);
+			break;
+		case 3://left 
+			moveDragonAux(Direction.LEFT, d);
+			break;
+		default://manter
+			break;
+		}
+
 	}
 
 	public boolean move(Direction dir){
@@ -251,6 +260,6 @@ public class Jogo {
 	}
 
 	public String toString(){
-		return l.toString();
+		return l.toString()+arrayDragon.size();
 	}
-}
+} 

@@ -46,8 +46,7 @@ public class Maze_main {
 		else{
 			j = new Jogo();
 		}
-		//Dragao dra = new Dragao(8,1, 'D');
-		//j.addDragons(dra);
+
 		System.out.println("Selecione o modo de jogo\n");
 		System.out.println("Dragao Parado (prima numero 1)");
 		System.out.println("Dragao com Movimentacao (prima numero 2)");
@@ -61,6 +60,39 @@ public class Maze_main {
 		}
 		int m= Integer.parseInt(modo);
 
+		System.out.println("Deseja adicionar Dragoes?(s/n)");
+
+		String adicionar=s.nextLine();
+
+		while(!(adicionar.equals("s") || adicionar.equals("n"))){
+			System.out.println("Insira uma resposta Valida ");
+			adicionar= s.nextLine();	
+		}
+
+		
+		if(adicionar.equals("s")){
+			int x=0,y=0;
+			do {
+				System.out.println("Introduza as coordenadas x e y (x=0 e y=0 para parar)");
+				System.out.println(j);
+				System.out.println("x?");
+				while (!s.hasNextInt()) {
+					s.nextLine();
+				}
+				x=s.nextInt();
+				System.out.println("y?");
+				while (!s.hasNextInt()) {	
+					s.nextLine();
+				}
+				y=s.nextInt();
+				
+				if(j.addDragon(x, y))
+					System.out.println("Dragao adicionado com sucesso");
+				else
+					System.out.println("Coordenadas Invalidas");
+				
+			} while (!(x==0 && y==0));
+		}
 
 		System.out.println(j);
 
@@ -114,7 +146,7 @@ public class Maze_main {
 					break;
 				} 
 			}
-
+ 
 			System.out.println(j);
 
 		}
