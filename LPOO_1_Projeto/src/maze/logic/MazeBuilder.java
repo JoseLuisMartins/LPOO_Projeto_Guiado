@@ -30,6 +30,9 @@ public class MazeBuilder implements IMazeBuilder{
 			this.y = y;
 		}
 
+		public boolean adjacentTo(Cell p) {
+			return Math.abs(p.x - this.x) + Math.abs(p.y - this.y) == 1;
+		}
 	}
 
 	private char maze[][];
@@ -70,7 +73,25 @@ public class MazeBuilder implements IMazeBuilder{
 
 
 		//put exit on border
+		int s =	r.nextInt(size-2)+1;
+		while(s%2 != 1)//fazer ate encontrar numero impar
+			s=r.nextInt(size-2)+1;
 
+		switch (r.nextInt(4)) {
+		case 0://top
+			maze[0][s]= 'S';
+			break;
+		case 1://bottom
+			maze[size-1][s]= 'S';
+			break;
+
+		case 2://right
+			maze[s][size-1]= 'S';
+			break;
+		case 3://left
+			maze[s][0]= 'S';
+			break;
+		}
 
 		pathHistory.push(guideCell);
 
@@ -105,7 +126,7 @@ public class MazeBuilder implements IMazeBuilder{
 			}
 
 		}
-
+		placeElements();
 		return maze;
 	}
 
@@ -132,7 +153,33 @@ public class MazeBuilder implements IMazeBuilder{
 		return dir;
 	}
 
-
+	public void placeElements(){
+		Cell hero = getFreePosition();
+		maze[hero.getY()][hero.getX()]='H';
+		Cell sword = getFreePosition();
+		maze[sword.getY()][sword.getX()]='E';
+		Cell dragon = getFreePosition();
+		
+		while(dragon.adjacentTo(hero))
+			dragon=getFreePosition();
+		
+		maze[dragon.getY()][dragon.getX()]='D';
+	}
+	
+	public Cell getFreePosition(){
+		Random r = new Random(); 
+		int x,y;
+		do {
+			x=r.nextInt(maze.length-2)+1;
+			y=r.nextInt(maze.length-2)+1;	
+		} while (maze[y][x] != ' ');
+		
+		Cell res= new Cell(x,y);
+		
+		return res;
+	}
+	
+	/*
 	public String toString(){
 		String m= "Maze:\n";
 		for (int i = 0; i < maze.length; i++) {
@@ -142,7 +189,7 @@ public class MazeBuilder implements IMazeBuilder{
 			}
 			m+= '\n';
 		}
-
+		
 		m += "\nVisitedCells:\n";
 		for (int i = 0; i < visitedCells.length; i++) {
 			for (int j = 0; j < visitedCells[i].length; j++) {
@@ -152,9 +199,10 @@ public class MazeBuilder implements IMazeBuilder{
 			m+= "\n";
 		}
 		m+="-------------------\n";
+	
 		return m; 
 	} 
-
+	/**/
 
 
 }

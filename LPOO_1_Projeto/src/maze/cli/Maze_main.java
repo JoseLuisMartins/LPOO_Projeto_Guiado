@@ -14,11 +14,11 @@ import maze.logic.MazeBuilder;
  
 public class Maze_main {
 	public static void main(String[] args){
-		IMazeBuilder builder = new MazeBuilder();
-		builder.buildMaze(9);
-		System.out.println(builder);
+		/*IMazeBuilder builder = new MazeBuilder();
+		builder.buildMaze(5);
+		System.out.println(builder);/**/
 		
-		/*
+		
 		Jogo j= new Jogo(); 
 
 		Scanner s = new Scanner(System.in);
