@@ -8,7 +8,7 @@ import maze.logic.Dragao;
 import maze.logic.Espada;
 import maze.logic.Heroi;
 import maze.logic.Jogo;
-
+/*
 public class TestMazeWithMoveAndSlpeepCapabilitiesDragon {
 	
 	char [][] m1 = {{'X', 'X', 'X', 'X', 'X'},
@@ -95,10 +95,11 @@ public class TestMazeWithMoveAndSlpeepCapabilitiesDragon {
 	
 	
 	
-	/**/
+	
 	
 	
 	
 	
 	
 }
+/**/

@@ -12,7 +12,7 @@ import maze.logic.Jogo;
 import maze.logic.Labirinto;
 
 public class TestMazeWithStaticDragon {
-
+/*
 	char [][] m1 = {{'X', 'X', 'X', 'X', 'X'},
 					{'X', ' ', ' ', ' ', 'S'},
 					{'X', ' ', 'X', ' ', 'X'},

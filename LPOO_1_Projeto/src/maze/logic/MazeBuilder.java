@@ -39,9 +39,21 @@ public class MazeBuilder implements IMazeBuilder{
 	private char visitedCells[][];
 	private Cell guideCell;
 	private Stack<Cell> pathHistory= new Stack<Cell>();
+	private Heroi h;
+	private Dragao d;
+	private Espada e;
 
-
-
+	public Heroi getHeroi(){
+		return h;
+	}
+	
+	public Dragao getDragao(){
+		return d;
+	}
+	
+	public Espada getEspada(){
+		return e;
+	}
 
 	@Override
 	public char[][] buildMaze(int size) throws IllegalArgumentException {
@@ -125,7 +137,7 @@ public class MazeBuilder implements IMazeBuilder{
 				pathHistory.push(guideCell);
 			}
 
-		}
+		} 
 		placeElements();
 		return maze;
 	}
@@ -155,15 +167,19 @@ public class MazeBuilder implements IMazeBuilder{
 
 	public void placeElements(){
 		Cell hero = getFreePosition();
-		maze[hero.getY()][hero.getX()]='H';
+		h=new Heroi(hero.getX(), hero.getY(), 'H');
+		maze[hero.getY()][hero.getX()]=h.get_simbolo();
+		
 		Cell sword = getFreePosition();
-		maze[sword.getY()][sword.getX()]='E';
+		e=new Espada(sword.getX(), sword.getY(), 'E');
+		maze[sword.getY()][sword.getX()]=e.get_simbolo();
 		Cell dragon = getFreePosition();
 		
-		while(dragon.adjacentTo(hero))
+		while(dragon.adjacentTo(hero)) 
 			dragon=getFreePosition();
 		
-		maze[dragon.getY()][dragon.getX()]='D';
+		d=new Dragao(dragon.getX(), dragon.getY(), 'D');
+		maze[dragon.getY()][dragon.getX()]=d.get_simbolo();
 	}
 	
 	public Cell getFreePosition(){

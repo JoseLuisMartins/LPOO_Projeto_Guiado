@@ -5,7 +5,7 @@ public class Dragao extends Elemento{
 	private boolean morto;
 	private boolean adormecido;	
 	private boolean GuardaEspada;
-
+	
 
 	public Dragao(int x_pos, int y_pos, char s) {
 		super(x_pos, y_pos, s);
