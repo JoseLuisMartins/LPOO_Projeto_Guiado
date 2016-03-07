@@ -33,18 +33,20 @@ public class Jogo {
 		e=sword;
 		l=new Labirinto(m);
 		l.setMaze(h.get_x(), h.get_y(),h.get_simbolo());
-		for (Dragao d : arrayDragon) {
-			l.setMaze(d.get_x(), d.get_y(), d.get_simbolo());
-		}
+		l.setMaze(dragon.get_x(), dragon.get_y(), dragon.get_simbolo());
 		l.setMaze(e.get_x(), e.get_y(), e.get_simbolo());
 		fim_jogo=false;
 		sair=false;
 	}
 
 	public boolean addDragons(Dragao d){
+		if(l.getMaze()[d.get_y()][d.get_x()] != ' ')
+		
 		arrayDragon.add(d);
+		l.setMaze(d.get_x(), d.get_y(),d.get_simbolo());
 		return true;
 	}
+	
 	public Labirinto getLabirinto(){
 		return l;
 	}

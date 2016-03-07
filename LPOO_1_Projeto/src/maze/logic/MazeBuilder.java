@@ -61,7 +61,7 @@ public class MazeBuilder implements IMazeBuilder{
 		maze= new char[size][size];
 		visitedCells= new char[visitedSize][visitedSize];
 
-
+ 
 		for (int i = 0; i < maze.length; i++) { 
 			for (int j = 0; j < maze[i].length; j++) {
 				if(i%2==1 && j%2==1)

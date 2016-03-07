@@ -12,7 +12,7 @@ import maze.logic.Jogo;
 import maze.logic.Labirinto;
 
 public class TestMazeWithStaticDragon {
-/*
+
 	char [][] m1 = {{'X', 'X', 'X', 'X', 'X'},
 					{'X', ' ', ' ', ' ', 'S'},
 					{'X', ' ', 'X', ' ', 'X'},
@@ -37,8 +37,9 @@ public class TestMazeWithStaticDragon {
 	@Test
 	public void TestDefaultGameConstructor() {
 		Jogo game=new Jogo();
+		Dragao d1 = game.getDragoes().get(0);
 		assertEquals(game.getHeroi().get_simbolo(), game.getLabirinto().getMaze()[game.getHeroi().get_y()][game.getHeroi().get_x()]);
-		assertEquals(game.getDragao().get_simbolo(), game.getLabirinto().getMaze()[game.getDragao().get_y()][game.getDragao().get_x()]);
+		assertEquals(d1.get_simbolo(), game.getLabirinto().getMaze()[d1.get_y()][d1.get_x()]);
 		assertEquals(game.getEspada().get_simbolo(), game.getLabirinto().getMaze()[game.getEspada().get_y()][game.getEspada().get_x()]);
 		System.out.println(game);
 	}
@@ -73,11 +74,11 @@ public class TestMazeWithStaticDragon {
 	
 	@Test
 	public void testDragonDiesDown() {
-	
 		Jogo j= new Jogo(m1,h,d,e);//mata dragao em baixo
+		Dragao d1 = j.getDragoes().get(0);
 		j.getHeroi().setArmado();
 		j.move(Direction.DOWN);
-		assertEquals(true,j.getDragao().getMorto());
+		assertEquals(true,j.getDragoes().size()==0);
 	
 	}
 	@Test
@@ -87,7 +88,7 @@ public class TestMazeWithStaticDragon {
 		Jogo j= new Jogo(m1,h1,d1,e);
 		j.getHeroi().setArmado();
 		j.move(Direction.LEFT);
-		assertEquals(true,j.getDragao().getMorto());
+		assertEquals(true,j.getDragoes().size()==0);
 	
 	}
 	
@@ -98,7 +99,7 @@ public class TestMazeWithStaticDragon {
 		Jogo j= new Jogo(m1,h1,d1,e);
 		j.getHeroi().setArmado();
 		j.move(Direction.UP);
-		assertEquals(true,j.getDragao().getMorto());
+		assertEquals(true,j.getDragoes().size()==0);
 	}
 	
 	@Test
@@ -108,7 +109,7 @@ public class TestMazeWithStaticDragon {
 		Jogo j= new Jogo(m1,h1,d1,e); 
 		j.getHeroi().setArmado();
 		j.move(Direction.RIGHT);
-		assertEquals(true,j.getDragao().getMorto());	
+		assertEquals(true,j.getDragoes().size()==0);	
 	}
 	
 	

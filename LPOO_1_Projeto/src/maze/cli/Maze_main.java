@@ -46,8 +46,8 @@ public class Maze_main {
 		else{
 			j = new Jogo();
 		}
-		Dragao dra = new Dragao(8,1, 'D');
-		j.addDragons(dra);
+		//Dragao dra = new Dragao(8,1, 'D');
+		//j.addDragons(dra);
 		System.out.println("Selecione o modo de jogo\n");
 		System.out.println("Dragao Parado (prima numero 1)");
 		System.out.println("Dragao com Movimentacao (prima numero 2)");
