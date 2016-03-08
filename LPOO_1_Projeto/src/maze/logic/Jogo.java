@@ -1,6 +1,7 @@
 package maze.logic;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Random;
 
 
@@ -81,50 +82,46 @@ public class Jogo {
 	} 
 
 	public void checkDragon(){
-		ArrayList<Dragao> deadDragons=new ArrayList<Dragao>();
-
-		for (int i = 0; i < arrayDragon.size(); i++) {
-
-			if(l.getMaze()[h.get_y()-1][h.get_x()] == arrayDragon.get(i).get_simbolo()){//up
+		Iterator<Dragao> itr = arrayDragon.iterator();
+		
+		while(itr.hasNext()){
+			Dragao d=itr.next();
+			if(d.get_x()==h.get_x() && d.get_y()==(h.get_y()-1)){//up
 				if(h.getArmado()){
 					l.setMaze(h.get_x(),h.get_y()-1, ' ');	
-					deadDragons.add(arrayDragon.get(i));
+					itr.remove();
 				}
-				else if(!arrayDragon.get(i).getAdormecido())
+				else if(!d.getAdormecido())
 					fim_jogo=true; 
 
 			}
-			else if(l.getMaze()[h.get_y()+1][h.get_x()] == arrayDragon.get(i).get_simbolo()){//down
+			else if(d.get_x()==h.get_x() && d.get_y()==(h.get_y()+1)){//down
 				if(h.getArmado()){
 					l.setMaze(h.get_x(),h.get_y()+1, ' ');
-					deadDragons.add(arrayDragon.get(i));
+					itr.remove();
 				}
-				else if(!arrayDragon.get(i).getAdormecido())
+				else if(!d.getAdormecido())
 					fim_jogo=true;
 
 			}
-			else  if(l.getMaze()[h.get_y()][h.get_x()+1] == arrayDragon.get(i).get_simbolo()){//right
+			else  if(d.get_x()==(h.get_x()+1) && d.get_y()==h.get_y()){//right
 				if(h.getArmado()){
 					l.setMaze(h.get_x()+1,h.get_y(), ' ');
-					deadDragons.add(arrayDragon.get(i));
+					itr.remove();
 				}
-				else if(!arrayDragon.get(i).getAdormecido())
+				else if(!d.getAdormecido())
 					fim_jogo=true;
 			}
 
-			else if(l.getMaze()[h.get_y()][h.get_x()-1] == arrayDragon.get(i).get_simbolo()){//left
+			else if(d.get_x()==(h.get_x()-1) && d.get_y()==h.get_y()){//left
 				if(h.getArmado()){
 					l.setMaze(h.get_x()-1,h.get_y(), ' ');	
-					deadDragons.add(arrayDragon.get(i));
+					itr.remove();
 				}
-				else if(!arrayDragon.get(i).getAdormecido())
+				else if(!d.getAdormecido())
 					fim_jogo=true;
-			}
+			} 
 		} 
-
-		for (int i = 0; i < deadDragons.size(); i++) {
-			arrayDragon.remove(deadDragons.get(i));
-		}
 	} 
 
 	public void toggleAdormecerRandom(){
@@ -199,7 +196,7 @@ public class Jogo {
 		case 3://left 
 			moveDragonAux(Direction.LEFT, d);
 			break;
-		default://manter
+		default://manter 
 			break;
 		}
 

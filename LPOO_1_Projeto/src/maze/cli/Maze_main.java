@@ -146,7 +146,7 @@ public class Maze_main {
 					break;
 				} 
 			}
- 
+
 			System.out.println(j);
 
 		}
