@@ -103,7 +103,7 @@ public class Maze_main {
 			}
 
 			char mov = movimento.charAt(0);
-
+ 
 			switch (mov) {
 			case 'w'://up
 				j.move(Direction.UP);

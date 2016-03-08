@@ -148,6 +148,17 @@ public class TestMazeWithStaticDragon {
 		assertEquals(false,j.move(Direction.RIGHT));
 	}
 	
+	@Test
+	public void testAddDragon() {
+		Jogo j= new Jogo(m1,h,d,e);
+		
+		assertEquals(false,j.addDragon(0, 0));
+		assertEquals(true,j.addDragon(1, 1));
+		assertEquals('D',j.getLabirinto().getMaze()[1][1]);
+		assertEquals(2,j.getDragoes().size());
+		assertEquals(false,j.addDragon(3,1));
+	}
+	
 	
 	
 	/**/

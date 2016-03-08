@@ -221,8 +221,7 @@ public class Jogo {
 			break;  
 		}
 
-		if(x > l.getMaze()[y].length)
-			return false;
+		
 
 
 		switch (l.getMaze()[y][x]) {
@@ -257,6 +256,6 @@ public class Jogo {
 	}
 
 	public String toString(){
-		return l.toString()+arrayDragon.size();
+		return l.toString();
 	}
 } 
