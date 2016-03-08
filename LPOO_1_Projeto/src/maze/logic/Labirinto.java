@@ -34,7 +34,7 @@ public class Labirinto {
 		String m= "";
 		for (int i = 0; i < maze.length; i++) {
 			for (int j = 0; j < maze[i].length; j++) {
-				m += maze[i][j];
+				m += maze[i][j]; 
 				m+= ' '; 
 			}
 			m+= '\n';

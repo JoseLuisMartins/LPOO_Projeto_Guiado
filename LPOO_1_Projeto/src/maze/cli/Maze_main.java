@@ -1,5 +1,6 @@
 package maze.cli;
 import java.util.Iterator;
+import java.util.Random;
 import java.util.Scanner;
 
 import maze.logic.Direction;
@@ -69,9 +70,15 @@ public class Maze_main {
 			adicionar= s.nextLine();	
 		}
 
-		
+
+		int mazeLength=j.getLabirinto().getMaze().length;
+		int nMaxDragoes=((mazeLength * mazeLength)/16)*4; 
+
+		Random r=new Random();
 		if(adicionar.equals("s")){
-			int x=0,y=0;
+			int nDragoes=nMaxDragoes+1;
+			//escolher coordenadas dos dragoes
+			/*int x=0,y=0;
 			do {
 				System.out.println("Introduza as coordenadas x e y (x=0 e y=0 para parar)");
 				System.out.println(j);
@@ -85,25 +92,37 @@ public class Maze_main {
 					s.nextLine();
 				}
 				y=s.nextInt();
-				
+
 				if(j.addDragon(x, y))
 					System.out.println("Dragao adicionado com sucesso");
 				else
 					System.out.println("Coordenadas Invalidas");
-				
-			} while (!(x==0 && y==0));
+
+			} while (!(x==0 && y==0));/**/
+			while(nDragoes > nMaxDragoes || nDragoes <0){
+				System.out.println("Quantos dragoes deseja ter no jogo?(max: " + nMaxDragoes + ") ?");
+				while (!s.hasNextInt()) {
+					s.nextLine();
+				}
+				nDragoes=s.nextInt();
+			}
+			nDragoes--;
+			while(nDragoes>0){
+				if(j.addDragon(r.nextInt(mazeLength-2)+1, r.nextInt(mazeLength-2)+1))
+					nDragoes--;
+			}
 		}
 
 		System.out.println(j);
 
-		while(!j.getFimJogo() && !j.getSair()){
+		while(!j.getFimJogo() && !j.getSair()){ 
 			String movimento= s.nextLine();
 			while(!(movimento.equals("a") || movimento.equals("w") || movimento.equals("s") || movimento.equals("d") )){
 				movimento= s.nextLine();	
 			}
 
 			char mov = movimento.charAt(0);
- 
+
 			switch (mov) {
 			case 'w'://up
 				j.move(Direction.UP);
