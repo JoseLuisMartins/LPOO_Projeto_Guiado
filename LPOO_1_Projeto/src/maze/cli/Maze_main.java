@@ -27,7 +27,7 @@ public class Maze_main {
 		String lab = s.nextLine();
 
 		while(!(lab.equals("1") || lab.equals("2"))){
-			System.out.println("Insira um modo Valido \n");
+			System.out.println("Insira um modo Valido");
 			lab= s.nextLine();	
 		}
 
