@@ -240,7 +240,7 @@ public class Interface {
 				direita.setEnabled(true);
 				if(tipoDragoes.getSelectedItem()=="Estáticos")
 					mode=GameMode.StaticDragon;
-				else if(tipoDragoes.getSelectedItem()=="Com Movimentação")
+				else if(tipoDragoes.getSelectedItem()=="Com  Movimentação")
 					mode=GameMode.MovingDragon;
 				else
 					mode=GameMode.ToogleSleepAndMoveDragon;
