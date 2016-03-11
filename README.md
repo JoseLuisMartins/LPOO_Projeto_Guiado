@@ -1,3 +1,3 @@
 # LPOO_Projeto_Guiado
 
-1 iteracão completa
+2 iteracão completa
