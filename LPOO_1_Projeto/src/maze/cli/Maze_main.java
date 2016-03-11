@@ -6,6 +6,7 @@ import java.util.Scanner;
 import maze.logic.Direction;
 import maze.logic.Dragao;
 import maze.logic.Espada;
+import maze.logic.GameMode;
 import maze.logic.Heroi;
 import maze.logic.IMazeBuilder;
 import maze.logic.Jogo;
@@ -59,7 +60,15 @@ public class Maze_main {
 			System.out.println("Insira um modo Valido \n");
 			modo= s.nextLine();	
 		}
-		int m= Integer.parseInt(modo);
+		int m= Integer.parseInt(modo); 
+		GameMode mode;
+		
+		if(m==1)
+			mode=GameMode.StaticDragon;
+		else if(m==2)
+			mode=GameMode.MovingDragon;
+		else
+			mode=GameMode.ToogleSleepAndMoveDragon;
 
 		System.out.println("Deseja adicionar Dragoes?(s/n)");
 
@@ -119,7 +128,7 @@ public class Maze_main {
 			String movimento= s.nextLine();
 			while(!(movimento.equals("a") || movimento.equals("w") || movimento.equals("s") || movimento.equals("d") )){
 				movimento= s.nextLine();	
-			}
+			} 
 
 			char mov = movimento.charAt(0);
 
@@ -136,23 +145,22 @@ public class Maze_main {
 			case 'a'://left
 				j.move(Direction.LEFT); 
 				break;
-			default:
+			default: 
 				break;
 			}
-
+ 
 			if(j.getDragoes().size()!=0 && j.getFimJogo()==false){//se o dragao nao morreu e o heroi tambem nao, movimentar o dragao ou adormecer dependendo do modo de jogo
 
-				switch (m) {
-				case 1://dragao parado
-
-					break;
-				case 2://Dragao com Movimentacao 
+				switch (mode) {
+				case StaticDragon://dragao parado
+					break; 
+				case MovingDragon://Dragao com Movimentacao 
 					for (Dragao d : j.getDragoes()) {
 						j.moveDragon(d);
 					}
 					j.checkDragon();
 					break;
-				case 3://Dragao com Movimentacao intercalada com Dormir 
+				case ToogleSleepAndMoveDragon://Dragao com Movimentacao intercalada com Dormir 
 					j.toggleAdormecerRandom();
 					for (Dragao d : j.getDragoes()) {
 						if(d.getAdormecido()==false){//se não estiver adormecido o dragao pode mover-se
