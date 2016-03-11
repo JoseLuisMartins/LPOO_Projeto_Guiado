@@ -92,14 +92,17 @@ public class Interface {
 		if(j.getFimJogo())
 			estadoJogo.setText("Foi Derrotado Pelo Dragao!");
 		else if(j.getSair())
-			estadoJogo.setText("Parabens, Conseguiu derrotar ao Dragao!");	
-		
+			estadoJogo.setText("Parabens, Conseguiu derrotar o(s) Dragao!");	
+		else if(j.getDragoes().size()>=0)
+			estadoJogo.setText("Falta(m) matar " + j.getDragoes().size() + " dragõe(s)");	
 		if(j.getFimJogo() || j.getSair()){
 			cima.setEnabled(false);
 			baixo.setEnabled(false);
 			esquerda.setEnabled(false);
 			direita.setEnabled(false);
 		}
+		
+
 
 	}
 
@@ -112,15 +115,15 @@ public class Interface {
 		frmMaze.getContentPane().setLayout(null);
 
 		JLabel lblDimensoDoLabirinto = new JLabel("Dimens\u00E3o do Labirinto");
-		lblDimensoDoLabirinto.setBounds(41, 25, 119, 14);
+		lblDimensoDoLabirinto.setBounds(41, 25, 142, 14);
 		frmMaze.getContentPane().add(lblDimensoDoLabirinto);
 
 		JLabel lblNumeroDeDrages = new JLabel("Numero de Drag\u00F5es");
-		lblNumeroDeDrages.setBounds(41, 50, 105, 14);
+		lblNumeroDeDrages.setBounds(41, 50, 142, 14);
 		frmMaze.getContentPane().add(lblNumeroDeDrages);
 
 		JLabel lblTipoDeDrages = new JLabel("Tipo de Drag\u00F5es");
-		lblTipoDeDrages.setBounds(41, 75, 92, 14);
+		lblTipoDeDrages.setBounds(41, 75, 142, 14);
 		frmMaze.getContentPane().add(lblTipoDeDrages);
 
 		mazeDimension = new JTextField();
@@ -155,6 +158,8 @@ public class Interface {
 		frmMaze.getContentPane().add(terminarPrograma);
 
 		JTextArea labOutput = new JTextArea();
+		labOutput.setForeground(Color.WHITE);
+		labOutput.setBackground(Color.LIGHT_GRAY);
 		labOutput.setFont(new Font("Courier New", Font.PLAIN, 13));
 		labOutput.setEditable(false);
 		labOutput.setBounds(41, 142, 409, 269);

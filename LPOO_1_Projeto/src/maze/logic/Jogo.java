@@ -180,7 +180,7 @@ public class Jogo {
 		}
 	}
 
-	public void moveDragon(Dragao d){
+	public void moveDragon(Dragao d){ 
 		Random r = new Random(); 
 		int move=r.nextInt(4);
 		switch (move) {
