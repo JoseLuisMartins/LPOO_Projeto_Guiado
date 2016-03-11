@@ -110,7 +110,7 @@ public class Interface {
 		frmMaze = new JFrame();
 		frmMaze.setResizable(false);
 		frmMaze.setTitle("Maze");
-		frmMaze.setBounds(100, 100, 782, 498);
+		frmMaze.setBounds(100, 100, 807, 527);
 		frmMaze.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmMaze.getContentPane().setLayout(null);
 
@@ -139,7 +139,7 @@ public class Interface {
 		nDragoes.setColumns(10);
 
 		JComboBox tipoDragoes = new JComboBox();
-		tipoDragoes.setBounds(193, 72, 265, 20);
+		tipoDragoes.setBounds(193, 72, 231, 20);
 		tipoDragoes.addItem("Estáticos");
 		tipoDragoes.addItem("Com Movimentação");
 		tipoDragoes.addItem("Com Movimentação e a Dormir");
@@ -162,11 +162,12 @@ public class Interface {
 		labOutput.setBackground(Color.LIGHT_GRAY);
 		labOutput.setFont(new Font("Courier New", Font.PLAIN, 13));
 		labOutput.setEditable(false);
-		labOutput.setBounds(41, 142, 409, 269);
+		labOutput.setBounds(32, 112, 392, 316);
 		frmMaze.getContentPane().add(labOutput);
 
 		estadoJogo = new JLabel("Pode gerar novo labirinto!");
-		estadoJogo.setBounds(51, 422, 399, 14);
+		estadoJogo.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		estadoJogo.setBounds(53, 439, 399, 20);
 		frmMaze.getContentPane().add(estadoJogo);
 
 		cima = new JButton("Cima");
@@ -179,7 +180,7 @@ public class Interface {
 			}
 		});
 		cima.setEnabled(false);
-		cima.setBounds(566, 207, 100, 29);
+		cima.setBounds(566, 198, 112, 32);
 		frmMaze.getContentPane().add(cima);
 
 		esquerda = new JButton("Esquerda");
@@ -192,7 +193,7 @@ public class Interface {
 			}
 		});
 		esquerda.setEnabled(false);
-		esquerda.setBounds(505, 241, 100, 29);
+		esquerda.setBounds(506, 241, 104, 32);
 		frmMaze.getContentPane().add(esquerda);
 
 		direita = new JButton("Direita");
@@ -205,7 +206,7 @@ public class Interface {
 			}
 		});
 		direita.setEnabled(false);
-		direita.setBounds(632, 241, 105, 29);
+		direita.setBounds(620, 241, 111, 32);
 		frmMaze.getContentPane().add(direita);
 
 		baixo = new JButton("Baixo");
@@ -218,7 +219,7 @@ public class Interface {
 			}
 		});
 		baixo.setEnabled(false);
-		baixo.setBounds(566, 275, 100, 29);
+		baixo.setBounds(566, 284, 124, 32);
 		frmMaze.getContentPane().add(baixo);
 
 
