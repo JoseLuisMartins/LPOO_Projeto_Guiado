@@ -34,6 +34,8 @@ public class Interface {
 	private JButton direita;
 	private JButton cima;
 	private JLabel estadoJogo;
+	private JLabel erroNDragoes;
+	private JLabel erroDimension;
 
 
 	/**
@@ -90,9 +92,9 @@ public class Interface {
 	private void checkFimJogo(){
 
 		if(j.getFimJogo())
-			estadoJogo.setText("Foi Derrotado Pelo Dragao!");
+			estadoJogo.setText("Foi derrotado pelo dragão!");
 		else if(j.getSair())
-			estadoJogo.setText("Parabens, Conseguiu derrotar o(s) Dragao!");	
+			estadoJogo.setText("Parabéns, conseguiu derrotar o(s) dragão!");	
 		else if(j.getDragoes().size()>=0)
 			estadoJogo.setText("Falta(m) matar " + j.getDragoes().size() + " dragõe(s)");	
 		if(j.getFimJogo() || j.getSair()){
@@ -101,10 +103,13 @@ public class Interface {
 			esquerda.setEnabled(false);
 			direita.setEnabled(false);
 		}
-		
+
 
 
 	}
+
+
+
 
 	private void initialize() {
 		frmMaze = new JFrame();
@@ -126,6 +131,15 @@ public class Interface {
 		lblTipoDeDrages.setBounds(41, 75, 142, 14);
 		frmMaze.getContentPane().add(lblTipoDeDrages);
 
+		erroDimension = new JLabel("");
+		erroDimension.setBounds(294, 22, 218, 20);
+		frmMaze.getContentPane().add(erroDimension);
+
+
+		erroNDragoes = new JLabel("");
+		erroNDragoes.setBounds(294, 47, 218, 20);
+		frmMaze.getContentPane().add(erroNDragoes);
+
 		mazeDimension = new JTextField();
 		mazeDimension.setText("11");
 		mazeDimension.setBounds(193, 22, 86, 20);
@@ -137,6 +151,8 @@ public class Interface {
 		nDragoes.setBounds(193, 47, 86, 20);
 		frmMaze.getContentPane().add(nDragoes);
 		nDragoes.setColumns(10);
+
+
 
 		JComboBox tipoDragoes = new JComboBox();
 		tipoDragoes.setBounds(193, 72, 231, 20);
@@ -223,6 +239,8 @@ public class Interface {
 		frmMaze.getContentPane().add(baixo);
 
 
+
+
 		JButton gerarLabirinto = new JButton("Gerar novo labirinto");
 		gerarLabirinto.setForeground(Color.WHITE);
 		gerarLabirinto.addActionListener(new ActionListener() {
@@ -230,14 +248,19 @@ public class Interface {
 				MazeBuilder builder = new MazeBuilder();
 				int dim=Integer.parseInt(mazeDimension.getText());
 				int nD=Integer.parseInt(nDragoes.getText());
+				
+				erroNDragoes.setText("");
+				if(dim % 2 == 0 || dim > 21 || dim < 5){
+					erroDimension.setText("Dimensão inválida!!");
+					return;
+				}
+				erroDimension.setText("");
+					
 				char[][] maze=builder.buildMaze(dim);
 				Random r=new Random();
 
 				j = new Jogo(maze,builder.getHeroi() ,builder.getDragao() ,builder.getEspada());
-				cima.setEnabled(true);
-				baixo.setEnabled(true);
-				esquerda.setEnabled(true);
-				direita.setEnabled(true);
+
 				if(tipoDragoes.getSelectedItem()=="Estáticos")
 					mode=GameMode.StaticDragon;
 				else if(tipoDragoes.getSelectedItem()=="Com  Movimentação")
@@ -245,11 +268,20 @@ public class Interface {
 				else
 					mode=GameMode.ToogleSleepAndMoveDragon;
 
-				nD--;
-				while(nD>0){
-					if(j.addDragon(r.nextInt(dim-2)+1, r.nextInt(dim-2)+1))
-						nD--;
+				int maxDragons = j.NMaxDragons();
+				if(nD > maxDragons || nD <= 0){
+					erroNDragoes.setText("Numero de dragões invalido!!");
+					return;
 				}
+				erroNDragoes.setText("");
+				
+				j.addNDragons(nD);
+				
+				cima.setEnabled(true);
+				baixo.setEnabled(true);
+				esquerda.setEnabled(true);
+				direita.setEnabled(true);
+				
 				labOutput.setText(j.toString());
 
 			}
@@ -257,5 +289,7 @@ public class Interface {
 		gerarLabirinto.setBackground(Color.BLUE);
 		gerarLabirinto.setBounds(546, 21, 172, 43);
 		frmMaze.getContentPane().add(gerarLabirinto);
+
+
 	}
 }

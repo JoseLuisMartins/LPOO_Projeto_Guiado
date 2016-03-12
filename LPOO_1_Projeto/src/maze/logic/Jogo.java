@@ -39,6 +39,19 @@ public class Jogo {
 		fim_jogo=false;
 		sair=false;
 	}
+	
+	public boolean addNDragons(int nDragoes){
+
+		Random r=new Random();
+		
+		int  mazeLength = l.getMaze().length;
+			
+		while(nDragoes > 0){
+			if(addDragon(r.nextInt(mazeLength-2)+1, r.nextInt(mazeLength-2)+1))
+				nDragoes--;
+		}
+		return true;
+	}
 
 	public boolean addDragon(int x,int y){
 
@@ -258,4 +271,11 @@ public class Jogo {
 	public String toString(){
 		return l.toString();
 	}
+	
+	
+	public int NMaxDragons(){
+		return ((l.getMaze().length * l.getMaze().length)/16)*4; 
+	}
+	
+	
 } 
