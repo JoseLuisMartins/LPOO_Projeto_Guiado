@@ -7,6 +7,7 @@ import org.junit.Test;
 import maze.logic.Direction;
 import maze.logic.Dragao;
 import maze.logic.Espada;
+import maze.logic.GameMode;
 import maze.logic.Heroi;
 import maze.logic.Jogo;
 import maze.logic.Labirinto;
@@ -54,6 +55,14 @@ public class TestMazeWithStaticDragon {
 		assertEquals(1,j.getHeroi().get_y());
 	}
 	
+	@Test
+	public void testDragonDies(){
+		Jogo j = new Jogo(m1,h,d,e);
+		
+		Dragao d1 = j.getDragoes().get(0);
+		d.setMorto();
+		assertEquals(true, d.getMorto());
+	}
 	@Test
 	public void testHeroDies() {
 		Jogo j= new Jogo(m1,h,d,e);
@@ -157,6 +166,13 @@ public class TestMazeWithStaticDragon {
 		assertEquals('D',j.getLabirinto().getMaze()[1][1]);
 		assertEquals(2,j.getDragoes().size());
 		assertEquals(false,j.addDragon(3,1));
+	}
+	
+	@Test
+	public void testNMaxDragons(){
+		Jogo j = new Jogo(m1,h,d,e);
+		
+		assertEquals(3, j.NMaxDragons());
 	}
 	
 	
