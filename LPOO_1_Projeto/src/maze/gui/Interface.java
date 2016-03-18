@@ -132,11 +132,13 @@ public class Interface {
 		frmMaze.getContentPane().add(lblTipoDeDrages);
 
 		erroDimension = new JLabel("");
+		erroDimension.setForeground(Color.RED);
 		erroDimension.setBounds(294, 22, 218, 20);
 		frmMaze.getContentPane().add(erroDimension);
 
 
 		erroNDragoes = new JLabel("");
+		erroNDragoes.setForeground(Color.RED);
 		erroNDragoes.setBounds(294, 47, 218, 20);
 		frmMaze.getContentPane().add(erroNDragoes);
 
@@ -273,7 +275,7 @@ public class Interface {
 					erroNDragoes.setText("Numero de dragões invalido!!");
 					return;
 				}
-				erroNDragoes.setText("");
+				erroNDragoes.setText(""); 
 				
 				j.addNDragons(nD);
 				
