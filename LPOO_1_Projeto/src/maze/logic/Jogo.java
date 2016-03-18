@@ -274,7 +274,7 @@ public class Jogo {
 	
 	
 	public int NMaxDragons(){
-		return ((l.getMaze().length * l.getMaze().length)/16)*4; 
+		return (((l.getMaze().length * l.getMaze().length)/16)*4) - 1; 
 	}
 	
 	
