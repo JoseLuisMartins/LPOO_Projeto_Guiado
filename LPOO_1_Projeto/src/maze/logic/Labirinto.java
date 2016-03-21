@@ -15,14 +15,14 @@ public class Labirinto {
 
 
 	/**
-	 * creats a labyrinth (default)
+	 * creates a labyrinth (default)
 	 */
 	public Labirinto(){
 		maze[5][9]='S';
 	}
 	
 	/**
-	 *  creats a labyrinth 
+	 *  creates a labyrinth 
 	 * @param m 
 	 */
 	public Labirinto(char m[][]){
