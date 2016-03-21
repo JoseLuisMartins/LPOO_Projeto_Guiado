@@ -11,6 +11,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import maze.logic.Direction;
 import maze.logic.Jogo;
 
 public class MapWindow extends JPanel implements KeyListener{
@@ -67,7 +68,6 @@ public class MapWindow extends JPanel implements KeyListener{
 				}
 			}
 		}
-
 	}
 
 	public void update() {
@@ -76,8 +76,25 @@ public class MapWindow extends JPanel implements KeyListener{
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
+		switch(e.getKeyCode()){
+		case KeyEvent.VK_LEFT: 
+			j.move(Direction.LEFT); 
+			break;
+			
+		case KeyEvent.VK_RIGHT: 
+			j.move(Direction.RIGHT);
+			break;
 
+		case KeyEvent.VK_UP: 
+			j.move(Direction.UP);
+			break;
+
+		case KeyEvent.VK_DOWN: 
+			j.move(Direction.DOWN);
+			break;
+		
+		}
+		repaint();
 	}
 
 	@Override
