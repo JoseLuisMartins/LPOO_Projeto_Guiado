@@ -9,6 +9,9 @@ public class MazeBuilder implements IMazeBuilder{
 	public static class Cell {		
 		private int x, y;
 
+		/**
+		 * @return the coordinate x of the Cell
+		 */
 		public int getX() {
 			return x;
 		}
@@ -17,6 +20,9 @@ public class MazeBuilder implements IMazeBuilder{
 			return (x*2)+1;
 		}
 
+		/**
+		 * @return the coordinate y of the Cell
+		 */
 		public int getY() {
 			return y;
 		}
@@ -25,11 +31,20 @@ public class MazeBuilder implements IMazeBuilder{
 			return (y*2)+1;
 		}
 
+		/**
+		 * crates a cell
+		 * @param x - represents the coordinate x of the cell
+		 * @param y - represents the coordinate y of the cell
+		 */
 		public Cell(int x, int y) {
 			this.x = x;
 			this.y = y;
 		}
 
+		/**
+		 * @param p represents a  cell
+		 * @return true if two cells are ajacent
+		 */
 		public boolean adjacentTo(Cell p) {
 			return Math.abs(p.x - this.x) + Math.abs(p.y - this.y) == 1;
 		}
@@ -43,18 +58,31 @@ public class MazeBuilder implements IMazeBuilder{
 	private Dragao d;
 	private Espada e;
 
+	/**
+	 * @return the hero of the maze
+	 */
 	public Heroi getHeroi(){
 		return h;
 	}
 	
+	/**
+	 *  @return the dragon of the maze
+	 */
 	public Dragao getDragao(){
 		return d;
 	}
 	
+	/**
+	 * @return the sword of the maze
+	 */
 	public Espada getEspada(){
 		return e;
 	}
 
+	/**
+	 * creates the maze with dimension = size
+	 * @param size, represents the dimension of the maze
+	 */
 	@Override
 	public char[][] buildMaze(int size) throws IllegalArgumentException {
 		int visitedSize=(size-1)/2;
@@ -142,6 +170,9 @@ public class MazeBuilder implements IMazeBuilder{
 		return maze;
 	}
 
+	/**
+	 * @return a set of possible directions
+	 */
 	public ArrayList<Direction> possibleDirections(){
 		ArrayList<Direction> dir = new ArrayList<Direction>();
 
@@ -165,6 +196,9 @@ public class MazeBuilder implements IMazeBuilder{
 		return dir;
 	}
 
+	/**
+	 *  place elements(hero, sword and dragon)
+	 */
 	public void placeElements(){
 		Cell hero = getFreePosition();
 		h=new Heroi(hero.getX(), hero.getY(), 'H');
@@ -182,6 +216,10 @@ public class MazeBuilder implements IMazeBuilder{
 		maze[dragon.getY()][dragon.getX()]=d.get_simbolo();
 	}
 	
+	/**
+	 * Returns a free Cell
+	 * @return
+	 */
 	public Cell getFreePosition(){
 		Random r = new Random(); 
 		int x,y;

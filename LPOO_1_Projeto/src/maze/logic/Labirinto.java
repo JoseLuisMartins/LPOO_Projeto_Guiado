@@ -13,19 +13,35 @@ public class Labirinto {
 							 {'x','x','x','x','x','x','x','x','x','x'}
 							 } ;
 
+
+	/**
+	 * creats a labyrinth (default)
+	 */
 	public Labirinto(){
 		maze[5][9]='S';
 	}
 	
+	/**
+	 *  creats a labyrinth 
+	 * @param m 
+	 */
 	public Labirinto(char m[][]){
 		maze=m;
 	}
 	
-	
+	/**
+	 * @return the maze
+	 */
 	public char[][] getMaze(){
 		return maze;
 	}
 	
+	/**
+	 * sets the position with coordinates x and y with a char
+	 * @param x
+	 * @param y
+	 * @param value	 -  represents the symbol of an element
+	 */
 	public void setMaze(int x,int y,char value){
 		maze[y][x]=value;
 	}
