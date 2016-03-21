@@ -242,7 +242,7 @@ public class Interface {
 				dragonAction();
 				labOutput.setText(j.toString());
 				checkFimJogo();
-				panel.update();
+				panel.update(); 
 			}
 		});
 		baixo.setEnabled(false);

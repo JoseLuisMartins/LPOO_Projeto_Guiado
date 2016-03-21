@@ -60,7 +60,7 @@ public class MapWindow extends JPanel implements KeyListener{
 				case 'A':
 					g.drawImage(hero, j*50, i*50, 50, 50, null);
 					break;
-				case 'x':
+				case 'X':
 					g.drawImage(wall, j*50, i*50, 50, 50, null);
 					break;
 				default:

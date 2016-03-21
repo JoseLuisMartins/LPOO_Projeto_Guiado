@@ -67,7 +67,7 @@ public class MazeBuilder implements IMazeBuilder{
 				if(i%2==1 && j%2==1)
 					maze[i][j]=' '; 
 				else
-					maze[i][j]='x';
+					maze[i][j]='X';
 			}
 		}
 
