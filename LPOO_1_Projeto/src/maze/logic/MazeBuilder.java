@@ -68,7 +68,7 @@ public class MazeBuilder implements IMazeBuilder{
 					maze[i][j]=' '; 
 				else
 					maze[i][j]='X';
-			}
+			} 
 		}
 
 		for (int i = 0; i < visitedCells.length; i++) {

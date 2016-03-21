@@ -41,6 +41,7 @@ public class Interface {
 	private JLabel erroDimension;
 	//desenho do mapa
 	private MapWindow panel;
+	private JFrame f; 
 
 	/**
 	 * Launch the application.
@@ -107,11 +108,8 @@ public class Interface {
 			esquerda.setEnabled(false);
 			direita.setEnabled(false);
 		}
-
-
-
-	}
-
+	} 
+ 
 
 
 
@@ -250,7 +248,8 @@ public class Interface {
 		frmMaze.getContentPane().add(baixo);
 
 
-
+		f= new JFrame("Maze");
+		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);		
 
 		JButton gerarLabirinto = new JButton("Gerar novo labirinto");
 		gerarLabirinto.setForeground(Color.WHITE);
@@ -287,7 +286,7 @@ public class Interface {
 				erroNDragoes.setText(""); 
 				nD--;
 				j.addNDragons(nD);
-				
+				 
 				cima.setEnabled(true);
 				baixo.setEnabled(true);
 				esquerda.setEnabled(true);
@@ -295,17 +294,19 @@ public class Interface {
 				
 				labOutput.setText(j.toString());
 				
-				JFrame f = new JFrame("Graphics Demo");
-				f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);		
+				
+				
+				
 				f.setPreferredSize(new Dimension(dim*50 + 50 , dim*50 + 50));
-				panel = new MapWindow(j);
+				panel = new MapWindow(j,mode);
 				f.getContentPane().add(panel); 
 		        f.pack(); 
 		        f.setVisible(true);
 		        panel.requestFocus(); // to receive keyboard events /**/
-
+		       
 			}
 		});
+		
 		gerarLabirinto.setBackground(Color.BLUE);
 		gerarLabirinto.setBounds(546, 21, 172, 43);
 		frmMaze.getContentPane().add(gerarLabirinto);
