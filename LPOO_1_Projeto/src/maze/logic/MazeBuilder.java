@@ -65,9 +65,9 @@ public class MazeBuilder implements IMazeBuilder{
 		for (int i = 0; i < maze.length; i++) { 
 			for (int j = 0; j < maze[i].length; j++) {
 				if(i%2==1 && j%2==1)
-					maze[i][j]=' ';
+					maze[i][j]=' '; 
 				else
-					maze[i][j]='X';
+					maze[i][j]='x';
 			}
 		}
 

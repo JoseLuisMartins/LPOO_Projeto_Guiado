@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import maze.logic.Direction;
@@ -16,6 +17,8 @@ import javax.swing.JComboBox;
 import javax.print.attribute.TextSyntax;
 import javax.swing.JButton;
 import java.awt.Color;
+import java.awt.Dimension;
+
 import javax.swing.JTextArea;
 import java.awt.Font;
 import java.awt.event.ActionListener;
@@ -36,7 +39,8 @@ public class Interface {
 	private JLabel estadoJogo;
 	private JLabel erroNDragoes;
 	private JLabel erroDimension;
-
+	//desenho do mapa
+	private MapWindow panel;
 
 	/**
 	 * Launch the application.
@@ -175,7 +179,8 @@ public class Interface {
 		terminarPrograma.setBounds(546, 96, 172, 43);
 		frmMaze.getContentPane().add(terminarPrograma);
 
-		JTextArea labOutput = new JTextArea();
+		JTextArea labOutput = 
+				new JTextArea();
 		labOutput.setForeground(Color.WHITE);
 		labOutput.setBackground(Color.LIGHT_GRAY);
 		labOutput.setFont(new Font("Courier New", Font.PLAIN, 13));
@@ -195,6 +200,7 @@ public class Interface {
 				dragonAction();
 				labOutput.setText(j.toString());
 				checkFimJogo();
+				panel.update();
 			}
 		});
 		cima.setEnabled(false);
@@ -208,6 +214,7 @@ public class Interface {
 				dragonAction();
 				labOutput.setText(j.toString());
 				checkFimJogo();
+				panel.update();
 			}
 		});
 		esquerda.setEnabled(false);
@@ -221,6 +228,7 @@ public class Interface {
 				dragonAction();
 				labOutput.setText(j.toString());
 				checkFimJogo();
+				panel.update();
 			}
 		});
 		direita.setEnabled(false);
@@ -234,6 +242,7 @@ public class Interface {
 				dragonAction();
 				labOutput.setText(j.toString());
 				checkFimJogo();
+				panel.update();
 			}
 		});
 		baixo.setEnabled(false);
@@ -259,7 +268,7 @@ public class Interface {
 				erroDimension.setText("");
 					
 				char[][] maze=builder.buildMaze(dim);
-				Random r=new Random();
+				
 
 				j = new Jogo(maze,builder.getHeroi() ,builder.getDragao() ,builder.getEspada());
 
@@ -276,7 +285,7 @@ public class Interface {
 					return;
 				}
 				erroNDragoes.setText(""); 
-				
+				nD--;
 				j.addNDragons(nD);
 				
 				cima.setEnabled(true);
@@ -285,6 +294,15 @@ public class Interface {
 				direita.setEnabled(true);
 				
 				labOutput.setText(j.toString());
+				
+				JFrame f = new JFrame("Graphics Demo");
+				f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);		
+				f.setPreferredSize(new Dimension(dim*50 + 50 , dim*50 + 50));
+				panel = new MapWindow(j);
+				f.getContentPane().add(panel); 
+		        f.pack(); 
+		        f.setVisible(true);
+		        panel.requestFocus(); // to receive keyboard events /**/
 
 			}
 		});
