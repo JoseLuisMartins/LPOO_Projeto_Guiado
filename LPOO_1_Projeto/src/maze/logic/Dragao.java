@@ -1,12 +1,19 @@
 package maze.logic;
 
-
+/**
+ * Represents the dragon
+ */
 public class Dragao extends Elemento{
 	private boolean morto;
 	private boolean adormecido;	
 	private boolean GuardaEspada;
 	
-
+/**
+ * Creates a dragon
+ * @param x_pos		
+ * @param y_pos
+ * @param s  reprents the symbol of dragon
+ */
 	public Dragao(int x_pos, int y_pos, char s) {
 		super(x_pos, y_pos, s);
 		morto=false;
@@ -14,10 +21,18 @@ public class Dragao extends Elemento{
 		GuardaEspada=false;
 	} 
 
+	/**
+	 * @return true if the dragon is above the sword
+	 */
 	public boolean getGuardaEspada(){ 
 		return GuardaEspada;
 	}
 
+	/**
+	 *  sets GuardaEspada
+	 *  
+	 * @param x 
+	 */
 	public void SetGuardaEspada(boolean x){
 		GuardaEspada=x;
 
@@ -27,18 +42,32 @@ public class Dragao extends Elemento{
 			this.set_simbolo('D');
 	}
 
+	/**
+	 * 
+	 * @return true if the dragon is dead
+	 */
 	public boolean getMorto(){ 
 		return morto;
 	}
 
+	/**
+	 * sets the dragon as dead
+	 */
 	public void setMorto(){
 		morto=true;
 	}
 
+	/**
+	 * @return true if the dragon is sleeping
+	 */
 	public boolean getAdormecido(){
 		return adormecido;
 	}
 
+	/**
+	 * sets if the dragon is sleeping or not 
+	 * @param val
+	 */
 	public void setAdormecido(boolean val){
 		adormecido=val;
 		

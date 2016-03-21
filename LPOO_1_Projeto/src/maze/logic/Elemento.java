@@ -1,6 +1,8 @@
 package maze.logic;
 
-
+/**
+ * Represents an Element
+ */
 public class Elemento {
 	private int x;
 	private int y;
@@ -12,23 +14,43 @@ public class Elemento {
 		simbolo=s;
 	}
 	
+	/**
+	 * 	sets the position of the Element
+	 * @param x_pos
+	 * @param y_pos
+	 */
 	public void setPos(int x_pos,int y_pos){
 		x=x_pos;
 		y=y_pos;
 	}
 	
+	/**
+	 * @return the coordinate x of the position of the Element
+	 */
 	public int get_x(){
 		return x;
 	}
 	
+	/**
+	 * 
+	 * @return the coordinate y of the position of the Element
+	 */
 	public int get_y(){
 		return y;
 	}
 	
+	/**
+	 * 
+	 * @return the symbol of the Element
+	 */
 	public char get_simbolo(){
 		return simbolo;
 	}
 	
+	/**
+	 * sets the symbol of the Element
+	 * @param s
+	 */
 	public void set_simbolo(char s){
 		simbolo=s;
 	}

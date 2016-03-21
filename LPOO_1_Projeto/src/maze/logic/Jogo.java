@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
 
+/**
+ * Represents the game
+ */
 
 public class Jogo {
 	private Labirinto l;
@@ -14,6 +17,9 @@ public class Jogo {
 	private boolean sair;//derrotou o dragao e saiu
 
 
+	/**
+	 * Creates a game with no arguments (default)
+	 */
 	public Jogo(){
 		h=new Heroi(1, 1, 'H');
 		Dragao d=new Dragao(1,3,'D');
@@ -27,7 +33,13 @@ public class Jogo {
 		sair=false;
 	}
 
-
+	/**
+	 * Creates a game 
+	 * @param m
+	 * @param hero
+	 * @param dragon
+	 * @param sword
+	 */
 	public Jogo(char m[][],Heroi hero,Dragao dragon, Espada sword){
 		h=hero;
 		arrayDragon.add(dragon);
@@ -40,6 +52,11 @@ public class Jogo {
 		sair=false;
 	}
 	
+	/**
+	 * Add nDragoes if possible
+	 * @param nDragoes
+	 * @return	true if its possible to add nDragoes
+	 */
 	public boolean addNDragons(int nDragoes){
 
 		Random r=new Random();
@@ -53,6 +70,12 @@ public class Jogo {
 		return true;
 	}
 
+	/**
+	 * 
+	 * @param x coordinate x of the position of the Dragon
+	 * @param y coordinate y of the position of the Dragon
+	 * @return true if its possible to add the dragon in that position
+	 */
 	public boolean addDragon(int x,int y){
 
 		if(x<=0 || y<=0|| x>=l.getMaze().length || y>=l.getMaze().length )
@@ -70,30 +93,51 @@ public class Jogo {
 		return false;
 	}
 
+	/**
+	 * @return the maze of the game
+	 */
 	public Labirinto getLabirinto(){
 		return l;
 	}
 
+	/**
+	 * @return the sword of the game
+	 */
 	public Espada getEspada(){
 		return e;
 	}  
 
+	/**
+	 * @return the set of dragons of the game
+	 */
 	public ArrayList<Dragao> getDragoes(){
 		return arrayDragon; 
 	}
 
+	/**
+	 * @return the hero of the game
+	 */
 	public Heroi getHeroi(){
 		return h;
 	}
 
+	/**
+	 * @return true if the hero is dead
+	 */
 	public boolean getFimJogo(){
 		return fim_jogo;
 	}
 
+	/**
+	 * @return true if the hero kill all dragons
+	 */
 	public boolean getSair(){
 		return sair;
 	} 
 
+	/**
+	 *  runs through the set of dragons and checks if any of them can kill the hero or be killed
+	 */
 	public void checkDragon(){
 		Iterator<Dragao> itr = arrayDragon.iterator();
 		
@@ -137,6 +181,9 @@ public class Jogo {
 		} 
 	} 
 
+	/**
+	 * runs through the set of dragons and if random number is equal to 1, the dragon changes his state 
+	 */
 	public void toggleAdormecerRandom(){
 		Random r = new Random();  
 		int mudar;
@@ -155,6 +202,11 @@ public class Jogo {
 		}
 	}
 
+	/**
+	 * 	Moves the dragon
+	 * @param dir represents the direction
+	 * @param d
+	 */
 	public void moveDragonAux(Direction dir, Dragao d) {
 		int x=d.get_x();
 		int y=d.get_y();
@@ -193,6 +245,10 @@ public class Jogo {
 		}
 	}
 
+	/**
+	 * depending on the random variable, the dragon can move up, down, left or right 
+	 * @param d
+	 */
 	public void moveDragon(Dragao d){ 
 		Random r = new Random(); 
 		int move=r.nextInt(4);
@@ -215,6 +271,11 @@ public class Jogo {
 
 	}
 
+	/**
+	 * Move the hero 
+	 * @param dir	represents the direction
+	 * @return
+	 */
 	public boolean move(Direction dir){
 		int x=h.get_x();
 		int y=h.get_y();
@@ -268,11 +329,14 @@ public class Jogo {
 
 	}
 
+
 	public String toString(){
 		return l.toString();
 	}
 	
-	
+	/**
+	 * @return the maximum number of dragons that the labyrinth can have 
+	 */
 	public int NMaxDragons(){
 		return (((l.getMaze().length * l.getMaze().length)/16)*4) - 1; 
 	}
