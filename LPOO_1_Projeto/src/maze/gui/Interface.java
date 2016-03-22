@@ -112,7 +112,6 @@ public class Interface {
  
 
 
-
 	private void initialize() {
 		frmMaze = new JFrame();
 		frmMaze.setResizable(false);
@@ -296,9 +295,8 @@ public class Interface {
 				
 				
 				
-				
-				f.setPreferredSize(new Dimension(dim*50 + 50 , dim*50 + 50));
 				panel = new MapWindow(j,mode);
+				f.getContentPane().setPreferredSize(new Dimension(panel.dimensionFrame() , panel.dimensionFrame()));
 				f.getContentPane().add(panel); 
 		        f.pack(); 
 		        f.setVisible(true);

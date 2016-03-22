@@ -46,9 +46,27 @@ public class MapWindow extends JPanel implements KeyListener{
 		mode=m;
 		requestFocus();
 	}
+	public int dimensionFrame(){
+		int dim = j.getLabirinto().getMaze().length;
+		if(dim == 5 || dim == 15)
+			return 600;
+		else if(dim == 11)
+			return 605;
+		else if(dim == 13)
+			return 604;
+		else if(dim == 17 )
+			return 612;
+		else if(dim == 21)
+			return 609;
+		else
+			return 608;
+	}
 
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g); // clears the backgorund ...
+		char[][] maze=j.getLabirinto().getMaze();
+		int width = dimensionFrame()/maze.length ;
+		int height = dimensionFrame()/maze.length ;
 		if(j.getFimJogo()){
 			g.drawImage(lose, 50, 50, 200, 200, null);
 		}
@@ -56,27 +74,27 @@ public class MapWindow extends JPanel implements KeyListener{
 			g.drawImage(win, 50, 50, 200, 200, null);
 		}
 		else{
-			char[][] maze=j.getLabirinto().getMaze();
+			
 			for (int i = 0; i < maze.length; i++) {
 				for (int j = 0; j < maze[i].length; j++) {
 					switch (maze[i][j]) {
 					case 'd':
-						g.drawImage(dragon, j*50, i*50, 50, 50, null);
+						g.drawImage(dragon, j*width, i*height, width, height , null);
 						break;
 					case 'D':
-						g.drawImage(dragon, j*50, i*50, 50, 50, null);
+						g.drawImage(dragon, j*width, i*height, width, height , null);
 						break;
 					case 'H': 
-						g.drawImage(hero, j*50, i*50, 50, 50, null);
+						g.drawImage(hero, j*width, i*height, width, height , null);
 						break;
 					case 'E':
-						g.drawImage(sword, j*50, i*50, 50, 50, null);
+						g.drawImage(sword, j*width, i*height, width, height , null);
 						break;
 					case 'A':
-						g.drawImage(hero, j*50, i*50, 50, 50, null);
+						g.drawImage(hero, j*width, i*height, width, height , null);
 						break;
 					case 'X':
-						g.drawImage(wall, j*50, i*50, 50, 50, null);
+						g.drawImage(wall, j*width, i*height, width, height , null);
 						break;
 					default:
 						break;
@@ -152,4 +170,6 @@ public class MapWindow extends JPanel implements KeyListener{
 
 	}
 
+
+	
 }
