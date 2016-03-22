@@ -20,11 +20,20 @@ public class MapWindow extends JPanel implements KeyListener{
 
 	private Jogo j;
 	private BufferedImage hero;
+	private BufferedImage heroUp;
+	private BufferedImage heroDown;
+	private BufferedImage heroRight;
+	private BufferedImage heroLeft;
+	private BufferedImage heroArmedUp;
+	private BufferedImage heroArmedDown;
+	private BufferedImage heroArmedRight;
+	private BufferedImage heroArmedLeft;
 	private BufferedImage wall;
 	private BufferedImage sword;
 	private BufferedImage dragon;
 	private BufferedImage win;
 	private BufferedImage lose;
+	private BufferedImage ground;
 	private GameMode mode;
 
 	public MapWindow(Jogo j1,GameMode m) {
@@ -32,12 +41,21 @@ public class MapWindow extends JPanel implements KeyListener{
 		this.addKeyListener(this);
 
 		try {
-			hero =  ImageIO.read(new File("hero.jpg"));
+			heroArmedUp =  ImageIO.read(new File("heroArmedUp.jpg"));
+			heroArmedDown =  ImageIO.read(new File("heroArmedDown.jpg"));
+			heroArmedRight =  ImageIO.read(new File("heroArmedRight.jpg"));
+			heroArmedLeft =  ImageIO.read(new File("heroArmedLeft.jpg"));
+			heroUp =  ImageIO.read(new File("heroUp.jpg"));
+			heroDown =  ImageIO.read(new File("heroDown.jpg"));
+			heroRight =  ImageIO.read(new File("heroRight.jpg"));
+			heroLeft =  ImageIO.read(new File("heroLeft.jpg"));
+			hero=heroDown;
 			wall =  ImageIO.read(new File("wall.jpg"));
 			sword =  ImageIO.read(new File("sword.jpg"));
 			dragon =  ImageIO.read(new File("dragon.jpg"));
 			win =  ImageIO.read(new File("win.jpg"));
 			lose =  ImageIO.read(new File("lose.jpg"));
+			ground =  ImageIO.read(new File("ground.jpg"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -74,7 +92,7 @@ public class MapWindow extends JPanel implements KeyListener{
 			g.drawImage(win, 50, 50, 200, 200, null);
 		}
 		else{
-			
+
 			for (int i = 0; i < maze.length; i++) {
 				for (int j = 0; j < maze[i].length; j++) {
 					switch (maze[i][j]) {
@@ -95,6 +113,9 @@ public class MapWindow extends JPanel implements KeyListener{
 						break;
 					case 'X':
 						g.drawImage(wall, j*width, i*height, width, height , null);
+						break;
+					case ' ':
+						g.drawImage(ground, j*width, i*height, width, height , null);
 						break;
 					default:
 						break;
@@ -139,18 +160,34 @@ public class MapWindow extends JPanel implements KeyListener{
 		switch(e.getKeyCode()){
 		case KeyEvent.VK_LEFT: 
 			j.move(Direction.LEFT); 
+			if(j.getHeroi().getArmado())
+				hero=heroArmedLeft;
+			else
+				hero=heroLeft;
 			break;
 
 		case KeyEvent.VK_RIGHT: 
 			j.move(Direction.RIGHT);
+			if(j.getHeroi().getArmado())
+				hero=heroArmedRight;
+			else
+				hero=heroRight;
 			break;
 
 		case KeyEvent.VK_UP: 
 			j.move(Direction.UP);
+			if(j.getHeroi().getArmado())
+				hero=heroArmedUp;
+			else
+				hero=heroUp;
 			break;
 
 		case KeyEvent.VK_DOWN: 
 			j.move(Direction.DOWN);
+			if(j.getHeroi().getArmado())
+				hero=heroArmedDown;
+			else
+				hero=heroDown;
 			break;
 
 		}
@@ -171,5 +208,5 @@ public class MapWindow extends JPanel implements KeyListener{
 	}
 
 
-	
+
 }
