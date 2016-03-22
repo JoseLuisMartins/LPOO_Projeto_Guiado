@@ -34,6 +34,7 @@ public class MapWindow extends JPanel implements KeyListener{
 	private BufferedImage win;
 	private BufferedImage lose;
 	private BufferedImage ground;
+	private BufferedImage exit;
 	private GameMode mode;
 
 	public MapWindow(Jogo j1,GameMode m) {
@@ -52,10 +53,11 @@ public class MapWindow extends JPanel implements KeyListener{
 			hero=heroDown;
 			wall =  ImageIO.read(new File("wall.jpg"));
 			sword =  ImageIO.read(new File("sword.jpg"));
-			dragon =  ImageIO.read(new File("dragon.jpg"));
+			dragon =  ImageIO.read(new File("dragonUp.jpg"));
 			win =  ImageIO.read(new File("win.jpg"));
 			lose =  ImageIO.read(new File("lose.jpg"));
 			ground =  ImageIO.read(new File("ground.jpg"));
+			exit =  ImageIO.read(new File("exit.jpg"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -94,28 +96,34 @@ public class MapWindow extends JPanel implements KeyListener{
 		else{
 
 			for (int i = 0; i < maze.length; i++) {
-				for (int j = 0; j < maze[i].length; j++) {
-					switch (maze[i][j]) {
+				for (int  k= 0; k < maze[i].length; k++) {
+					switch (maze[i][k]) {
 					case 'd':
-						g.drawImage(dragon, j*width, i*height, width, height , null);
+						g.drawImage(dragon, k*width, i*height, width, height , null);
 						break;
 					case 'D':
-						g.drawImage(dragon, j*width, i*height, width, height , null);
+						g.drawImage(dragon, k*width, i*height, width, height , null);
 						break;
 					case 'H': 
-						g.drawImage(hero, j*width, i*height, width, height , null);
+						g.drawImage(hero, k*width, i*height, width, height , null);
 						break;
 					case 'E':
-						g.drawImage(sword, j*width, i*height, width, height , null);
+						g.drawImage(sword, k*width, i*height, width, height , null);
 						break;
 					case 'A':
-						g.drawImage(hero, j*width, i*height, width, height , null);
+						g.drawImage(hero, k*width, i*height, width, height , null);
 						break;
 					case 'X':
-						g.drawImage(wall, j*width, i*height, width, height , null);
+						g.drawImage(wall, k*width, i*height, width, height , null);
 						break;
 					case ' ':
-						g.drawImage(ground, j*width, i*height, width, height , null);
+						g.drawImage(ground, k*width, i*height, width, height , null);
+						break;
+					case 'S':
+						if(j.getDragoes().size()==0)
+							g.drawImage(ground, k*width, i*height, width, height , null);
+						else
+							g.drawImage(exit, k*width, i*height, width, height , null);
 						break;
 					default:
 						break;
