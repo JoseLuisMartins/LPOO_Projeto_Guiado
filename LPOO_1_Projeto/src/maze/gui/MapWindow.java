@@ -85,14 +85,16 @@ public class MapWindow extends JPanel implements KeyListener{
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g); // clears the backgorund ...
 		char[][] maze=j.getLabirinto().getMaze();
-		int width = 800/maze.length ;
-		int height = 800/maze.length ;
+		int frameDimension = 800;
+		int width = frameDimension/maze.length ;
+		int height = frameDimension/maze.length ;
 
 		if(j.getFimJogo()){
-			g.drawImage(lose, 50, 50, 200, 200, null);
+			g.drawImage(lose, 0, 0, frameDimension, frameDimension, null);
 		}
 		else if(j.getSair()){
-			g.drawImage(win, 50, 50, 200, 200, null);
+			g.drawImage(win, 0,0, frameDimension, frameDimension, null);
+			
 		}
 		else{
 
