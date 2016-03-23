@@ -31,6 +31,10 @@ public class MapWindow extends JPanel implements KeyListener{
 	private BufferedImage wall;
 	private BufferedImage sword;
 	private BufferedImage dragon;
+	private BufferedImage dragonUp;
+	private BufferedImage dragonDown;
+	private BufferedImage dragonRight;
+	private BufferedImage dragonLeft;
 	private BufferedImage win;
 	private BufferedImage lose;
 	private BufferedImage ground;
@@ -53,7 +57,11 @@ public class MapWindow extends JPanel implements KeyListener{
 			hero=heroDown;
 			wall =  ImageIO.read(new File("wall.jpg"));
 			sword =  ImageIO.read(new File("sword.jpg"));
-			dragon =  ImageIO.read(new File("dragonUp.jpg"));
+			dragonUp =  ImageIO.read(new File("DragonUp.jpg"));
+			dragonDown =  ImageIO.read(new File("DragonDown.jpg"));
+			dragonRight =  ImageIO.read(new File("DragonRight.jpg"));
+			dragonLeft =  ImageIO.read(new File("DragonLeft.jpg"));
+			dragon = dragonDown;
 			win =  ImageIO.read(new File("win.jpg"));
 			lose =  ImageIO.read(new File("lose.jpg"));
 			ground =  ImageIO.read(new File("ground.jpg"));
@@ -66,27 +74,14 @@ public class MapWindow extends JPanel implements KeyListener{
 		mode=m;
 		requestFocus();
 	}
-	public int dimensionFrame(){
-		int dim = j.getLabirinto().getMaze().length;
-		if(dim == 5 || dim == 15)
-			return 600;
-		else if(dim == 11)
-			return 605;
-		else if(dim == 13)
-			return 604;
-		else if(dim == 17 )
-			return 612;
-		else if(dim == 21)
-			return 609;
-		else
-			return 608;
-	}
+
 
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g); // clears the backgorund ...
 		char[][] maze=j.getLabirinto().getMaze();
-		int width = dimensionFrame()/maze.length ;
-		int height = dimensionFrame()/maze.length ;
+		int width = 800/maze.length ;
+		int height = 800/maze.length ;
+
 		if(j.getFimJogo()){
 			g.drawImage(lose, 50, 50, 200, 200, null);
 		}
@@ -98,12 +93,6 @@ public class MapWindow extends JPanel implements KeyListener{
 			for (int i = 0; i < maze.length; i++) {
 				for (int  k= 0; k < maze[i].length; k++) {
 					switch (maze[i][k]) {
-					case 'd':
-						g.drawImage(dragon, k*width, i*height, width, height , null);
-						break;
-					case 'D':
-						g.drawImage(dragon, k*width, i*height, width, height , null);
-						break;
 					case 'H': 
 						g.drawImage(hero, k*width, i*height, width, height , null);
 						break;
@@ -129,6 +118,26 @@ public class MapWindow extends JPanel implements KeyListener{
 						break;
 					}
 				}
+			}
+			
+			for (int i = 0; i < j.getDragoes().size(); i++) {
+				Dragao d=j.getDragoes().get(i);
+				switch (d.getDir()) {
+				case UP://up
+					dragon=dragonUp;
+					break;
+				case DOWN://down
+					dragon=dragonDown;
+					break;
+				case RIGHT://right
+					dragon=dragonRight;
+					break;
+				case LEFT://left
+					dragon=dragonLeft;
+					break;  
+				}
+				
+				g.drawImage(dragon, d.get_x()*width, d.get_y()*height, width, height , null);
 			}
 		}
 	}

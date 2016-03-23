@@ -211,6 +211,8 @@ public class Jogo {
 		int x=d.get_x();
 		int y=d.get_y();
 
+		d.setDir(dir);
+		
 		switch (dir) {
 		case UP://up
 			y=d.get_y()-1 ;

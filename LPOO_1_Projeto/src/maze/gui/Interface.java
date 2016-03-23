@@ -296,7 +296,7 @@ public class Interface {
 				
 				
 				panel = new MapWindow(j,mode);
-				f.getContentPane().setPreferredSize(new Dimension(panel.dimensionFrame() , panel.dimensionFrame()));
+				f.getContentPane().setPreferredSize(new Dimension(800,800));
 				f.getContentPane().add(panel); 
 		        f.pack(); 
 		        f.setVisible(true);

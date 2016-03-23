@@ -7,6 +7,15 @@ public class Dragao extends Elemento{
 	private boolean morto;
 	private boolean adormecido;	
 	private boolean GuardaEspada;
+	private Direction dir;
+	
+	public Direction getDir(){ 
+		return dir;
+	}
+	
+	public void setDir(Direction d){ 
+		dir=d;
+	}
 	
 /**
  * Creates a dragon
@@ -19,6 +28,7 @@ public class Dragao extends Elemento{
 		morto=false;
 		adormecido=false;
 		GuardaEspada=false;
+		dir=Direction.DOWN;
 	} 
 
 	/**
