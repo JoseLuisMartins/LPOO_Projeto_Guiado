@@ -35,6 +35,7 @@ public class MapWindow extends JPanel implements KeyListener{
 	private BufferedImage dragonDown;
 	private BufferedImage dragonRight;
 	private BufferedImage dragonLeft;
+	private BufferedImage dragonSleep;
 	private BufferedImage win;
 	private BufferedImage lose;
 	private BufferedImage ground;
@@ -61,6 +62,7 @@ public class MapWindow extends JPanel implements KeyListener{
 			dragonDown =  ImageIO.read(new File("DragonDown.jpg"));
 			dragonRight =  ImageIO.read(new File("DragonRight.jpg"));
 			dragonLeft =  ImageIO.read(new File("DragonLeft.jpg"));
+			dragonSleep =  ImageIO.read(new File("DragonSleep.jpg"));
 			dragon = dragonDown;
 			win =  ImageIO.read(new File("win.jpg"));
 			lose =  ImageIO.read(new File("lose.jpg"));
@@ -119,24 +121,28 @@ public class MapWindow extends JPanel implements KeyListener{
 					}
 				}
 			}
-			
+
 			for (int i = 0; i < j.getDragoes().size(); i++) {
 				Dragao d=j.getDragoes().get(i);
-				switch (d.getDir()) {
-				case UP://up
-					dragon=dragonUp;
-					break;
-				case DOWN://down
-					dragon=dragonDown;
-					break;
-				case RIGHT://right
-					dragon=dragonRight;
-					break;
-				case LEFT://left
-					dragon=dragonLeft;
-					break;  
-				}
-				
+
+				if(d.getAdormecido())
+					dragon=dragonSleep;
+				else
+					switch (d.getDir()) {
+					case UP://up
+						dragon=dragonUp;
+						break;
+					case DOWN://down
+						dragon=dragonDown;
+						break;
+					case RIGHT://right
+						dragon=dragonRight;
+						break;
+					case LEFT://left
+						dragon=dragonLeft;
+						break;  
+					}
+
 				g.drawImage(dragon, d.get_x()*width, d.get_y()*height, width, height , null);
 			}
 		}

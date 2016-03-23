@@ -22,7 +22,7 @@ public class Dragao extends Elemento{
  * @param x_pos		
  * @param y_pos
  * @param s  reprents the symbol of dragon
- */
+ */ 
 	public Dragao(int x_pos, int y_pos, char s) {
 		super(x_pos, y_pos, s);
 		morto=false;

@@ -272,9 +272,9 @@ public class Interface {
 
 				if(tipoDragoes.getSelectedItem()=="Estáticos")
 					mode=GameMode.StaticDragon;
-				else if(tipoDragoes.getSelectedItem()=="Com  Movimentação")
+				else if(tipoDragoes.getSelectedItem()=="Com Movimentação")
 					mode=GameMode.MovingDragon;
-				else
+				else if(tipoDragoes.getSelectedItem()=="Com Movimentação e a Dormir")
 					mode=GameMode.ToogleSleepAndMoveDragon;
 
 				int maxDragons = j.NMaxDragons();
