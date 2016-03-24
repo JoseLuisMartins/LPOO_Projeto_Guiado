@@ -5,6 +5,7 @@ package maze.logic;
  */
 public class Espada extends Elemento {
 
+	private static final long serialVersionUID = -7399449113870549570L;
 	/**
 	 * Creates a sword
 	 * @param x_pos

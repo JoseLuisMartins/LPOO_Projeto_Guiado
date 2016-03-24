@@ -4,6 +4,7 @@ package maze.logic;
  * Represents a hero
  */
 public class Heroi extends Elemento{
+	private static final long serialVersionUID = -4497110182031883550L;
 	private boolean armado;
 	
 	/**

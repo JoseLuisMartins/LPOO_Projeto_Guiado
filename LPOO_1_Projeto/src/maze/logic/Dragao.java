@@ -4,6 +4,8 @@ package maze.logic;
  * Represents the dragon
  */
 public class Dragao extends Elemento{
+	
+	private static final long serialVersionUID = -3930253765833770210L;
 	private boolean morto;
 	private boolean adormecido;	
 	private boolean GuardaEspada;

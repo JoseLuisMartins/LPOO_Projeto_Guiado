@@ -1,5 +1,5 @@
 package maze.logic;
-
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
@@ -15,7 +15,7 @@ public class Jogo {
 	private Espada e;
 	private boolean fim_jogo;//derrotado pelo dragao
 	private boolean sair;//derrotou o dragao e saiu
-
+	private File f;
 
 	/**
 	 * Creates a game with no arguments (default)
@@ -31,6 +31,7 @@ public class Jogo {
 		l.setMaze(e.get_x(), e.get_y(), e.get_simbolo());
 		fim_jogo=false;
 		sair=false;
+		f = null;
 	}
 
 	/**
@@ -50,6 +51,7 @@ public class Jogo {
 		l.setMaze(e.get_x(), e.get_y(), e.get_simbolo());
 		fim_jogo=false;
 		sair=false;
+		f = null;
 	}
 	
 	/**
@@ -135,6 +137,30 @@ public class Jogo {
 		return sair;
 	} 
 
+	public File getFile() {
+		return f;
+	}
+
+	public void setFile(String nomeFicheiro) {
+		this.f = new File(nomeFicheiro);
+	}
+
+	public void setHeroi(Heroi h){
+		this.h= h;
+	}
+	
+	public void setEspada(Espada e){
+		this.e = e;
+	}
+	
+	public void setDragons(ArrayList<Dragao> d){
+		this.arrayDragon = d;
+	}
+	
+	public void setLabirinto(char [][] maze){
+		this.l = new Labirinto(maze);
+	}
+	
 	/**
 	 *  runs through the set of dragons and checks if any of them can kill the hero or be killed
 	 */

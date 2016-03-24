@@ -1,13 +1,15 @@
 package maze.logic;
 
+import java.io.Serializable;
+
 /**
  * Represents an Element
  */
-public class Elemento {
+public class Elemento implements Serializable {
 	private int x;
 	private int y;
 	private char simbolo;
-	
+	private static final long serialVersionUID = 8669284861713879701L;
 	public Elemento(int x_pos,int y_pos, char s){
 		x=x_pos;
 		y=y_pos;
