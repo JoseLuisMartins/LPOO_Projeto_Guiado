@@ -1,0 +1,6 @@
+.txt
+.txt
+.txt
+ola.txt
+lol.txt
+estatico.txt
