@@ -76,30 +76,6 @@ public class Interface {
 	 * Initialize the contents of the frame.
 	 */
 
-	private void dragonAction(){
-
-		switch (mode) {
-		case StaticDragon://dragao parado
-			break; 
-		case MovingDragon://Dragao com Movimentacao 
-			for (Dragao d : j.getDragoes()) {
-				j.moveDragon(d);
-			} 
-			j.checkDragon();
-			break;
-		case ToogleSleepAndMoveDragon://Dragao com Movimentacao intercalada com Dormir 
-			j.toggleAdormecerRandom();
-			for (Dragao d : j.getDragoes()) {
-				if(d.getAdormecido()==false){//se não estiver adormecido o dragao pode mover-se
-					j.moveDragon(d);
-				}
-			}
-			j.checkDragon();
-			break;
-		default:
-			break;
-		} 
-	}
 	private void checkFimJogo(){
 
 		if(j.getFimJogo())
@@ -207,7 +183,6 @@ public class Interface {
 		cima.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				j.move(Direction.UP);
-				dragonAction();
 				labOutput.setText(j.toString());
 				checkFimJogo();
 				panel.update();
@@ -221,7 +196,6 @@ public class Interface {
 		esquerda.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				j.move(Direction.LEFT);
-				dragonAction();
 				labOutput.setText(j.toString());
 				checkFimJogo();
 				panel.update();
@@ -235,7 +209,6 @@ public class Interface {
 		direita.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				j.move(Direction.RIGHT);
-				dragonAction();
 				labOutput.setText(j.toString());
 				checkFimJogo();
 				panel.update();
@@ -249,7 +222,6 @@ public class Interface {
 		baixo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				j.move(Direction.DOWN);
-				dragonAction();
 				labOutput.setText(j.toString());
 				checkFimJogo();
 				panel.update(); 
@@ -280,7 +252,6 @@ public class Interface {
 
 				char[][] maze=builder.buildMaze(dim);
 
-				j = new Jogo(maze,builder.getHeroi() ,builder.getDragao() ,builder.getEspada());
 
 				if(tipoDragoes.getSelectedItem()=="Estáticos")
 					mode=GameMode.StaticDragon;
@@ -289,6 +260,8 @@ public class Interface {
 				else if(tipoDragoes.getSelectedItem()=="Com Movimentação e a Dormir")
 					mode=GameMode.ToogleSleepAndMoveDragon;
 
+				j = new Jogo(maze,builder.getHeroi() ,builder.getDragao() ,builder.getEspada(),mode);
+				
 				int maxDragons = j.NMaxDragons();
 				if(nD > maxDragons || nD <= 0){
 					erroNDragoes.setText("Numero de dragões invalido!!");
@@ -296,7 +269,7 @@ public class Interface {
 				}
 				erroNDragoes.setText(""); 
 				nD--;
-				j.addNDragons(nD);
+				j.addNDragons(nD); 
 
 				cima.setEnabled(true);
 				baixo.setEnabled(true);

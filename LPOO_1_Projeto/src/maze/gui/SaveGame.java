@@ -31,9 +31,6 @@ public class SaveGame {
 		return files;
 	}
 	
-	public void addFiles(String nome){
-		files.add(nome);
-	}
 
 	public void removeFile(String nome){
 		files.remove(nome);
@@ -55,7 +52,7 @@ public class SaveGame {
 			e.printStackTrace();
 			return;
 		}
-		addFiles(f.getName());
+		files.add(nome);
 		writeNameFiles();
 	}
 	

@@ -16,6 +16,7 @@ public class Jogo {
 	private boolean fim_jogo;//derrotado pelo dragao
 	private boolean sair;//derrotou o dragao e saiu
 	private File f;
+	private GameMode mode;
 
 	/**
 	 * Creates a game with no arguments (default)
@@ -32,6 +33,7 @@ public class Jogo {
 		fim_jogo=false;
 		sair=false;
 		f = null;
+		mode=GameMode.StaticDragon;
 	}
 
 	/**
@@ -41,7 +43,7 @@ public class Jogo {
 	 * @param dragon
 	 * @param sword
 	 */
-	public Jogo(char m[][],Heroi hero,Dragao dragon, Espada sword){
+	public Jogo(char m[][],Heroi hero,Dragao dragon, Espada sword,GameMode mod){
 		h=hero;
 		arrayDragon.add(dragon);
 		e=sword;
@@ -52,6 +54,7 @@ public class Jogo {
 		fim_jogo=false;
 		sair=false;
 		f = null;
+		mode=mod;
 	}
 	
 	/**
@@ -161,6 +164,31 @@ public class Jogo {
 		this.l = new Labirinto(maze);
 	}
 	
+	private void dragonAction(){
+
+		switch (mode) {
+		case StaticDragon://dragao parado
+			break; 
+		case MovingDragon://Dragao com Movimentacao 
+			for (Dragao d : arrayDragon) {
+				moveDragon(d);
+			} 
+			break;
+		case ToogleSleepAndMoveDragon://Dragao com Movimentacao intercalada com Dormir 
+			toggleAdormecerRandom();
+			for (Dragao d : arrayDragon) {
+				if(d.getAdormecido()==false){//se não estiver adormecido o dragao pode mover-se
+					moveDragon(d);
+				}
+			}
+			break;
+		default:
+			break;
+		} 
+		checkDragon();
+	}
+	
+	
 	/**
 	 *  runs through the set of dragons and checks if any of them can kill the hero or be killed
 	 */
@@ -206,7 +234,7 @@ public class Jogo {
 			} 
 		} 
 	} 
-
+ 
 	/**
 	 * runs through the set of dragons and if random number is equal to 1, the dragon changes his state 
 	 */
@@ -346,13 +374,16 @@ public class Jogo {
 				sair=true;
 				return true;
 			}
-			else  
+			else { 
+				dragonAction();
 				return false;
+			}
 		default:
+			dragonAction();
 			return false;
 		}
 
-		checkDragon();
+		dragonAction();
 		return true;	
 
 	}

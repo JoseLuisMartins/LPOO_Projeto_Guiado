@@ -26,7 +26,7 @@ public class TestMazeWithStaticDragon {
 
 	@Test
 	public void testMoveHeroToFreeCell() {
-		Jogo j= new Jogo(m1,h,d,e); 
+		Jogo j= new Jogo(m1,h,d,e,GameMode.StaticDragon); 
 		assertEquals(j.getHeroi().get_simbolo(), j.getLabirinto().getMaze()[j.getHeroi().get_y()][j.getHeroi().get_x()]);
 		assertEquals(3,j.getHeroi().get_x());
 		assertEquals(1,j.getHeroi().get_y());
@@ -47,7 +47,7 @@ public class TestMazeWithStaticDragon {
 	
 	@Test
 	public void testMoveHeroToWall() {
-		Jogo j= new Jogo(m1,h,d,e);
+		Jogo j= new Jogo(m1,h,d,e,GameMode.StaticDragon);
 		assertEquals(3,j.getHeroi().get_x());
 		assertEquals(1,j.getHeroi().get_y());
 		assertEquals(false,j.move(Direction.UP));
@@ -57,7 +57,7 @@ public class TestMazeWithStaticDragon {
 	
 	@Test
 	public void testDragonDies(){
-		Jogo j = new Jogo(m1,h,d,e);
+		Jogo j = new Jogo(m1,h,d,e,GameMode.StaticDragon);
 		
 		Dragao d1 = j.getDragoes().get(0);
 		d.setMorto();
@@ -65,7 +65,7 @@ public class TestMazeWithStaticDragon {
 	}
 	@Test
 	public void testHeroDies() {
-		Jogo j= new Jogo(m1,h,d,e);
+		Jogo j= new Jogo(m1,h,d,e,GameMode.StaticDragon);
 		j.move(Direction.DOWN);
 		assertEquals(true,j.getFimJogo());
 	}
@@ -73,7 +73,7 @@ public class TestMazeWithStaticDragon {
 	@Test
 	public void testHeroPickSword() { 
 		Heroi h1=new Heroi(1, 2, 'H');
-		Jogo j= new Jogo(m1,h1,d,e);
+		Jogo j= new Jogo(m1,h1,d,e,GameMode.StaticDragon);
 		j.move(Direction.DOWN);
 		assertEquals(true,j.getHeroi().getArmado());
 		assertEquals('A',j.getHeroi().get_simbolo());
@@ -83,7 +83,7 @@ public class TestMazeWithStaticDragon {
 	
 	@Test
 	public void testDragonDiesDown() {
-		Jogo j= new Jogo(m1,h,d,e);//mata dragao em baixo
+		Jogo j= new Jogo(m1,h,d,e,GameMode.StaticDragon);//mata dragao em baixo
 		Dragao d1 = j.getDragoes().get(0);
 		j.getHeroi().setArmado();
 		j.move(Direction.DOWN);
@@ -94,7 +94,7 @@ public class TestMazeWithStaticDragon {
 	public void testDragonDiesLeft() {
 		Dragao d1=new Dragao(1, 1, 'D');//mata dragao á esquerda
 		Heroi  h1=new Heroi(3, 1, 'H');
-		Jogo j= new Jogo(m1,h1,d1,e);
+		Jogo j= new Jogo(m1,h1,d1,e,GameMode.StaticDragon);
 		j.getHeroi().setArmado();
 		j.move(Direction.LEFT);
 		assertEquals(true,j.getDragoes().size()==0);
@@ -105,7 +105,7 @@ public class TestMazeWithStaticDragon {
 	public void testDragonDiesUp() {
 		Dragao d1=new Dragao(3, 1, 'D');//mata dragao em cima
 		Heroi  h1=new Heroi(3, 3, 'H');
-		Jogo j= new Jogo(m1,h1,d1,e);
+		Jogo j= new Jogo(m1,h1,d1,e,GameMode.StaticDragon);
 		j.getHeroi().setArmado();
 		j.move(Direction.UP);
 		assertEquals(true,j.getDragoes().size()==0);
@@ -115,7 +115,7 @@ public class TestMazeWithStaticDragon {
 	public void testDragonDiesRight() {
 		Dragao d1=new Dragao(3, 1, 'D');//mata dragao á direita 
 		Heroi  h1=new Heroi(1, 1, 'H');
-		Jogo j= new Jogo(m1,h1,d1,e); 
+		Jogo j= new Jogo(m1,h1,d1,e,GameMode.StaticDragon); 
 		j.getHeroi().setArmado();
 		j.move(Direction.RIGHT);
 		assertEquals(true,j.getDragoes().size()==0);	
@@ -125,7 +125,7 @@ public class TestMazeWithStaticDragon {
 	
 	@Test
 	public void testHeroWins() {
-		Jogo j= new Jogo(m1,h,d,e);
+		Jogo j= new Jogo(m1,h,d,e,GameMode.StaticDragon);
 		j.move(Direction.LEFT);
 		j.move(Direction.LEFT);
 		j.move(Direction.DOWN);
@@ -143,14 +143,14 @@ public class TestMazeWithStaticDragon {
 	
 	@Test
 	public void testHeroGettingOutWithoutSword() {
-		Jogo j= new Jogo(m1,h,d,e);
+		Jogo j= new Jogo(m1,h,d,e,GameMode.StaticDragon);
 		assertEquals(false,j.move(Direction.RIGHT));
 	}
 	 
 	
 	@Test
 	public void testHeroGettingOutWithoutKillingTheDragon() {
-		Jogo j= new Jogo(m1,h,d,e);
+		Jogo j= new Jogo(m1,h,d,e,GameMode.StaticDragon);
 		
 		j.getHeroi().setArmado();
 		assertEquals(true, j.getHeroi().getArmado());
@@ -159,7 +159,7 @@ public class TestMazeWithStaticDragon {
 	
 	@Test
 	public void testAddDragon() {
-		Jogo j= new Jogo(m1,h,d,e);
+		Jogo j= new Jogo(m1,h,d,e,GameMode.StaticDragon);
 		
 		assertEquals(false,j.addDragon(0, 0));
 		assertEquals(true,j.addDragon(1, 1));
@@ -170,7 +170,7 @@ public class TestMazeWithStaticDragon {
 	
 	@Test
 	public void testNMaxDragons(){
-		Jogo j = new Jogo(m1,h,d,e);
+		Jogo j = new Jogo(m1,h,d,e,GameMode.StaticDragon);
 		
 		assertEquals(3, j.NMaxDragons());
 	}

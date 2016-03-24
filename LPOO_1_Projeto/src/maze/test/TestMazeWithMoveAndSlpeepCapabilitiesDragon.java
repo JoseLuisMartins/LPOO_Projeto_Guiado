@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import maze.logic.Dragao;
 import maze.logic.Espada;
+import maze.logic.GameMode;
 import maze.logic.Heroi;
 import maze.logic.Jogo;
 
@@ -24,7 +25,7 @@ public class TestMazeWithMoveAndSlpeepCapabilitiesDragon {
 	
 	@Test
 	public void testRamdomMoveDragon() {
-		Jogo j= new Jogo(m1,h,d,e);
+		Jogo j= new Jogo(m1,h,d,e,GameMode.MovingDragon);
 
 		
 		assertEquals(3, j.getDragoes().get(0).get_x()); 
@@ -41,7 +42,7 @@ public class TestMazeWithMoveAndSlpeepCapabilitiesDragon {
 	@Test 
 	public void testMoveDragontoSword() {
 		Espada sword=new Espada(2, 3, 'E');
-		Jogo j= new Jogo(m1,h,d,sword);
+		Jogo j= new Jogo(m1,h,d,sword,GameMode.MovingDragon);
 		Dragao d1=j.getDragoes().get(0);
 		
 		assertEquals(3,  d1.get_x()); 
@@ -62,7 +63,7 @@ public class TestMazeWithMoveAndSlpeepCapabilitiesDragon {
  
 	@Test 
 	public void testToggleSleep() {
-		Jogo j= new Jogo(m1,h,d,e);
+		Jogo j= new Jogo(m1,h,d,e,GameMode.MovingDragon);
 		Dragao d1=j.getDragoes().get(0);
 		assertEquals(false, d1.getAdormecido());
 		
@@ -80,7 +81,7 @@ public class TestMazeWithMoveAndSlpeepCapabilitiesDragon {
 	
 	@Test 
 	public void testToggleSleepWithSword() {
-		Jogo j= new Jogo(m1,h,d,e);
+		Jogo j= new Jogo(m1,h,d,e,GameMode.MovingDragon);
 		Dragao d1=j.getDragoes().get(0);
 		
 		assertEquals(false, d1.getAdormecido());

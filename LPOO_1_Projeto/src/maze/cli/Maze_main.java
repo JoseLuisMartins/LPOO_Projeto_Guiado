@@ -33,21 +33,6 @@ public class Maze_main {
 		}
 
 
-		int tamanho;
-
-		if(lab.equals("2")){
-			System.out.println("Indique o tamanho do labirinto (numero impar >= 5): ");
-			tamanho = s.nextInt();
-			while(tamanho % 2 == 0 || tamanho < 5){
-				System.out.println("Indique o tamanho do labirinto (numero impar >= 5):  ");
-				tamanho = s.nextInt();	
-			}
-
-			j = new Jogo(builder.buildMaze(tamanho),builder.getHeroi() ,builder.getDragao() ,builder.getEspada());
-		}
-		else{
-			j = new Jogo();
-		}
 
 		System.out.println("Selecione o modo de jogo\n");
 		System.out.println("Dragao Parado (prima numero 1)");
@@ -70,6 +55,22 @@ public class Maze_main {
 		else
 			mode=GameMode.ToogleSleepAndMoveDragon;
 
+		int tamanho;
+
+		if(lab.equals("2")){
+			System.out.println("Indique o tamanho do labirinto (numero impar >= 5): ");
+			tamanho = s.nextInt();
+			while(tamanho % 2 == 0 || tamanho < 5){
+				System.out.println("Indique o tamanho do labirinto (numero impar >= 5):  ");
+				tamanho = s.nextInt();	
+			}
+
+			j = new Jogo(builder.buildMaze(tamanho),builder.getHeroi() ,builder.getDragao() ,builder.getEspada(),mode);
+		}
+		else{
+			j = new Jogo();
+		}
+		
 		System.out.println("Deseja adicionar Dragoes?(s/n)");
 
 		String adicionar=s.nextLine();
@@ -86,28 +87,6 @@ public class Maze_main {
 		Random r=new Random();
 		if(adicionar.equals("s")){
 			int nDragoes=nMaxDragoes+1;
-			//escolher coordenadas dos dragoes
-			/*int x=0,y=0;
-			do {
-				System.out.println("Introduza as coordenadas x e y (x=0 e y=0 para parar)");
-				System.out.println(j);
-				System.out.println("x?");
-				while (!s.hasNextInt()) {
-					s.nextLine();
-				}
-				x=s.nextInt();
-				System.out.println("y?");
-				while (!s.hasNextInt()) {	
-					s.nextLine();
-				}
-				y=s.nextInt();
-
-				if(j.addDragon(x, y))
-					System.out.println("Dragao adicionado com sucesso");
-				else
-					System.out.println("Coordenadas Invalidas");
-
-			} while (!(x==0 && y==0));/**/
 			while(nDragoes > nMaxDragoes || nDragoes <0){
 				System.out.println("Quantos dragoes deseja ter no jogo?(max: " + nMaxDragoes + ") ?");
 				while (!s.hasNextInt()) {
@@ -149,31 +128,6 @@ public class Maze_main {
 				break;
 			}
  
-			if(j.getDragoes().size()!=0 && j.getFimJogo()==false){//se o dragao nao morreu e o heroi tambem nao, movimentar o dragao ou adormecer dependendo do modo de jogo
-
-				switch (mode) {
-				case StaticDragon://dragao parado
-					break; 
-				case MovingDragon://Dragao com Movimentacao 
-					for (Dragao d : j.getDragoes()) {
-						j.moveDragon(d);
-					}
-					j.checkDragon();
-					break;
-				case ToogleSleepAndMoveDragon://Dragao com Movimentacao intercalada com Dormir 
-					j.toggleAdormecerRandom();
-					for (Dragao d : j.getDragoes()) {
-						if(d.getAdormecido()==false){//se não estiver adormecido o dragao pode mover-se
-							j.moveDragon(d);
-						}
-					}
-					j.checkDragon();
-					break;
-				default:
-					break;
-				} 
-			}
-
 			System.out.println(j);
 
 		}

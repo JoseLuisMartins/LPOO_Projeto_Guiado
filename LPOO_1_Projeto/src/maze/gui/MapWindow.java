@@ -166,30 +166,7 @@ public class MapWindow extends JPanel implements KeyListener{
 		repaint();	
 	}
 
-	private void dragonAction(){
 
-		switch (mode) {
-		case StaticDragon://dragao parado
-			break; 
-		case MovingDragon://Dragao com Movimentacao 
-			for (Dragao d : j.getDragoes()) {
-				j.moveDragon(d);
-			} 
-			j.checkDragon();
-			break;
-		case ToogleSleepAndMoveDragon://Dragao com Movimentacao intercalada com Dormir 
-			j.toggleAdormecerRandom();
-			for (Dragao d : j.getDragoes()) {
-				if(d.getAdormecido()==false){//se não estiver adormecido o dragao pode mover-se
-					j.moveDragon(d);
-				}
-			}
-			j.checkDragon();
-			break;
-		default:
-			break;
-		} 
-	}
 
 
 	@Override
@@ -228,7 +205,6 @@ public class MapWindow extends JPanel implements KeyListener{
 			break;
 
 		}
-		dragonAction();
 		repaint();
 	}
 
