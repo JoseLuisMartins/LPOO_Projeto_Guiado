@@ -97,6 +97,14 @@ public class Jogo {
 
 		return false;
 	}
+	
+	public GameMode getGameMode(){
+		return mode;
+	}
+	
+	public void setGameMode(GameMode m){
+		mode=m;
+	}
 
 	/**
 	 * @return the maze of the game
@@ -379,7 +387,7 @@ public class Jogo {
 				return false;
 			}
 		default:
-			dragonAction();
+			dragonAction(); 
 			return false;
 		}
 

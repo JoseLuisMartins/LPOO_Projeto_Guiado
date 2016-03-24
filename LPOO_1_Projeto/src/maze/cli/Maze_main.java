@@ -142,4 +142,4 @@ public class Maze_main {
 		s.close();
 		/**/
 	}
-}
+} 

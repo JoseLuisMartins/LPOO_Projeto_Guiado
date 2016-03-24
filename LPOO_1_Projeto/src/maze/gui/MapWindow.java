@@ -42,9 +42,9 @@ public class MapWindow extends JPanel implements KeyListener{
 	private BufferedImage lose;
 	private BufferedImage ground;
 	private BufferedImage exit;
-	private GameMode mode;
 
-	public MapWindow(Jogo j1,GameMode m) {
+
+	public MapWindow(Jogo j1) {
 
 		this.addKeyListener(this);
 
@@ -57,7 +57,10 @@ public class MapWindow extends JPanel implements KeyListener{
 			heroDown =  ImageIO.read(new File("heroDown.jpg"));
 			heroRight =  ImageIO.read(new File("heroRight.jpg"));
 			heroLeft =  ImageIO.read(new File("heroLeft.jpg"));
-			hero=heroDown;
+			if(j1.getHeroi().getArmado())
+				hero=heroArmedDown;
+			else
+				hero=heroArmedDown;
 			wall =  ImageIO.read(new File("wall.jpg"));
 			sword =  ImageIO.read(new File("sword.jpg"));
 			dragonUp =  ImageIO.read(new File("DragonUp.jpg"));
@@ -77,7 +80,6 @@ public class MapWindow extends JPanel implements KeyListener{
 		}
 
 		j=j1;
-		mode=m;
 		requestFocus();
 	}
 
@@ -94,7 +96,7 @@ public class MapWindow extends JPanel implements KeyListener{
 		}
 		else if(j.getSair()){
 			g.drawImage(win, 0,0, frameDimension, frameDimension, null);
-			
+
 		}
 		else{
 

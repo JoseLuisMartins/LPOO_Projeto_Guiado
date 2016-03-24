@@ -31,7 +31,6 @@ public class Interface {
 	private JTextField mazeDimension;
 	private JTextField nDragoes;
 	private Jogo j=null;
-	private GameMode mode;
 	private JButton baixo;
 	private JButton esquerda;
 	private JButton direita;
@@ -252,12 +251,13 @@ public class Interface {
 
 				char[][] maze=builder.buildMaze(dim);
 
-
+				GameMode mode=GameMode.StaticDragon;
+				
 				if(tipoDragoes.getSelectedItem()=="Estáticos")
 					mode=GameMode.StaticDragon;
 				else if(tipoDragoes.getSelectedItem()=="Com Movimentação")
 					mode=GameMode.MovingDragon;
-				else if(tipoDragoes.getSelectedItem()=="Com Movimentação e a Dormir")
+				else if(tipoDragoes.getSelectedItem()=="Com Movimentação e a Dormir") 
 					mode=GameMode.ToogleSleepAndMoveDragon;
 
 				j = new Jogo(maze,builder.getHeroi() ,builder.getDragao() ,builder.getEspada(),mode);
@@ -280,7 +280,7 @@ public class Interface {
 
 
 
-				panel = new MapWindow(j,mode);
+				panel = new MapWindow(j);
 				f.getContentPane().setPreferredSize(new Dimension(800,800));
 				f.getContentPane().add(panel); 
 				f.pack(); 
@@ -325,7 +325,7 @@ public class Interface {
 
 				j = sGame.read(ficheiros.getSelectedItem().toString());
 		
-				panel = new MapWindow(j,mode);
+				panel = new MapWindow(j);
 				f.getContentPane().setPreferredSize(new Dimension(800,800));
 				f.getContentPane().add(panel); 
 				f.pack(); 

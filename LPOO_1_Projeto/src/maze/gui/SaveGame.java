@@ -36,7 +36,7 @@ public class SaveGame {
 		files.remove(nome);
 		
 	}
-	
+	 
 	public void save(String nome, Jogo j)  {
 		File f = new File(nome);
 		try {
