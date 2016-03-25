@@ -318,7 +318,7 @@ public class Interface {
 		btnEliminar.setBounds(620, 327, 126, 48);
 		frmMaze.getContentPane().add(btnEliminar); 
 
-		
+
 		btnHeroi = new JButton("Heroi");
 		btnHeroi.setForeground(Color.WHITE);
 		btnHeroi.setBackground(Color.LIGHT_GRAY);
@@ -373,7 +373,7 @@ public class Interface {
 		btnBloco = new JButton("Bloco");
 		btnBloco.setForeground(Color.WHITE);
 		btnBloco.setBackground(Color.LIGHT_GRAY);
-		
+
 		btnBloco.setEnabled(false);
 		btnBloco.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -383,7 +383,7 @@ public class Interface {
 				btnDragao.setBackground(Color.LIGHT_GRAY);
 				btnHeroi.setBackground(Color.LIGHT_GRAY);
 				btnSaida.setBackground(Color.LIGHT_GRAY);
-				
+
 			}
 		});
 		btnBloco.setBounds(227, 310, 114, 40);
@@ -392,7 +392,7 @@ public class Interface {
 		btnSaida = new JButton("Saida");
 		btnSaida.setForeground(Color.WHITE);
 		btnSaida.setBackground(Color.LIGHT_GRAY);
-			
+
 		btnSaida.setEnabled(false);
 		btnSaida.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -407,9 +407,24 @@ public class Interface {
 		btnSaida.setBounds(142, 361, 108, 42);
 		frmMaze.getContentPane().add(btnSaida);
 
+		JLabel lblErrorCreateMap = new JLabel("");
+		lblErrorCreateMap.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblErrorCreateMap.setForeground(Color.RED);
+		lblErrorCreateMap.setBounds(309, 437, 451, 37);
+		frmMaze.getContentPane().add(lblErrorCreateMap);
+
 		JButton btnTerminarCriao = new JButton("Terminar Cria\u00E7\u00E3o");
 		btnTerminarCriao.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				lblErrorCreateMap.setText("");
+				
+				if(j.getHeroi()==null || j.getEspada()==null || j.getHasExit()==false){
+					lblErrorCreateMap.setText("Precisa de colocar um heroi, uma espada, uma saida e pelo menos um dragao!");
+					return;
+				}//verificar se há dragoes adjacentes ao heroi
+
+
 				btnDragao.setEnabled(false);
 				btnEspada.setEnabled(false);
 				btnHeroi.setEnabled(false);
@@ -423,12 +438,8 @@ public class Interface {
 		btnTerminarCriao.setBounds(125, 414, 154, 60);
 		frmMaze.getContentPane().add(btnTerminarCriao);
 
-		JLabel lblErrorCreateMap = new JLabel("");
-		lblErrorCreateMap.setForeground(Color.RED);
-		lblErrorCreateMap.setBounds(361, 437, 321, 37);
-		frmMaze.getContentPane().add(lblErrorCreateMap);
-		
-		
+
+
 		JButton btnCriarMapa = new JButton("Criar Mapa");
 		btnCriarMapa.setBackground(Color.BLUE);
 		btnCriarMapa.setForeground(Color.WHITE);
@@ -455,7 +466,7 @@ public class Interface {
 				char[][] maze= new char[dim][dim];
 
 				//iniciar o maze
-			
+
 				for (int i = 0; i <dim ; i++) {
 					for (int j = 0; j < dim; j++) {
 						if(i==0 || i == dim-1 || j==0 || j==dim-1 )
@@ -480,7 +491,7 @@ public class Interface {
 				f.pack(); 
 				f.setVisible(true);
 				panel.requestFocus(); // to receive keyboard events /**/
-				
+
 				btnDragao.setEnabled(true);
 				btnEspada.setEnabled(true);
 				btnHeroi.setEnabled(true);
