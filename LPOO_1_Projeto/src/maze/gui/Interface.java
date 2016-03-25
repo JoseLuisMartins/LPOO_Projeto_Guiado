@@ -46,6 +46,12 @@ public class Interface {
 	private JButton btnCarregar;
 	private JTextField nomeFicheiro;
 	private JComboBox<String> ficheiros;
+	//criar mapa
+	private JButton btnSaida;
+	private JButton btnBloco;
+	private JButton btnEspada;
+	private JButton btnHeroi;
+	private JButton btnDragao;
 	/**
 	 * Launch the application.
 	 */
@@ -313,54 +319,92 @@ public class Interface {
 		frmMaze.getContentPane().add(btnEliminar); 
 
 		
-		JButton btnHeroi = new JButton("Heroi");
+		btnHeroi = new JButton("Heroi");
+		btnHeroi.setForeground(Color.WHITE);
+		btnHeroi.setBackground(Color.LIGHT_GRAY);
 		btnHeroi.setEnabled(false);
 		btnHeroi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				panel.setCurrentElement(CreateGameElement.Hero);
+				btnHeroi.setBackground(Color.BLUE);
+				btnDragao.setBackground(Color.LIGHT_GRAY);
+				btnEspada.setBackground(Color.LIGHT_GRAY);
+				btnBloco.setBackground(Color.LIGHT_GRAY);
+				btnSaida.setBackground(Color.LIGHT_GRAY);
 			}
 		});
-		btnHeroi.setBounds(76, 276, 89, 23);
+		btnHeroi.setBounds(41, 256, 124, 43);
 		frmMaze.getContentPane().add(btnHeroi);
 
-		JButton btnDragao = new JButton("Dragao");
+		btnDragao = new JButton("Dragao");
+		btnDragao.setForeground(Color.WHITE);
+		btnDragao.setBackground(Color.LIGHT_GRAY);
 		btnDragao.setEnabled(false);
 		btnDragao.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				btnDragao.setBackground(Color.BLUE);
+				btnHeroi.setBackground(Color.LIGHT_GRAY);
+				btnEspada.setBackground(Color.LIGHT_GRAY);
+				btnBloco.setBackground(Color.LIGHT_GRAY);
+				btnSaida.setBackground(Color.LIGHT_GRAY);
 				panel.setCurrentElement(CreateGameElement.Dragon);
 			}
 		});
-		btnDragao.setBounds(252, 276, 89, 23);
+		btnDragao.setBounds(227, 256, 114, 43);
 		frmMaze.getContentPane().add(btnDragao);
 
-		JButton btnEspada = new JButton("Espada");
+		btnEspada = new JButton("Espada");
+		btnEspada.setForeground(Color.WHITE);
+		btnEspada.setBackground(Color.LIGHT_GRAY);
 		btnEspada.setEnabled(false);
 		btnEspada.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				panel.setCurrentElement(CreateGameElement.Sword);
+				btnEspada.setBackground(Color.BLUE);
+				btnDragao.setBackground(Color.LIGHT_GRAY);
+				btnHeroi.setBackground(Color.LIGHT_GRAY);
+				btnBloco.setBackground(Color.LIGHT_GRAY);
+				btnSaida.setBackground(Color.LIGHT_GRAY);
 			}
 		});
-		btnEspada.setBounds(76, 327, 89, 23);
+		btnEspada.setBounds(41, 310, 124, 40);
 		frmMaze.getContentPane().add(btnEspada);
 
-		JButton btnBloco = new JButton("Bloco");
+		btnBloco = new JButton("Bloco");
+		btnBloco.setForeground(Color.WHITE);
+		btnBloco.setBackground(Color.LIGHT_GRAY);
+		
 		btnBloco.setEnabled(false);
 		btnBloco.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				panel.setCurrentElement(CreateGameElement.Block);
+				btnBloco.setBackground(Color.BLUE);
+				btnEspada.setBackground(Color.LIGHT_GRAY);
+				btnDragao.setBackground(Color.LIGHT_GRAY);
+				btnHeroi.setBackground(Color.LIGHT_GRAY);
+				btnSaida.setBackground(Color.LIGHT_GRAY);
+				
 			}
 		});
-		btnBloco.setBounds(252, 327, 89, 23);
+		btnBloco.setBounds(227, 310, 114, 40);
 		frmMaze.getContentPane().add(btnBloco);
 
-		JButton btnSaida = new JButton("Saida");
+		btnSaida = new JButton("Saida");
+		btnSaida.setForeground(Color.WHITE);
+		btnSaida.setBackground(Color.LIGHT_GRAY);
+			
 		btnSaida.setEnabled(false);
 		btnSaida.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				panel.setCurrentElement(CreateGameElement.Exit);
+				btnSaida.setBackground(Color.BLUE);
+				btnBloco.setBackground(Color.LIGHT_GRAY);
+				btnEspada.setBackground(Color.LIGHT_GRAY);
+				btnDragao.setBackground(Color.LIGHT_GRAY);
+				btnHeroi.setBackground(Color.LIGHT_GRAY);
 			}
 		});
-		btnSaida.setBounds(157, 370, 89, 23);
+		btnSaida.setBounds(142, 361, 108, 42);
 		frmMaze.getContentPane().add(btnSaida);
 
 		JButton btnTerminarCriao = new JButton("Terminar Cria\u00E7\u00E3o");
@@ -372,6 +416,7 @@ public class Interface {
 				btnSaida.setEnabled(false);
 				btnBloco.setEnabled(false);
 				btnTerminarCriao.setEnabled(false);
+				panel.setCreateMap(false);
 			}
 		});
 		btnTerminarCriao.setEnabled(false);
@@ -385,6 +430,8 @@ public class Interface {
 		
 		
 		JButton btnCriarMapa = new JButton("Criar Mapa");
+		btnCriarMapa.setBackground(Color.BLUE);
+		btnCriarMapa.setForeground(Color.WHITE);
 		btnCriarMapa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				MazeBuilder builder = new MazeBuilder();

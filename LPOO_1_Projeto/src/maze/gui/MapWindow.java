@@ -289,7 +289,7 @@ public class MapWindow extends JPanel implements KeyListener,MouseListener{
 
 				}
 			}else if(currentElement == CreateGameElement.Exit){
-				if(!((x == 0 && y == 0) || (x == 0 && y == dim-1)||(x == dim -1 && y == dim -1) || (x == dim -1 && y == 0))){
+				if(!((x == 0 && y == 0) || (x == 0 && y == dim-1)||(x == dim -1 && y == dim -1) || (x == dim -1 && y == 0))){//se não estiver nos cantos
 					if(j.getLabirinto().getMaze()[y][x] == 'S'){
 						j.getLabirinto().setMaze(x, y, 'X');
 						j.setHasExit(false);
