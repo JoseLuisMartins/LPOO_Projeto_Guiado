@@ -254,7 +254,7 @@ public class MapWindow extends JPanel implements KeyListener,MouseListener{
 			if(x!=0 && y!= 0 && x!=(dim-1) && y!=(dim-1)){
 				switch (currentElement) {
 				case Dragon:
-
+					
 					break;
 				case Hero:
 					if(j.getHeroi()==null && (j.getLabirinto().getMaze()[y][x] == ' ' || j.getLabirinto().getMaze()[y][x] == 'X')){
@@ -289,23 +289,16 @@ public class MapWindow extends JPanel implements KeyListener,MouseListener{
 
 				}
 			}else if(currentElement == CreateGameElement.Exit){
-				if(j.getLabirinto().getMaze()[y][x] == 'S'){
-					j.getLabirinto().setMaze(x, y, 'X');
-					j.setHasExit(false);
-				}else if(j.getHasExit()==false){
-					j.getLabirinto().setMaze(x, y, 'S');
-					j.setHasExit(true);
+				if(!((x == 0 && y == 0) || (x == 0 && y == dim-1)||(x == dim -1 && y == dim -1) || (x == dim -1 && y == 0))){
+					if(j.getLabirinto().getMaze()[y][x] == 'S'){
+						j.getLabirinto().setMaze(x, y, 'X');
+						j.setHasExit(false);
+					}else if(j.getHasExit()==false){
+						j.getLabirinto().setMaze(x, y, 'S');
+						j.setHasExit(true);
+					}
 				}
 			}
-
-
-
-
-
-
-
-
-
 
 			repaint();
 		}
