@@ -25,6 +25,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
 import java.awt.event.ActionEvent;
@@ -35,11 +36,10 @@ public class Interface {
 	private JTextField mazeDimension;
 	private JTextField nDragoes;
 	private Jogo j=null;
-	private JLabel estadoJogo;
 	private JLabel erroNDragoes;
 	private JLabel erroDimension;
 	//desenho do mapa
-	private MapWindow panel;
+	private MapWindow panel=new MapWindow();
 	private JFrame f; 
 	// ficheiros
 	private SaveGame sGame;
@@ -74,18 +74,6 @@ public class Interface {
 	 * Initialize the contents of the frame.
 	 */
 
-	private void checkFimJogo(){
-
-		if(j.getFimJogo())
-			estadoJogo.setText("Foi derrotado pelo dragão!");
-		else if(j.getSair())
-			estadoJogo.setText("Parabéns, conseguiu derrotar o(s) dragão!");	
-		else if(j.getDragoes().size()>=0)
-			estadoJogo.setText("Falta(m) matar " + j.getDragoes().size() + " dragõe(s)");	
-		if(j.getFimJogo() || j.getSair()){
-			sGame.removeFile(j.getFile().getName());
-		}
-	} 
 
 	public void updateJcomboBox(){
 		ficheiros.removeAllItems();
@@ -159,20 +147,6 @@ public class Interface {
 		terminarPrograma.setBounds(546, 96, 172, 43);
 		frmMaze.getContentPane().add(terminarPrograma);
 
-		JTextArea labOutput = 
-				new JTextArea();
-		labOutput.setForeground(Color.WHITE);
-		labOutput.setBackground(Color.LIGHT_GRAY);
-		labOutput.setFont(new Font("Courier New", Font.PLAIN, 13));
-		labOutput.setEditable(false);
-		labOutput.setBounds(32, 112, 392, 316);
-		frmMaze.getContentPane().add(labOutput);
-
-		estadoJogo = new JLabel("Pode gerar novo labirinto!");
-		estadoJogo.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		estadoJogo.setBounds(53, 439, 399, 20);
-		frmMaze.getContentPane().add(estadoJogo);
-
 
 		f= new JFrame("Maze");
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);		
@@ -215,11 +189,10 @@ public class Interface {
 				j.addNDragons(nD); 
 
 
-				labOutput.setText(j.toString());
 
-
-
-				panel = new MapWindow(j);
+				panel.setJogo(j);
+				panel.setCreateMap(false);
+				panel.update();
 				f.getContentPane().setPreferredSize(new Dimension(800,800));
 				f.getContentPane().add(panel); 
 				f.pack(); 
@@ -289,7 +262,9 @@ public class Interface {
 
 				j = sGame.read(ficheiros.getSelectedItem().toString());
 
-				panel = new MapWindow(j);
+				panel.setJogo(j);
+				panel.setCreateMap(false);
+				panel.update();
 				f.getContentPane().setPreferredSize(new Dimension(800,800));
 				f.getContentPane().add(panel); 
 				f.pack(); 
@@ -312,7 +287,7 @@ public class Interface {
 				if(ficheiros.getItemCount() > 0){
 					String n=ficheiros.getSelectedItem().toString();
 					Iterator<String> itr=sGame.getFiles().iterator();
-					
+
 					while(itr.hasNext()){
 						String nameItr=itr.next();
 						if(nameItr.equals(n)){
@@ -327,7 +302,7 @@ public class Interface {
 							break;
 						}
 					}
-
+					sGame.writeNameFiles();	
 					updateJcomboBox();
 				}
 			}
@@ -336,6 +311,142 @@ public class Interface {
 		btnEliminar.setForeground(Color.WHITE);
 		btnEliminar.setBounds(620, 327, 126, 48);
 		frmMaze.getContentPane().add(btnEliminar); 
+
+		
+		JButton btnHeroi = new JButton("Heroi");
+		btnHeroi.setEnabled(false);
+		btnHeroi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				panel.setCurrentElement(CreateGameElement.Hero);
+			}
+		});
+		btnHeroi.setBounds(76, 276, 89, 23);
+		frmMaze.getContentPane().add(btnHeroi);
+
+		JButton btnDragao = new JButton("Dragao");
+		btnDragao.setEnabled(false);
+		btnDragao.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				panel.setCurrentElement(CreateGameElement.Dragon);
+			}
+		});
+		btnDragao.setBounds(252, 276, 89, 23);
+		frmMaze.getContentPane().add(btnDragao);
+
+		JButton btnEspada = new JButton("Espada");
+		btnEspada.setEnabled(false);
+		btnEspada.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				panel.setCurrentElement(CreateGameElement.Sword);
+			}
+		});
+		btnEspada.setBounds(76, 327, 89, 23);
+		frmMaze.getContentPane().add(btnEspada);
+
+		JButton btnBloco = new JButton("Bloco");
+		btnBloco.setEnabled(false);
+		btnBloco.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				panel.setCurrentElement(CreateGameElement.Block);
+			}
+		});
+		btnBloco.setBounds(252, 327, 89, 23);
+		frmMaze.getContentPane().add(btnBloco);
+
+		JButton btnSaida = new JButton("Saida");
+		btnSaida.setEnabled(false);
+		btnSaida.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				panel.setCurrentElement(CreateGameElement.Exit);
+			}
+		});
+		btnSaida.setBounds(157, 370, 89, 23);
+		frmMaze.getContentPane().add(btnSaida);
+
+		JButton btnTerminarCriao = new JButton("Terminar Cria\u00E7\u00E3o");
+		btnTerminarCriao.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnDragao.setEnabled(false);
+				btnEspada.setEnabled(false);
+				btnHeroi.setEnabled(false);
+				btnSaida.setEnabled(false);
+				btnBloco.setEnabled(false);
+				btnTerminarCriao.setEnabled(false);
+			}
+		});
+		btnTerminarCriao.setEnabled(false);
+		btnTerminarCriao.setBounds(125, 414, 154, 60);
+		frmMaze.getContentPane().add(btnTerminarCriao);
+
+		JLabel lblErrorCreateMap = new JLabel("");
+		lblErrorCreateMap.setForeground(Color.RED);
+		lblErrorCreateMap.setBounds(361, 437, 321, 37);
+		frmMaze.getContentPane().add(lblErrorCreateMap);
+		
+		
+		JButton btnCriarMapa = new JButton("Criar Mapa");
+		btnCriarMapa.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				MazeBuilder builder = new MazeBuilder();
+				int dim=Integer.parseInt(mazeDimension.getText());
+
+				if(dim % 2 == 0 || dim > 21 || dim < 5){
+					erroDimension.setText("Dimensão inválida!!");
+					return;
+				}
+				erroDimension.setText("");
+
+				GameMode mode=GameMode.StaticDragon;
+
+				if(tipoDragoes.getSelectedItem()=="Estáticos")
+					mode=GameMode.StaticDragon;
+				else if(tipoDragoes.getSelectedItem()=="Com Movimentação")
+					mode=GameMode.MovingDragon;
+				else if(tipoDragoes.getSelectedItem()=="Com Movimentação e a Dormir") 
+					mode=GameMode.ToogleSleepAndMoveDragon;
+
+				char[][] maze= new char[dim][dim];
+
+				//iniciar o maze
+			
+				for (int i = 0; i <dim ; i++) {
+					for (int j = 0; j < dim; j++) {
+						if(i==0 || i == dim-1 || j==0 || j==dim-1 )
+							maze[i][j]='X';
+						else
+							maze[i][j]=' ';
+					}
+				}
+
+				j=new Jogo();
+				j.setDragons(new ArrayList<Dragao>());
+				j.setEspada(null);
+				j.setHeroi(null);
+				j.setLabirinto(maze);
+				j.setHasExit(false);
+
+				panel.setJogo(j);
+				panel.setCreateMap(true);
+				panel.update();
+				f.getContentPane().setPreferredSize(new Dimension(800,800));
+				f.getContentPane().add(panel); 
+				f.pack(); 
+				f.setVisible(true);
+				panel.requestFocus(); // to receive keyboard events /**/
+				
+				btnDragao.setEnabled(true);
+				btnEspada.setEnabled(true);
+				btnHeroi.setEnabled(true);
+				btnSaida.setEnabled(true);
+				btnBloco.setEnabled(true);
+				btnTerminarCriao.setEnabled(true);
+
+			}
+		});
+		btnCriarMapa.setBounds(132, 154, 164, 68);
+		frmMaze.getContentPane().add(btnCriarMapa);
+
+
 
 
 	}

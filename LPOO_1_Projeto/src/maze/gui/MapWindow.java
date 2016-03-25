@@ -3,6 +3,8 @@ package maze.gui;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -13,10 +15,12 @@ import javax.swing.Timer;
 
 import maze.logic.Direction;
 import maze.logic.Dragao;
+import maze.logic.Espada;
 import maze.logic.GameMode;
+import maze.logic.Heroi;
 import maze.logic.Jogo;
 
-public class MapWindow extends JPanel implements KeyListener{
+public class MapWindow extends JPanel implements KeyListener,MouseListener{
 
 	private Jogo j;
 	private BufferedImage hero;
@@ -42,11 +46,15 @@ public class MapWindow extends JPanel implements KeyListener{
 	private BufferedImage lose;
 	private BufferedImage ground;
 	private BufferedImage exit;
+	//creating map
+	private boolean createMap;
+	private CreateGameElement currentElement;
 
 
-	public MapWindow(Jogo j1) {
+	public MapWindow() {
 
 		this.addKeyListener(this);
+		this.addMouseListener(this);
 
 		try {
 			heroArmedUp =  ImageIO.read(new File("heroArmedUp.jpg"));
@@ -57,10 +65,7 @@ public class MapWindow extends JPanel implements KeyListener{
 			heroDown =  ImageIO.read(new File("heroDown.jpg"));
 			heroRight =  ImageIO.read(new File("heroRight.jpg"));
 			heroLeft =  ImageIO.read(new File("heroLeft.jpg"));
-			if(j1.getHeroi().getArmado())
-				hero=heroArmedDown; 
-			else
-				hero=heroDown;
+			hero=heroDown;
 			wall =  ImageIO.read(new File("wall.jpg"));
 			sword =  ImageIO.read(new File("sword.jpg"));
 			dragonUp =  ImageIO.read(new File("DragonUp.jpg"));
@@ -79,8 +84,21 @@ public class MapWindow extends JPanel implements KeyListener{
 			e.printStackTrace();
 		}
 
-		j=j1;
+		j=null;
+		currentElement=CreateGameElement.Block;
 		requestFocus();
+	}
+
+	public void setCurrentElement(CreateGameElement c){
+		currentElement=c;
+	}
+
+	public void setJogo(Jogo j){
+		this.j=j;
+	}
+
+	public void setCreateMap(boolean val){
+		createMap=val;
 	}
 
 
@@ -169,45 +187,47 @@ public class MapWindow extends JPanel implements KeyListener{
 	}
 
 
-
+	//TECLADO------------------------------------
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		switch(e.getKeyCode()){
-		case KeyEvent.VK_LEFT: 
-			j.move(Direction.LEFT); 
-			if(j.getHeroi().getArmado())
-				hero=heroArmedLeft;
-			else
-				hero=heroLeft;
-			break;
+		if(!createMap){
+			switch(e.getKeyCode()){
+			case KeyEvent.VK_LEFT: 
+				j.move(Direction.LEFT); 
+				if(j.getHeroi().getArmado())
+					hero=heroArmedLeft;
+				else
+					hero=heroLeft;
+				break;
 
-		case KeyEvent.VK_RIGHT: 
-			j.move(Direction.RIGHT);
-			if(j.getHeroi().getArmado())
-				hero=heroArmedRight;
-			else
-				hero=heroRight;
-			break;
+			case KeyEvent.VK_RIGHT: 
+				j.move(Direction.RIGHT);
+				if(j.getHeroi().getArmado())
+					hero=heroArmedRight;
+				else
+					hero=heroRight;
+				break;
 
-		case KeyEvent.VK_UP: 
-			j.move(Direction.UP);
-			if(j.getHeroi().getArmado())
-				hero=heroArmedUp;
-			else
-				hero=heroUp;
-			break;
+			case KeyEvent.VK_UP: 
+				j.move(Direction.UP);
+				if(j.getHeroi().getArmado())
+					hero=heroArmedUp;
+				else
+					hero=heroUp;
+				break;
 
-		case KeyEvent.VK_DOWN: 
-			j.move(Direction.DOWN);
-			if(j.getHeroi().getArmado())
-				hero=heroArmedDown;
-			else
-				hero=heroDown;
-			break;
+			case KeyEvent.VK_DOWN: 
+				j.move(Direction.DOWN);
+				if(j.getHeroi().getArmado())
+					hero=heroArmedDown;
+				else
+					hero=heroDown;
+				break;
 
+			}
+			repaint();
 		}
-		repaint();
 	}
 
 	@Override
@@ -218,6 +238,106 @@ public class MapWindow extends JPanel implements KeyListener{
 
 	@Override
 	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	//RATO------------------------------------
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		if(createMap){
+			int dim=j.getLabirinto().getMaze().length;
+			int x=e.getX()/(800/dim);
+			int y=e.getY()/(800/dim);
+
+			if(x!=0 && y!= 0 && x!=(dim-1) && y!=(dim-1)){
+				switch (currentElement) {
+				case Dragon:
+
+					break;
+				case Hero:
+					if(j.getHeroi()==null && (j.getLabirinto().getMaze()[y][x] == ' ' || j.getLabirinto().getMaze()[y][x] == 'X')){
+						j.getLabirinto().setMaze(x, y, 'H');
+						Heroi h=new Heroi(x, y, 'H');
+						j.setHeroi(h);
+					}
+					else if(j.getLabirinto().getMaze()[y][x]=='H'){
+						j.getLabirinto().setMaze(x, y, ' ');
+						j.setHeroi(null);
+					}
+					break;
+				case Sword:
+					if(j.getEspada()==null && (j.getLabirinto().getMaze()[y][x] == ' ' || j.getLabirinto().getMaze()[y][x] == 'X')){
+						j.getLabirinto().setMaze(x, y, 'E');
+						Espada sword=new Espada(x, y, 'E');
+						j.setEspada(sword);
+					}
+					else if(j.getLabirinto().getMaze()[y][x]=='E'){
+						j.getLabirinto().setMaze(x, y, ' ');
+						j.setEspada(null);
+					}
+					break;
+				case Block:
+					if(j.getLabirinto().getMaze()[y][x] == ' ')
+						j.getLabirinto().setMaze(x, y, 'X');
+					else if(j.getLabirinto().getMaze()[y][x] == 'X')
+						j.getLabirinto().setMaze(x, y, ' ');
+					break;
+				default:
+					break;
+
+				}
+			}else if(currentElement == CreateGameElement.Exit){
+				if(j.getLabirinto().getMaze()[y][x] == 'S'){
+					j.getLabirinto().setMaze(x, y, 'X');
+					j.setHasExit(false);
+				}else if(j.getHasExit()==false){
+					j.getLabirinto().setMaze(x, y, 'S');
+					j.setHasExit(true);
+				}
+			}
+
+
+
+
+
+
+
+
+
+
+			repaint();
+		}
+
+
+
+	}
+
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
 
 	}

@@ -55,7 +55,6 @@ public class SaveGame {
 			return;
 		}
 		files.add(nome);
-		//writeNameFiles();
 	}
 	
 

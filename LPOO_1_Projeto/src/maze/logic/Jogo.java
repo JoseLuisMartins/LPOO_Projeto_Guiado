@@ -17,6 +17,7 @@ public class Jogo {
 	private boolean sair;//derrotou o dragao e saiu
 	private File f;
 	private GameMode mode;
+	private boolean hasExit;
 
 	/**
 	 * Creates a game with no arguments (default)
@@ -34,7 +35,10 @@ public class Jogo {
 		sair=false;
 		f = null;
 		mode=GameMode.StaticDragon; 
+		hasExit=true;
 	}
+	
+	
 
 	/**
 	 * Creates a game 
@@ -55,6 +59,7 @@ public class Jogo {
 		sair=false;
 		f = null;
 		mode=mod;
+		hasExit=true;
 	}
 	
 	/**
@@ -104,6 +109,14 @@ public class Jogo {
 	
 	public void setGameMode(GameMode m){
 		mode=m;
+	}
+	
+	public boolean getHasExit(){
+		return hasExit;
+	}
+	
+	public void setHasExit(boolean val){
+		hasExit=val;
 	}
 
 	/**
