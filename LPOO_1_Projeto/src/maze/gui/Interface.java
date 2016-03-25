@@ -22,6 +22,10 @@ import java.awt.Dimension;
 import javax.swing.JTextArea;
 import java.awt.Font;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
+import java.util.Iterator;
 import java.util.Random;
 import java.awt.event.ActionEvent;
 
@@ -31,10 +35,6 @@ public class Interface {
 	private JTextField mazeDimension;
 	private JTextField nDragoes;
 	private Jogo j=null;
-	private JButton baixo;
-	private JButton esquerda;
-	private JButton direita;
-	private JButton cima;
 	private JLabel estadoJogo;
 	private JLabel erroNDragoes;
 	private JLabel erroDimension;
@@ -67,7 +67,6 @@ public class Interface {
 	 */
 	public Interface() {
 		sGame = new SaveGame();
-		sGame.readNameFiles();
 		initialize();
 	}
 
@@ -84,10 +83,6 @@ public class Interface {
 		else if(j.getDragoes().size()>=0)
 			estadoJogo.setText("Falta(m) matar " + j.getDragoes().size() + " dragõe(s)");	
 		if(j.getFimJogo() || j.getSair()){
-			cima.setEnabled(false);
-			baixo.setEnabled(false);
-			esquerda.setEnabled(false);
-			direita.setEnabled(false);
 			sGame.removeFile(j.getFile().getName());
 		}
 	} 
@@ -178,58 +173,6 @@ public class Interface {
 		estadoJogo.setBounds(53, 439, 399, 20);
 		frmMaze.getContentPane().add(estadoJogo);
 
-		cima = new JButton("Cima");
-		cima.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				j.move(Direction.UP);
-				labOutput.setText(j.toString());
-				checkFimJogo();
-				panel.update();
-			}
-		});
-		cima.setEnabled(false);
-		cima.setBounds(566, 198, 112, 32);
-		frmMaze.getContentPane().add(cima);
-
-		esquerda = new JButton("Esquerda");
-		esquerda.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				j.move(Direction.LEFT);
-				labOutput.setText(j.toString());
-				checkFimJogo();
-				panel.update();
-			}
-		});
-		esquerda.setEnabled(false);
-		esquerda.setBounds(506, 241, 104, 32);
-		frmMaze.getContentPane().add(esquerda);
-
-		direita = new JButton("Direita");
-		direita.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				j.move(Direction.RIGHT);
-				labOutput.setText(j.toString());
-				checkFimJogo();
-				panel.update();
-			}
-		});
-		direita.setEnabled(false);
-		direita.setBounds(620, 241, 111, 32);
-		frmMaze.getContentPane().add(direita);
-
-		baixo = new JButton("Baixo");
-		baixo.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				j.move(Direction.DOWN);
-				labOutput.setText(j.toString());
-				checkFimJogo();
-				panel.update(); 
-			}
-		});
-		baixo.setEnabled(false);
-		baixo.setBounds(566, 284, 124, 32);
-		frmMaze.getContentPane().add(baixo);
-
 
 		f= new JFrame("Maze");
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);		
@@ -252,7 +195,7 @@ public class Interface {
 				char[][] maze=builder.buildMaze(dim);
 
 				GameMode mode=GameMode.StaticDragon;
-				
+
 				if(tipoDragoes.getSelectedItem()=="Estáticos")
 					mode=GameMode.StaticDragon;
 				else if(tipoDragoes.getSelectedItem()=="Com Movimentação")
@@ -261,7 +204,7 @@ public class Interface {
 					mode=GameMode.ToogleSleepAndMoveDragon;
 
 				j = new Jogo(maze,builder.getHeroi() ,builder.getDragao() ,builder.getEspada(),mode);
-				
+
 				int maxDragons = j.NMaxDragons();
 				if(nD > maxDragons || nD <= 0){
 					erroNDragoes.setText("Numero de dragões invalido!!");
@@ -271,10 +214,6 @@ public class Interface {
 				nD--;
 				j.addNDragons(nD); 
 
-				cima.setEnabled(true);
-				baixo.setEnabled(true);
-				esquerda.setEnabled(true);
-				direita.setEnabled(true);
 
 				labOutput.setText(j.toString());
 
@@ -295,36 +234,61 @@ public class Interface {
 		frmMaze.getContentPane().add(gerarLabirinto);
 
 		ficheiros = new JComboBox<String>();
-		ficheiros.setBounds(583, 393, 163, 20);
+		ficheiros.setBounds(484, 300, 262, 20);
 		updateJcomboBox();
 		frmMaze.getContentPane().add(ficheiros);
 
 
 		nomeFicheiro = new JTextField();
-		nomeFicheiro.setBounds(583, 362, 163, 20);
+		nomeFicheiro.setBounds(588, 186, 172, 36);
 		frmMaze.getContentPane().add(nomeFicheiro);
 		nomeFicheiro.setColumns(10);
 
+		JLabel lableErroSaveName = new JLabel("");
+		lableErroSaveName.setForeground(Color.RED);
+		lableErroSaveName.setBounds(484, 234, 276, 27);
+		frmMaze.getContentPane().add(lableErroSaveName);
+
 
 		JButton btnSave = new JButton("Save");
+		btnSave.setForeground(Color.WHITE);
+		btnSave.setBackground(Color.BLUE);
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(j!=null){
-					sGame.save(nomeFicheiro.getText() + ".txt",j);
-					j.setFile(nomeFicheiro.getText() + ".txt");
-					updateJcomboBox();
+
+					String n=nomeFicheiro.getText() + ".txt";
+					boolean valido=true;
+
+					for (String nome : sGame.getFiles()) {
+						if(nome.equals(n))
+							valido=false;
+					}
+
+					if(valido){
+						lableErroSaveName.setText("");
+						sGame.save(n,j);
+						j.setFile(n);
+						updateJcomboBox();
+					}
+					else
+						lableErroSaveName.setText("Introduza um nome Valido");
 				}
+				else
+					lableErroSaveName.setText("Não existe nenhum jogo para gravar");
 			}
 		});
-		btnSave.setBounds(484, 361, 89, 23);
+		btnSave.setBounds(484, 186, 94, 37);
 		frmMaze.getContentPane().add(btnSave);
 
 		btnCarregar = new JButton("Carregar");
+		btnCarregar.setBackground(Color.BLUE);
+		btnCarregar.setForeground(Color.WHITE);
 		btnCarregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
 				j = sGame.read(ficheiros.getSelectedItem().toString());
-		
+
 				panel = new MapWindow(j);
 				f.getContentPane().setPreferredSize(new Dimension(800,800));
 				f.getContentPane().add(panel); 
@@ -333,9 +297,45 @@ public class Interface {
 				panel.requestFocus(); // to receive keyboard events /**/
 			}
 		});
-		btnCarregar.setBounds(484, 395, 89, 23);
+		btnCarregar.setBounds(484, 327, 119, 48); 
 		frmMaze.getContentPane().add(btnCarregar);
 
+		JLabel lblFicheiros = new JLabel("Ficheiros:");
+		lblFicheiros.setForeground(Color.BLUE);
+		lblFicheiros.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblFicheiros.setBounds(484, 272, 114, 27);
+		frmMaze.getContentPane().add(lblFicheiros);
+
+		JButton btnEliminar = new JButton("Eliminar");
+		btnEliminar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(ficheiros.getItemCount() > 0){
+					String n=ficheiros.getSelectedItem().toString();
+					Iterator<String> itr=sGame.getFiles().iterator();
+					
+					while(itr.hasNext()){
+						String nameItr=itr.next();
+						if(nameItr.equals(n)){
+							File f= new File(n);
+							try {
+								f.delete();
+							} catch (Exception e) {
+								e.printStackTrace();
+								return;
+							}
+							itr.remove();
+							break;
+						}
+					}
+
+					updateJcomboBox();
+				}
+			}
+		});
+		btnEliminar.setBackground(Color.BLUE);
+		btnEliminar.setForeground(Color.WHITE);
+		btnEliminar.setBounds(620, 327, 126, 48);
+		frmMaze.getContentPane().add(btnEliminar); 
 
 
 	}

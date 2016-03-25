@@ -14,17 +14,18 @@ import java.util.ArrayList;
 
 import maze.logic.Dragao;
 import maze.logic.Espada;
+import maze.logic.GameMode;
 import maze.logic.Heroi;
 import maze.logic.Jogo;
 
 public class SaveGame {
 
-	private Jogo j;
 	private ArrayList<String> files;
 	private File fich = new File("nomeFicheiros.txt");
 	
 	public SaveGame(){
 		files = new ArrayList<String>();
+		readNameFiles();
 	}
 
 	public ArrayList<String> getFiles(){
@@ -46,6 +47,7 @@ public class SaveGame {
 			out.writeObject(j.getDragoes());
 			out.writeObject(j.getHeroi());
 			out.writeObject(j.getLabirinto().getMaze());
+			out.writeObject(j.getGameMode());
 			out.close();
 			fOut.close();
 		} catch (Exception e) {
@@ -53,7 +55,7 @@ public class SaveGame {
 			return;
 		}
 		files.add(nome);
-		writeNameFiles();
+		//writeNameFiles();
 	}
 	
 
@@ -62,6 +64,7 @@ public class SaveGame {
 		Espada e = null;
 		char [][] maze = null;
 		ArrayList<Dragao> d = null;
+		GameMode m=null;
 		
 		try {
 			FileInputStream fIn = new FileInputStream( new File(nomeFich));
@@ -70,17 +73,19 @@ public class SaveGame {
 			d = (ArrayList<Dragao>)in.readObject();
 			h = (Heroi)in.readObject();
 			maze = (char[][])in.readObject();
+			m=(GameMode)in.readObject();
 			in.close();
 			fIn.close();
 		} catch (Exception exp) {
 			exp.printStackTrace();
 			return null;
 		}
-	j = new Jogo();
+	Jogo j = new Jogo();
 	j.setDragons(d);
 	j.setEspada(e);	
-	j.setHeroi(h);
+	j.setHeroi(h); 
 	j.setLabirinto(maze);
+	j.setGameMode(m);
 	
 	return j;
 	}

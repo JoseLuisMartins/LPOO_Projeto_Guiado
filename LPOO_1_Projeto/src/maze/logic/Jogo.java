@@ -33,7 +33,7 @@ public class Jogo {
 		fim_jogo=false;
 		sair=false;
 		f = null;
-		mode=GameMode.StaticDragon;
+		mode=GameMode.StaticDragon; 
 	}
 
 	/**

@@ -58,9 +58,9 @@ public class MapWindow extends JPanel implements KeyListener{
 			heroRight =  ImageIO.read(new File("heroRight.jpg"));
 			heroLeft =  ImageIO.read(new File("heroLeft.jpg"));
 			if(j1.getHeroi().getArmado())
-				hero=heroArmedDown;
+				hero=heroArmedDown; 
 			else
-				hero=heroArmedDown;
+				hero=heroDown;
 			wall =  ImageIO.read(new File("wall.jpg"));
 			sword =  ImageIO.read(new File("sword.jpg"));
 			dragonUp =  ImageIO.read(new File("DragonUp.jpg"));
