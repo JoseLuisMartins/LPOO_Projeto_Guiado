@@ -27,7 +27,7 @@ public class SaveGame {
 		files = new ArrayList<String>();
 		readNameFiles();
 	}
-
+ 
 	public ArrayList<String> getFiles(){
 		return files;
 	}
@@ -48,6 +48,8 @@ public class SaveGame {
 			out.writeObject(j.getHeroi());
 			out.writeObject(j.getLabirinto().getMaze());
 			out.writeObject(j.getGameMode());
+			out.writeObject(j.getSair());
+			out.writeObject(j.getFimJogo());
 			out.close();
 			fOut.close();
 		} catch (Exception e) {
@@ -65,6 +67,7 @@ public class SaveGame {
 		char [][] maze = null;
 		ArrayList<Dragao> d = null;
 		GameMode m=null;
+		boolean sair,fimJogo;
 		
 		try {
 			FileInputStream fIn = new FileInputStream( new File(nomeFich));
@@ -74,6 +77,8 @@ public class SaveGame {
 			h = (Heroi)in.readObject();
 			maze = (char[][])in.readObject();
 			m=(GameMode)in.readObject();
+			sair=(boolean)in.readObject();
+			fimJogo=(boolean)in.readObject();
 			in.close();
 			fIn.close();
 		} catch (Exception exp) {
@@ -86,6 +91,8 @@ public class SaveGame {
 	j.setHeroi(h); 
 	j.setLabirinto(maze);
 	j.setGameMode(m);
+	j.setSair(sair);
+	j.setFimJogo(fimJogo);
 	
 	return j;
 	}

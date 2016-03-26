@@ -414,16 +414,25 @@ public class Interface {
 		frmMaze.getContentPane().add(lblErrorCreateMap);
 
 		JButton btnTerminarCriao = new JButton("Terminar Cria\u00E7\u00E3o");
+		btnTerminarCriao.setBackground(Color.BLUE);
+		btnTerminarCriao.setForeground(Color.WHITE);
 		btnTerminarCriao.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				lblErrorCreateMap.setText("");
-				
-				if(j.getHeroi()==null || j.getEspada()==null || j.getHasExit()==false){
+
+				lblErrorCreateMap.setText(""); 
+
+				if(j.getHeroi()==null || j.getEspada()==null || j.getHasExit()==false || j.getDragoes().size()==0){
 					lblErrorCreateMap.setText("Precisa de colocar um heroi, uma espada, uma saida e pelo menos um dragao!");
 					return;
-				}//verificar se há dragoes adjacentes ao heroi
-
+				}
+				for (Dragao d  : j.getDragoes()) {
+					int xHero=j.getHeroi().get_x();
+					int yHero=j.getHeroi().get_y();
+					if(Math.abs(d.get_x() - xHero) + Math.abs(d.get_y() - yHero) == 1){
+						lblErrorCreateMap.setText("Não podem existir dragoes adjacentes ao Heroi!");
+						return;
+					}
+				}
 
 				btnDragao.setEnabled(false);
 				btnEspada.setEnabled(false);
@@ -481,6 +490,7 @@ public class Interface {
 				j.setEspada(null);
 				j.setHeroi(null);
 				j.setLabirinto(maze);
+				j.setGameMode(mode);
 				j.setHasExit(false);
 
 				panel.setJogo(j);
@@ -497,6 +507,7 @@ public class Interface {
 				btnHeroi.setEnabled(true);
 				btnSaida.setEnabled(true);
 				btnBloco.setEnabled(true);
+				btnBloco.setBackground(Color.BLUE);
 				btnTerminarCriao.setEnabled(true);
 
 			}

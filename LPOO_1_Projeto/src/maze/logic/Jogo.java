@@ -37,8 +37,8 @@ public class Jogo {
 		mode=GameMode.StaticDragon; 
 		hasExit=true;
 	}
-	
-	
+
+
 
 	/**
 	 * Creates a game 
@@ -61,7 +61,7 @@ public class Jogo {
 		mode=mod;
 		hasExit=true;
 	}
-	
+
 	/**
 	 * Add nDragoes if possible
 	 * @param nDragoes
@@ -70,9 +70,9 @@ public class Jogo {
 	public boolean addNDragons(int nDragoes){
 
 		Random r=new Random();
-		
+
 		int  mazeLength = l.getMaze().length;
-			
+
 		while(nDragoes > 0){
 			if(addDragon(r.nextInt(mazeLength-2)+1, r.nextInt(mazeLength-2)+1))
 				nDragoes--;
@@ -102,19 +102,19 @@ public class Jogo {
 
 		return false;
 	}
-	
+
 	public GameMode getGameMode(){
 		return mode;
 	}
-	
+
 	public void setGameMode(GameMode m){
 		mode=m;
 	}
-	
+
 	public boolean getHasExit(){
 		return hasExit;
 	}
-	
+
 	public void setHasExit(boolean val){
 		hasExit=val;
 	}
@@ -172,19 +172,43 @@ public class Jogo {
 	public void setHeroi(Heroi h){
 		this.h= h;
 	}
-	
+
 	public void setEspada(Espada e){
 		this.e = e;
 	}
-	
+
 	public void setDragons(ArrayList<Dragao> d){
 		this.arrayDragon = d;
 	}
 	
+	public void setSair(boolean val){
+		sair= val;
+	}
+	
+	public void setFimJogo(boolean val){
+		fim_jogo= val;
+	}
+
+	public void addDragon(Dragao d){
+		arrayDragon.add(d);
+	} 
+
+	public void removeDragon(int x, int y){//usado no creatMap para remover um dragao
+		Iterator<Dragao> itr=arrayDragon.iterator();
+
+		while(itr.hasNext()){
+			Dragao d=itr.next();
+			if(d.get_x()==x && d.get_y() == y){
+				itr.remove();
+				break;
+			}
+		}
+	}
+
 	public void setLabirinto(char [][] maze){
 		this.l = new Labirinto(maze);
 	}
-	
+
 	private void dragonAction(){
 
 		switch (mode) {
@@ -208,14 +232,14 @@ public class Jogo {
 		} 
 		checkDragon();
 	}
-	
-	
+
+
 	/**
 	 *  runs through the set of dragons and checks if any of them can kill the hero or be killed
 	 */
 	public void checkDragon(){
 		Iterator<Dragao> itr = arrayDragon.iterator();
-		
+
 		while(itr.hasNext()){
 			Dragao d=itr.next();
 			if(d.get_x()==h.get_x() && d.get_y()==(h.get_y()-1)){//up
@@ -255,7 +279,7 @@ public class Jogo {
 			} 
 		} 
 	} 
- 
+
 	/**
 	 * runs through the set of dragons and if random number is equal to 1, the dragon changes his state 
 	 */
@@ -287,7 +311,7 @@ public class Jogo {
 		int y=d.get_y();
 
 		d.setDir(dir);
-		
+
 		switch (dir) {
 		case UP://up
 			y=d.get_y()-1 ;
@@ -372,7 +396,7 @@ public class Jogo {
 			break;  
 		}
 
-		
+
 
 
 		switch (l.getMaze()[y][x]) {
@@ -413,13 +437,13 @@ public class Jogo {
 	public String toString(){
 		return l.toString();
 	}
-	
+
 	/**
 	 * @return the maximum number of dragons that the labyrinth can have 
 	 */
 	public int NMaxDragons(){
 		return (((l.getMaze().length * l.getMaze().length)/16)*4) - 1; 
 	}
-	
-	
+
+
 } 

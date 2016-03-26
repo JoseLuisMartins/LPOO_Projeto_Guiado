@@ -254,7 +254,15 @@ public class MapWindow extends JPanel implements KeyListener,MouseListener{
 			if(x!=0 && y!= 0 && x!=(dim-1) && y!=(dim-1)){
 				switch (currentElement) {
 				case Dragon:
-					
+					if(j.getLabirinto().getMaze()[y][x] == ' ' || j.getLabirinto().getMaze()[y][x] == 'X'){
+						j.getLabirinto().setMaze(x, y, 'D');
+						Dragao d=new Dragao(x, y, 'D'); 
+						j.addDragon(d);
+					}
+					else if(j.getLabirinto().getMaze()[y][x]=='D'){
+						j.getLabirinto().setMaze(x, y, ' ');
+						j.removeDragon(x, y);
+					}					
 					break;
 				case Hero:
 					if(j.getHeroi()==null && (j.getLabirinto().getMaze()[y][x] == ' ' || j.getLabirinto().getMaze()[y][x] == 'X')){

@@ -2,7 +2,7 @@ package maze.cli;
 import java.util.Iterator;
 import java.util.Random;
 import java.util.Scanner;
-
+ 
 import maze.logic.Direction;
 import maze.logic.Dragao;
 import maze.logic.Espada;
