@@ -440,6 +440,11 @@ public class Interface {
 				btnSaida.setEnabled(false);
 				btnBloco.setEnabled(false);
 				btnTerminarCriao.setEnabled(false);
+				btnSaida.setBackground(Color.LIGHT_GRAY);
+				btnBloco.setBackground(Color.LIGHT_GRAY);
+				btnEspada.setBackground(Color.LIGHT_GRAY);
+				btnDragao.setBackground(Color.LIGHT_GRAY);
+				btnHeroi.setBackground(Color.LIGHT_GRAY);
 				panel.setCreateMap(false);
 			}
 		});
@@ -501,17 +506,13 @@ public class Interface {
 				f.pack(); 
 				f.setVisible(true);
 				panel.requestFocus(); // to receive keyboard events /**/
-
+ 
 				btnDragao.setEnabled(true);
 				btnEspada.setEnabled(true);
 				btnHeroi.setEnabled(true);
 				btnSaida.setEnabled(true);
 				btnBloco.setEnabled(true);
 				btnBloco.setBackground(Color.BLUE);
-				btnEspada.setBackground(Color.LIGHT_GRAY);
-				btnDragao.setBackground(Color.LIGHT_GRAY);
-				btnHeroi.setBackground(Color.LIGHT_GRAY);
-				btnSaida.setBackground(Color.LIGHT_GRAY);
 				btnTerminarCriao.setEnabled(true);
 
 			}
