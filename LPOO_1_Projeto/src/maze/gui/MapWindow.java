@@ -49,7 +49,7 @@ public class MapWindow extends JPanel implements KeyListener,MouseListener{
 	//creating map
 	private boolean createMap;
 	private CreateGameElement currentElement;
-
+	private boolean gameFinished=false;
 
 	public MapWindow() {
 
@@ -83,7 +83,7 @@ public class MapWindow extends JPanel implements KeyListener,MouseListener{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
+ 
 		j=null;
 		currentElement=CreateGameElement.Block;
 		requestFocus();
@@ -95,6 +95,7 @@ public class MapWindow extends JPanel implements KeyListener,MouseListener{
 
 	public void setJogo(Jogo j){
 		this.j=j;
+		gameFinished=false;
 	}
 
 	public void setCreateMap(boolean val){
@@ -111,10 +112,11 @@ public class MapWindow extends JPanel implements KeyListener,MouseListener{
 
 		if(j.getFimJogo()){
 			g.drawImage(lose, 0, 0, frameDimension, frameDimension, null);
+			gameFinished=true;
 		}
 		else if(j.getSair()){
 			g.drawImage(win, 0,0, frameDimension, frameDimension, null);
-
+			gameFinished=true;
 		}
 		else{
 
@@ -191,7 +193,7 @@ public class MapWindow extends JPanel implements KeyListener,MouseListener{
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		if(!createMap){
+		if(!createMap && !gameFinished){
 			switch(e.getKeyCode()){
 			case KeyEvent.VK_LEFT: 
 				j.move(Direction.LEFT); 
@@ -243,73 +245,72 @@ public class MapWindow extends JPanel implements KeyListener,MouseListener{
 	}
 
 	//RATO------------------------------------
+	
+	private void updateMap(int x,int y,int dim){
 
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		if(createMap){
-			int dim=j.getLabirinto().getMaze().length;
-			int x=e.getX()/(800/dim);
-			int y=e.getY()/(800/dim);
-
-			if(x!=0 && y!= 0 && x!=(dim-1) && y!=(dim-1)){
-				switch (currentElement) {
-				case Dragon:
-					if(j.getLabirinto().getMaze()[y][x] == ' ' || j.getLabirinto().getMaze()[y][x] == 'X'){
-						j.getLabirinto().setMaze(x, y, 'D');
-						Dragao d=new Dragao(x, y, 'D'); 
-						j.addDragon(d);
-					}
-					else if(j.getLabirinto().getMaze()[y][x]=='D'){
-						j.getLabirinto().setMaze(x, y, ' ');
-						j.removeDragon(x, y);
-					}					
-					break;
-				case Hero:
-					if(j.getHeroi()==null && (j.getLabirinto().getMaze()[y][x] == ' ' || j.getLabirinto().getMaze()[y][x] == 'X')){
-						j.getLabirinto().setMaze(x, y, 'H');
-						Heroi h=new Heroi(x, y, 'H');
-						j.setHeroi(h);
-					}
-					else if(j.getLabirinto().getMaze()[y][x]=='H'){
-						j.getLabirinto().setMaze(x, y, ' ');
-						j.setHeroi(null);
-					}
-					break;
-				case Sword:
-					if(j.getEspada()==null && (j.getLabirinto().getMaze()[y][x] == ' ' || j.getLabirinto().getMaze()[y][x] == 'X')){
-						j.getLabirinto().setMaze(x, y, 'E');
-						Espada sword=new Espada(x, y, 'E');
-						j.setEspada(sword);
-					}
-					else if(j.getLabirinto().getMaze()[y][x]=='E'){
-						j.getLabirinto().setMaze(x, y, ' ');
-						j.setEspada(null);
-					}
-					break;
-				case Block:
-					if(j.getLabirinto().getMaze()[y][x] == ' ')
-						j.getLabirinto().setMaze(x, y, 'X');
-					else if(j.getLabirinto().getMaze()[y][x] == 'X')
-						j.getLabirinto().setMaze(x, y, ' ');
-					break;
-				default:
-					break;
-
+		if(x!=0 && y!= 0 && x!=(dim-1) && y!=(dim-1)){
+			switch (currentElement) {
+			case Dragon:
+				if(j.getLabirinto().getMaze()[y][x] == ' ' || j.getLabirinto().getMaze()[y][x] == 'X'){
+					j.getLabirinto().setMaze(x, y, 'D');
+					Dragao d=new Dragao(x, y, 'D'); 
+					j.addDragon(d);
 				}
-			}else if(currentElement == CreateGameElement.Exit){
-				if(!((x == 0 && y == 0) || (x == 0 && y == dim-1)||(x == dim -1 && y == dim -1) || (x == dim -1 && y == 0))){//se não estiver nos cantos
-					if(j.getLabirinto().getMaze()[y][x] == 'S'){
-						j.getLabirinto().setMaze(x, y, 'X');
-						j.setHasExit(false);
-					}else if(j.getHasExit()==false){
-						j.getLabirinto().setMaze(x, y, 'S');
-						j.setHasExit(true);
-					}
+				else if(j.getLabirinto().getMaze()[y][x]=='D'){
+					j.getLabirinto().setMaze(x, y, ' ');
+					j.removeDragon(x, y);
+				}					
+				break;
+			case Hero:
+				if(j.getHeroi()==null && (j.getLabirinto().getMaze()[y][x] == ' ' || j.getLabirinto().getMaze()[y][x] == 'X')){
+					j.getLabirinto().setMaze(x, y, 'H');
+					Heroi h=new Heroi(x, y, 'H');
+					j.setHeroi(h);
+				}
+				else if(j.getLabirinto().getMaze()[y][x]=='H'){
+					j.getLabirinto().setMaze(x, y, ' ');
+					j.setHeroi(null);
+				}
+				break;
+			case Sword:
+				if(j.getEspada()==null && (j.getLabirinto().getMaze()[y][x] == ' ' || j.getLabirinto().getMaze()[y][x] == 'X')){
+					j.getLabirinto().setMaze(x, y, 'E');
+					Espada sword=new Espada(x, y, 'E');
+					j.setEspada(sword);
+				}
+				else if(j.getLabirinto().getMaze()[y][x]=='E'){
+					j.getLabirinto().setMaze(x, y, ' ');
+					j.setEspada(null);
+				}
+				break;
+			case Block:
+				if(j.getLabirinto().getMaze()[y][x] == ' ')
+					j.getLabirinto().setMaze(x, y, 'X');
+				else if(j.getLabirinto().getMaze()[y][x] == 'X')
+					j.getLabirinto().setMaze(x, y, ' ');
+				break;
+			default:
+				break;
+
+			}
+		}else if(currentElement == CreateGameElement.Exit){
+			if(!((x == 0 && y == 0) || (x == 0 && y == dim-1)||(x == dim -1 && y == dim -1) || (x == dim -1 && y == 0))){//se não estiver nos cantos
+				if(j.getLabirinto().getMaze()[y][x] == 'S'){
+					j.getLabirinto().setMaze(x, y, 'X');
+					j.setHasExit(false);
+				}else if(j.getHasExit()==false){
+					j.getLabirinto().setMaze(x, y, 'S');
+					j.setHasExit(true);
 				}
 			}
-
-			repaint();
 		}
+
+		repaint();
+	}
+	
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		
 
 
 
@@ -333,7 +334,13 @@ public class MapWindow extends JPanel implements KeyListener,MouseListener{
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
-
+		if(createMap){
+			int dim=j.getLabirinto().getMaze().length;
+			int x=e.getX()/(800/dim);
+			int y=e.getY()/(800/dim);
+			updateMap(x,y,dim);
+			repaint();
+		}
 	}
 
 
