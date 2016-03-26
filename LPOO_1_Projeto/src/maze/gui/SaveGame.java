@@ -43,13 +43,7 @@ public class SaveGame {
 		try {
 			FileOutputStream fOut = new FileOutputStream(f);
 			ObjectOutputStream out = new ObjectOutputStream(fOut);
-			out.writeObject(j.getEspada());
-			out.writeObject(j.getDragoes());
-			out.writeObject(j.getHeroi());
-			out.writeObject(j.getLabirinto().getMaze());
-			out.writeObject(j.getGameMode());
-			out.writeObject(j.getSair());
-			out.writeObject(j.getFimJogo());
+			out.writeObject(j);
 			out.close();
 			fOut.close();
 		} catch (Exception e) {
@@ -62,37 +56,18 @@ public class SaveGame {
 	
 
 	public Jogo read(String nomeFich){
-		Heroi h = null;
-		Espada e = null;
-		char [][] maze = null;
-		ArrayList<Dragao> d = null;
-		GameMode m=null;
-		boolean sair,fimJogo;
+		Jogo j;
 		
 		try {
 			FileInputStream fIn = new FileInputStream( new File(nomeFich));
 			ObjectInputStream in = new ObjectInputStream(fIn);
-			e = (Espada)in.readObject();
-			d = (ArrayList<Dragao>)in.readObject();
-			h = (Heroi)in.readObject();
-			maze = (char[][])in.readObject();
-			m=(GameMode)in.readObject();
-			sair=(boolean)in.readObject();
-			fimJogo=(boolean)in.readObject();
+			j=(Jogo)in.readObject();
 			in.close();
 			fIn.close();
 		} catch (Exception exp) {
 			exp.printStackTrace();
 			return null;
 		}
-	Jogo j = new Jogo();
-	j.setDragons(d);
-	j.setEspada(e);	
-	j.setHeroi(h); 
-	j.setLabirinto(maze);
-	j.setGameMode(m);
-	j.setSair(sair);
-	j.setFimJogo(fimJogo);
 	
 	return j;
 	}

@@ -155,7 +155,7 @@ public class Interface {
 
 
 		f= new JFrame("Maze");
-		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);		
+		f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);		
 
 		JButton gerarLabirinto = new JButton("Gerar novo labirinto");
 		gerarLabirinto.setForeground(Color.WHITE);
@@ -247,7 +247,6 @@ public class Interface {
 					if(valido){
 						lableErroSaveName.setText("");
 						sGame.save(n,j);
-						j.setFile(n);
 						updateJcomboBox();
 					}
 					else
@@ -265,17 +264,18 @@ public class Interface {
 		btnCarregar.setForeground(Color.WHITE);
 		btnCarregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				if(ficheiros.getItemCount()>0){
+					j = sGame.read(ficheiros.getSelectedItem().toString());
 
-				j = sGame.read(ficheiros.getSelectedItem().toString());
-
-				panel.setJogo(j);
-				panel.setCreateMap(false);
-				panel.update();
-				f.getContentPane().setPreferredSize(new Dimension(800,800));
-				f.getContentPane().add(panel); 
-				f.pack(); 
-				f.setVisible(true);
-				panel.requestFocus(); // to receive keyboard events /**/
+					panel.setJogo(j);
+					panel.setCreateMap(false);
+					panel.update();
+					f.getContentPane().setPreferredSize(new Dimension(800,800));
+					f.getContentPane().add(panel); 
+					f.pack(); 
+					f.setVisible(true);
+					panel.requestFocus(); // to receive keyboard events /**/
+				}
 			}
 		});
 		btnCarregar.setBounds(484, 327, 119, 48); 
@@ -508,6 +508,10 @@ public class Interface {
 				btnSaida.setEnabled(true);
 				btnBloco.setEnabled(true);
 				btnBloco.setBackground(Color.BLUE);
+				btnEspada.setBackground(Color.LIGHT_GRAY);
+				btnDragao.setBackground(Color.LIGHT_GRAY);
+				btnHeroi.setBackground(Color.LIGHT_GRAY);
+				btnSaida.setBackground(Color.LIGHT_GRAY);
 				btnTerminarCriao.setEnabled(true);
 
 			}

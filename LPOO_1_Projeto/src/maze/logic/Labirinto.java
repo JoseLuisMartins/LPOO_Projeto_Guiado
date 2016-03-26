@@ -1,6 +1,8 @@
 package maze.logic;
 
-public class Labirinto {
+import java.io.Serializable;
+
+public class Labirinto implements Serializable{
 	private char maze[][] = {{'x','x','x','x','x','x','x','x','x','x'},
 							 {'x',' ',' ',' ',' ',' ',' ',' ',' ','x'},
 							 {'x',' ','x','x',' ','x',' ','x',' ','x'},

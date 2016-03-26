@@ -1,5 +1,6 @@
 package maze.logic;
 import java.io.File;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
@@ -8,14 +9,13 @@ import java.util.Random;
  * Represents the game
  */
 
-public class Jogo {
+public class Jogo implements Serializable{
 	private Labirinto l;
 	private Heroi h;
 	ArrayList<Dragao> arrayDragon = new ArrayList<Dragao>();
 	private Espada e;
 	private boolean fim_jogo;//derrotado pelo dragao
 	private boolean sair;//derrotou o dragao e saiu
-	private File f;
 	private GameMode mode;
 	private boolean hasExit;
 
@@ -33,7 +33,6 @@ public class Jogo {
 		l.setMaze(e.get_x(), e.get_y(), e.get_simbolo());
 		fim_jogo=false;
 		sair=false;
-		f = null;
 		mode=GameMode.StaticDragon; 
 		hasExit=true;
 	}
@@ -57,7 +56,6 @@ public class Jogo {
 		l.setMaze(e.get_x(), e.get_y(), e.get_simbolo());
 		fim_jogo=false;
 		sair=false;
-		f = null;
 		mode=mod;
 		hasExit=true;
 	}
@@ -161,13 +159,6 @@ public class Jogo {
 		return sair;
 	} 
 
-	public File getFile() {
-		return f;
-	}
-
-	public void setFile(String nomeFicheiro) {
-		this.f = new File(nomeFicheiro);
-	}
 
 	public void setHeroi(Heroi h){
 		this.h= h;
