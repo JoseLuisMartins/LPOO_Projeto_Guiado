@@ -100,6 +100,7 @@ public class MapWindow extends JPanel implements KeyListener,MouseListener{
 
 	public void setCreateMap(boolean val){
 		createMap=val;
+		hero=heroDown;
 	}
 
 
