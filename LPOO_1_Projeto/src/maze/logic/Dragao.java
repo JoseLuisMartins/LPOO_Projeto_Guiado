@@ -2,6 +2,8 @@ package maze.logic;
 
 /**
  * Represents the dragon
+ * 
+ * @author José & Marcelo
  */
 public class Dragao extends Elemento{
 	

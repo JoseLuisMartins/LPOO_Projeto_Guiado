@@ -2,6 +2,8 @@ package maze.logic;
 
 /**
  * Represents a sword
+ * 
+ * @author José & Marcelo
  */
 public class Espada extends Elemento {
 

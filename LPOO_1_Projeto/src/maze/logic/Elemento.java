@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 /**
  * Represents an Element
+ * 
+ * @author José & Marcelo
  */
 public class Elemento implements Serializable {
 	private int x;

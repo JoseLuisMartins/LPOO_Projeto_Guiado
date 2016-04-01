@@ -7,6 +7,8 @@ import java.util.Random;
 
 /**
  * Represents the game
+ * 
+ * @author José & Marcelo
  */
 
 public class Jogo implements Serializable{

@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Stack;
 
+/**
+ * 
+ * @author José & Marcelo
+ */
 public class MazeBuilder implements IMazeBuilder{
 
 	public static class Cell {		

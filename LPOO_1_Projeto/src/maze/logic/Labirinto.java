@@ -2,6 +2,11 @@ package maze.logic;
 
 import java.io.Serializable;
 
+/**`
+ *  
+ * @author José & Marcelo
+ *
+ */
 public class Labirinto implements Serializable{
 	private char maze[][] = {{'x','x','x','x','x','x','x','x','x','x'},
 							 {'x',' ',' ',' ',' ',' ',' ',' ',' ','x'},
