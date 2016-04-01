@@ -26,8 +26,8 @@ public class Elemento implements Serializable {
 	
 	/**
 	 * 	sets the position of the Element
-	 * @param x_pos
-	 * @param y_pos
+	 * @param x_pos represents the coordinate x
+	 * @param y_pos represents the coordinate y
 	 */
 	public void setPos(int x_pos,int y_pos){
 		x=x_pos;
@@ -59,7 +59,7 @@ public class Elemento implements Serializable {
 	
 	/**
 	 * sets the symbol of the Element
-	 * @param s
+	 * @param s new symbol
 	 */
 	public void set_simbolo(char s){
 		simbolo=s;

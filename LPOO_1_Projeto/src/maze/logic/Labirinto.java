@@ -25,7 +25,7 @@ public class Labirinto implements Serializable{
 	
 	/**
 	 *  creates a labyrinth 
-	 * @param m 
+	 * @param m represents the maze
 	 */
 	public Labirinto(char m[][]){
 		maze=m;
@@ -40,8 +40,8 @@ public class Labirinto implements Serializable{
 	
 	/**
 	 * sets the position with coordinates x and y with a char
-	 * @param x
-	 * @param y
+	 * @param x represents the coordinate x 
+	 * @param y represents the coordinate y
 	 * @param value	 -  represents the symbol of an element
 	 */
 	public void setMaze(int x,int y,char value){

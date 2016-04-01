@@ -20,7 +20,7 @@ public class Jogo implements Serializable{
 	private boolean hasExit;
 
 	/**
-	 * Creates a game with no arguments (default)
+	 * Creates a game with a default maze
 	 */
 	public Jogo(){
 		h=new Heroi(1, 1, 'H');
@@ -41,10 +41,11 @@ public class Jogo implements Serializable{
 
 	/**
 	 * Creates a game 
-	 * @param m
-	 * @param hero
-	 * @param dragon
-	 * @param sword
+	 * @param m  represents the maze
+	 * @param hero represents the hero
+	 * @param dragon represents the dragon
+	 * @param sword represents the sword
+	 * @param mod represents the GameMode
 	 */
 	public Jogo(char m[][],Heroi hero,Dragao dragon, Espada sword,GameMode mod){
 		h=hero;
@@ -62,7 +63,7 @@ public class Jogo implements Serializable{
 
 	/**
 	 * Add nDragoes if possible
-	 * @param nDragoes
+	 * @param nDragoes, number of dragons
 	 * @return	true if its possible to add nDragoes
 	 */
 	public boolean addNDragons(int nDragoes){
@@ -245,7 +246,7 @@ public class Jogo implements Serializable{
 
 	/**
 	 * 	sets the maze
-	 * @param maze
+	 * @param maze, new maze
 	 */
 	public void setLabirinto(char [][] maze){
 		this.l = new Labirinto(maze);
@@ -350,7 +351,7 @@ public class Jogo implements Serializable{
 	/**
 	 * 	Moves the dragon
 	 * @param dir represents the direction
-	 * @param d
+	 * @param d represents a Dragon
 	 */
 	public void moveDragonAux(Direction dir, Dragao d) {
 		int x=d.get_x();
@@ -394,7 +395,7 @@ public class Jogo implements Serializable{
 
 	/**
 	 * depending on the random variable, the dragon can move up, down, left or right 
-	 * @param d
+	 * @param d represents a Dragon
 	 */
 	public void moveDragon(Dragao d){ 
 		Random r = new Random(); 
