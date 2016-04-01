@@ -1,7 +1,7 @@
 package maze.logic;
 
 /**
- * Represents the differnt directions
+ * Represents the different directions
  */
 public enum Direction {
 	UP,DOWN,RIGHT,LEFT

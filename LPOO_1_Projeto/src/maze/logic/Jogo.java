@@ -101,18 +101,37 @@ public class Jogo implements Serializable{
 		return false;
 	}
 
+	/**
+	 * 
+	 * @return GameMode
+	 */
+	
 	public GameMode getGameMode(){
 		return mode;
 	}
 
+	/**
+	 * sets the game mode
+	 * @param m represents a game mode
+	 */
+	
 	public void setGameMode(GameMode m){
 		mode=m;
 	}
 
+
+	/**
+	 * 	
+	 * @return true if the maze has exit
+	 */
 	public boolean getHasExit(){
 		return hasExit;
 	}
 
+	/**
+	 * sets the boolean hasExit whit the parameter val
+	 * @param val represents a boolean
+	 */
 	public void setHasExit(boolean val){
 		hasExit=val;
 	}
@@ -159,31 +178,59 @@ public class Jogo implements Serializable{
 		return sair;
 	} 
 
-
+	/**
+	 * sets the hero
+	 * @param h represents a hero
+	 */
 	public void setHeroi(Heroi h){
 		this.h= h;
 	}
 
+	/**
+	 * sets the sword
+	 * @param e represents a sword
+	 */
 	public void setEspada(Espada e){
 		this.e = e;
 	}
 
+	/**
+	 * sets the set of dragons
+	 * @param d represents a set of dragons
+	 */
 	public void setDragons(ArrayList<Dragao> d){
 		this.arrayDragon = d;
 	}
 	
+	/**
+	 * sets the boolean sair with the parameter val
+	 * @param val represents a boolean
+	 */
 	public void setSair(boolean val){
 		sair= val;
 	}
 	
+	/**
+	 * sets the parameter fim_jogo with the parameter val
+	 * @param val represents a boolean
+	 */
 	public void setFimJogo(boolean val){
 		fim_jogo= val;
 	}
 
+	/**
+	 *  add a dragon to the set of dragons
+	 * @param d represents a dragon
+	 */
 	public void addDragon(Dragao d){
 		arrayDragon.add(d);
 	} 
 
+	/**
+	 * removes a dragon
+	 * @param x represents the coordinate x of the dragon
+	 * @param y represents the coordinate y of the dragon
+	 */
 	public void removeDragon(int x, int y){//usado no creatMap para remover um dragao
 		Iterator<Dragao> itr=arrayDragon.iterator();
 
@@ -196,10 +243,18 @@ public class Jogo implements Serializable{
 		}
 	}
 
+	/**
+	 * 	sets the maze
+	 * @param maze
+	 */
 	public void setLabirinto(char [][] maze){
 		this.l = new Labirinto(maze);
 	}
 
+	/**
+	 *  moves the dragons, according with the gameMode
+	 *  
+	 */
 	private void dragonAction(){
 
 		switch (mode) {
@@ -364,9 +419,9 @@ public class Jogo implements Serializable{
 	}
 
 	/**
-	 * Move the hero 
+	 * Moves the hero according with the Direction
 	 * @param dir	represents the direction
-	 * @return
+	 * @return if it's possible return true else return false
 	 */
 	public boolean move(Direction dir){
 		int x=h.get_x();
@@ -424,7 +479,9 @@ public class Jogo implements Serializable{
 
 	}
 
-
+	/** 
+	 * 	returns a string that "textually represents" the maze
+	 */
 	public String toString(){
 		return l.toString();
 	}

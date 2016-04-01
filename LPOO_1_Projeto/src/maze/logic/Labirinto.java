@@ -48,6 +48,9 @@ public class Labirinto implements Serializable{
 		maze[y][x]=value;
 	}
 	
+	/**
+	 * return a String that represents the maze
+	 */
 	public String toString(){
 		String m= "";
 		for (int i = 0; i < maze.length; i++) {

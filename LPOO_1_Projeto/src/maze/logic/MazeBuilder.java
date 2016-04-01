@@ -10,23 +10,31 @@ public class MazeBuilder implements IMazeBuilder{
 		private int x, y;
 
 		/**
-		 * @return the coordinate x of the Cell
+		 * @return the coordinate x of the 	Visited Cells array
 		 */
 		public int getX() {
 			return x;
 		}
 
+		/**
+		 * 
+		 *  @return the coordinate x of the Maze array
+		 */
 		public int getXMaze() {
 			return (x*2)+1;
 		}
 
 		/**
-		 * @return the coordinate y of the Cell
+		 * @return the coordinate y of the Visited Cells array
 		 */
 		public int getY() {
 			return y;
 		}
 
+		/**
+		 * 
+		 * @return the coordinate y of the Maze array
+		 */
 		public int getYMaze() {
 			return (y*2)+1;
 		}
@@ -43,7 +51,7 @@ public class MazeBuilder implements IMazeBuilder{
 
 		/**
 		 * @param p represents a  cell
-		 * @return true if two cells are ajacent
+		 * @return true if two cells are adjacent
 		 */
 		public boolean adjacentTo(Cell p) {
 			return Math.abs(p.x - this.x) + Math.abs(p.y - this.y) == 1;
@@ -218,7 +226,7 @@ public class MazeBuilder implements IMazeBuilder{
 	
 	/**
 	 * Returns a free Cell
-	 * @return
+	 * @return a Cell
 	 */
 	public Cell getFreePosition(){
 		Random r = new Random(); 
@@ -233,30 +241,7 @@ public class MazeBuilder implements IMazeBuilder{
 		return res;
 	}
 	
-	/*
-	public String toString(){
-		String m= "Maze:\n";
-		for (int i = 0; i < maze.length; i++) {
-			for (int j = 0; j < maze[i].length; j++) {
-				m += maze[i][j];
-				m+= ' '; 
-			}
-			m+= '\n';
-		}
-		
-		m += "\nVisitedCells:\n";
-		for (int i = 0; i < visitedCells.length; i++) {
-			for (int j = 0; j < visitedCells[i].length; j++) {
-				m += visitedCells[i][j];
-				m+= ' '; 
-			}
-			m+= "\n";
-		}
-		m+="-------------------\n";
-	
-		return m; 
-	} 
-	/**/
+
 
 
 }

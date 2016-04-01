@@ -10,6 +10,14 @@ public class Elemento implements Serializable {
 	private int y;
 	private char simbolo;
 	private static final long serialVersionUID = 8669284861713879701L;
+	
+	/**
+	 * creates an Element
+	 * @param x_pos represents the coordinate x of the position of the Element
+	 * @param y_pos represents the coordinate y of the position of the Element
+	 * @param s represents the symbol of the Element
+	 */
+	
 	public Elemento(int x_pos,int y_pos, char s){
 		x=x_pos;
 		y=y_pos;

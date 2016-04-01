@@ -11,20 +11,27 @@ public class Dragao extends Elemento{
 	private boolean GuardaEspada;
 	private Direction dir;
 	
+	/**
+	 * @return the current direction of the dragon
+	 */
 	public Direction getDir(){ 
 		return dir;
 	}
 	
+	/**
+	 * sets the current direction of the dragon
+	 * @param d represents a Direction 
+	 */
 	public void setDir(Direction d){ 
 		dir=d;
 	}
 	
-/**
- * Creates a dragon
- * @param x_pos		
- * @param y_pos
- * @param s  reprents the symbol of dragon
- */ 
+	/**
+	 * Creates a dragon
+	 * @param x_pos	 represents the coordinate x of the dragon	
+	 * @param y_pos	 represents the coordinate y of the dragon
+	 * @param s  represents the symbol of dragon
+	 */ 
 	public Dragao(int x_pos, int y_pos, char s) {
 		super(x_pos, y_pos, s);
 		morto=false;
@@ -43,7 +50,7 @@ public class Dragao extends Elemento{
 	/**
 	 *  sets GuardaEspada
 	 *  
-	 * @param x 
+	 * @param x represents a boolean
 	 */
 	public void SetGuardaEspada(boolean x){
 		GuardaEspada=x;
@@ -56,7 +63,7 @@ public class Dragao extends Elemento{
 
 	/**
 	 * 
-	 * @return true if the dragon is dead
+	 * @return true if the dragon is dead else return false
 	 */
 	public boolean getMorto(){ 
 		return morto;
@@ -78,7 +85,7 @@ public class Dragao extends Elemento{
 
 	/**
 	 * sets if the dragon is sleeping or not 
-	 * @param val
+	 * @param val represents a boolean
 	 */
 	public void setAdormecido(boolean val){
 		adormecido=val;
