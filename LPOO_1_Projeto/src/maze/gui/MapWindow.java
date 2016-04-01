@@ -262,10 +262,16 @@ public class MapWindow extends JPanel implements KeyListener,MouseListener{
 				}					
 				break;
 			case Hero:
-				if(j.getHeroi()==null && (j.getLabirinto().getMaze()[y][x] == ' ' || j.getLabirinto().getMaze()[y][x] == 'X')){
+				if((j.getLabirinto().getMaze()[y][x] == ' ' || j.getLabirinto().getMaze()[y][x] == 'X')){
+					if(j.getHeroi()==null){
 					j.getLabirinto().setMaze(x, y, 'H');
 					Heroi h=new Heroi(x, y, 'H');
 					j.setHeroi(h);
+					}else{
+						j.getLabirinto().setMaze(j.getHeroi().get_x(), j.getHeroi().get_y(), ' ');
+						j.getHeroi().setPos(x, y);
+						j.getLabirinto().setMaze(x,y, 'H');
+					}
 				}
 				else if(j.getLabirinto().getMaze()[y][x]=='H'){
 					j.getLabirinto().setMaze(x, y, ' ');
@@ -273,10 +279,17 @@ public class MapWindow extends JPanel implements KeyListener,MouseListener{
 				}
 				break;
 			case Sword:
-				if(j.getEspada()==null && (j.getLabirinto().getMaze()[y][x] == ' ' || j.getLabirinto().getMaze()[y][x] == 'X')){
+				if((j.getLabirinto().getMaze()[y][x] == ' ' || j.getLabirinto().getMaze()[y][x] == 'X')){
+					if(j.getEspada()==null){
 					j.getLabirinto().setMaze(x, y, 'E');
 					Espada sword=new Espada(x, y, 'E');
 					j.setEspada(sword);
+					}
+					else{
+						j.getLabirinto().setMaze(j.getEspada().get_x(), j.getEspada().get_y(), ' ');
+						j.getEspada().setPos(x, y);
+						j.getLabirinto().setMaze(x,y, 'E');
+					}
 				}
 				else if(j.getLabirinto().getMaze()[y][x]=='E'){
 					j.getLabirinto().setMaze(x, y, ' ');
