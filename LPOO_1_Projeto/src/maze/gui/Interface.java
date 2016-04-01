@@ -156,6 +156,7 @@ public class Interface {
 
 		f= new JFrame("Maze");
 		f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);		
+		f.setResizable(false);
 
 		JButton gerarLabirinto = new JButton("Gerar novo labirinto");
 		gerarLabirinto.setForeground(Color.WHITE);
